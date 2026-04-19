@@ -9,6 +9,8 @@ from typing import Dict, List, Any, Tuple
 from pathlib import Path
 from lightrag.utils import logger
 
+from raganything.circuit import CircuitDetector
+
 
 def separate_content(
     content_list: List[Dict[str, Any]],
@@ -225,7 +227,12 @@ async def insert_text_content_with_multimodal_content(
     logger.info("Text content insertion complete")
 
 
-def get_processor_for_type(modal_processors: Dict[str, Any], content_type: str):
+def get_processor_for_type(
+    modal_processors: Dict[str, Any],
+    content_type: str,
+    item: Dict[str, Any] | None = None,
+    context_text: str = "",
+):
     """
     Get appropriate processor based on content type
 
@@ -238,6 +245,11 @@ def get_processor_for_type(modal_processors: Dict[str, Any], content_type: str):
     """
     # Direct mapping to corresponding processor
     if content_type == "image":
+        circuit_processor = modal_processors.get("circuit")
+        if circuit_processor and CircuitDetector.is_likely_circuit(
+            item, context_text=context_text
+        ):
+            return circuit_processor
         return modal_processors.get("image")
     elif content_type == "table":
         return modal_processors.get("table")
@@ -268,6 +280,12 @@ def get_processor_supports(proc_type: str) -> List[str]:
             "Variable identification",
             "Formula meaning explanation",
             "Formula entity extraction",
+        ],
+        "circuit": [
+            "Circuit diagram detection",
+            "Structured component extraction",
+            "Connection topology recovery",
+            "SPICE-like netlist generation",
         ],
         "generic": [
             "General content analysis",

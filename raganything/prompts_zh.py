@@ -24,6 +24,9 @@ PROMPTS_ZH["TABLE_ANALYSIS_SYSTEM"] = (
     "你是一位专业的数据分析师。请提供包含具体洞察的详细表格分析。"
 )
 PROMPTS_ZH["EQUATION_ANALYSIS_SYSTEM"] = "你是一位数学专家。请提供详细的数学分析。"
+PROMPTS_ZH["CIRCUIT_ANALYSIS_SYSTEM"] = (
+    "你是一位电子电路专家。请尽可能恢复电路结构、器件语义和连接拓扑。"
+)
 PROMPTS_ZH["GENERIC_ANALYSIS_SYSTEM"] = "你是一位专注于{content_type}内容的专业分析师。"
 
 # Image analysis prompt template
@@ -83,6 +86,71 @@ PROMPTS_ZH[
 - 脚注：{footnotes}
 
 请专注于提供融合上下文的准确、详细的视觉分析，以便于知识检索。"""
+
+PROMPTS_ZH[
+    "circuit_vision_prompt"
+] = """请把这张图片按“可能的电子电路图”进行分析，并且只返回 JSON：
+
+{{
+    "detailed_description": "对电路图的精确技术描述，包括电路用途、关键元件、可见参数、信号流向、拓扑结构，以及仍存在的不确定点。",
+    "entity_info": {{
+        "entity_name": "{entity_name}",
+        "entity_type": "circuit_design",
+        "summary": "对电路及其功能的简明摘要（不超过100字）"
+    }},
+    "circuit_design": {{
+        "circuit_name": "{entity_name}",
+        "circuit_type": "尽力给出的拓扑标签，例如 inverting_amplifier 或 rc_filter",
+        "description": "简短功能描述",
+        "components": [
+            {{"id": "R1", "type": "resistor", "label": "R1", "value": "10k", "pins": ["net_in", "net_mid"]}}
+        ],
+        "connections": [
+            {{"from": "R1", "from_port": "port2", "to": "U1", "to_port": "input2", "net": "net_mid", "type": "signal"}}
+        ]
+    }}
+}}
+
+如果这不是电路图，也必须返回合法 JSON，但请将 `"circuit_design"` 设为 null，并按普通图片进行描述。
+
+图片信息：
+- 图片路径：{image_path}
+- 标注：{captions}
+- 脚注：{footnotes}"""
+
+PROMPTS_ZH[
+    "circuit_vision_prompt_with_context"
+] = """请结合上下文，把这张图片按“可能的电子电路图”进行分析，并且只返回 JSON：
+
+{{
+    "detailed_description": "对电路图的精确技术描述，包括电路用途、关键元件、可见参数、信号流向、拓扑结构，以及它与周围文本之间的关系。",
+    "entity_info": {{
+        "entity_name": "{entity_name}",
+        "entity_type": "circuit_design",
+        "summary": "对电路、其功能及其与上下文关系的简明摘要（不超过100字）"
+    }},
+    "circuit_design": {{
+        "circuit_name": "{entity_name}",
+        "circuit_type": "尽力给出的拓扑标签，例如 inverting_amplifier 或 rc_filter",
+        "description": "简短功能描述",
+        "components": [
+            {{"id": "R1", "type": "resistor", "label": "R1", "value": "10k", "pins": ["net_in", "net_mid"]}}
+        ],
+        "connections": [
+            {{"from": "R1", "from_port": "port2", "to": "U1", "to_port": "input2", "net": "net_mid", "type": "signal"}}
+        ]
+    }}
+}}
+
+如果这不是电路图，也必须返回合法 JSON，但请将 `"circuit_design"` 设为 null，并按普通图片进行描述。
+
+上下文：
+{context}
+
+图片信息：
+- 图片路径：{image_path}
+- 标注：{captions}
+- 脚注：{footnotes}"""
 
 # Image analysis prompt with text fallback
 PROMPTS_ZH["text_prompt"] = """根据以下图片信息提供分析：
@@ -269,6 +337,20 @@ PROMPTS_ZH["image_chunk"] = """
 脚注：{footnotes}
 
 视觉分析：{enhanced_caption}"""
+
+PROMPTS_ZH["circuit_chunk"] = """电路图分析：
+图片路径：{image_path}
+标注：{captions}
+脚注：{footnotes}
+电路摘要：{circuit_summary}
+电路元件：
+{circuit_components}
+连接关系：
+{circuit_connections}
+SPICE网表：
+{circuit_netlist}
+
+技术分析：{enhanced_caption}"""
 
 PROMPTS_ZH["table_chunk"] = """表格分析：
 图片路径：{table_img_path}

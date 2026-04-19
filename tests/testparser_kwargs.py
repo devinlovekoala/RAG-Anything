@@ -79,6 +79,48 @@ def test_docling_env_propagation(mock_run, docling_parser, dummy_path):
     assert kwargs["env"]["PATH"] == os.environ["PATH"]
 
 
+@patch.object(MineruParser, "_resolve_cli_command", return_value="/tmp/mock-mineru")
+@patch("subprocess.Popen")
+@patch("pathlib.Path.exists")
+@patch("pathlib.Path.mkdir")
+def test_mineru_uses_resolved_cli(
+    mock_mkdir,
+    mock_exists,
+    mock_popen,
+    mock_resolve,
+    mineru_parser,
+    dummy_path,
+):
+    mock_exists.return_value = True
+    mock_process = MagicMock()
+    mock_process.poll.return_value = 0
+    mock_process.wait.return_value = 0
+    mock_process.stdout.readline.return_value = ""
+    mock_process.stderr.readline.return_value = ""
+    mock_popen.return_value = mock_process
+
+    try:
+        mineru_parser._run_mineru_command(dummy_path, "out")
+    except Exception:
+        pass
+
+    args, _ = mock_popen.call_args
+    assert args[0][0] == "/tmp/mock-mineru"
+    mock_resolve.assert_called_once_with("mineru")
+
+
+@patch.object(DoclingParser, "_resolve_cli_command", return_value="/tmp/mock-docling")
+@patch("subprocess.run")
+def test_docling_uses_resolved_cli(mock_run, mock_resolve, docling_parser, dummy_path):
+    mock_run.return_value = MagicMock(returncode=0, stdout="")
+
+    docling_parser._run_docling_command(dummy_path, "out", "stem")
+
+    args, _ = mock_run.call_args
+    assert args[0][0] == "/tmp/mock-docling"
+    mock_resolve.assert_called_once_with("docling")
+
+
 def test_mineru_unknown_kwargs(mineru_parser, dummy_path):
     # Mineru should fail fast on unknown kwargs
     with pytest.raises(TypeError) as excinfo:

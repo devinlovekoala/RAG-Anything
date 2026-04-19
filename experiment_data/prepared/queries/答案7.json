@@ -1,0 +1,27 @@
+{
+  "doc_id": "circuit_doc_036",
+  "file_name": "答案7.PDF",
+  "group": "answer_sheet",
+  "questions": [
+    {
+      "category": "lecture_scope",
+      "question": "这份讲义主要讲解了哪些核心概念、定律或电路类型？",
+      "answer": ""
+    },
+    {
+      "category": "worked_example",
+      "question": "讲义中最典型的例题或代表性电路是什么，它要解决什么问题？",
+      "answer": ""
+    },
+    {
+      "category": "main_topic",
+      "question": "这份讲义的主要主题是什么，文中重点围绕哪些电路或分析对象展开？",
+      "answer": ""
+    },
+    {
+      "category": "diagram_text_alignment",
+      "question": "讲义中的图示与正文解释之间最重要的对应关系是什么？",
+      "answer": ""
+    }
+  ]
+}

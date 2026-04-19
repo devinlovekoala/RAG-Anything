@@ -1,0 +1,12 @@
+{
+  "data_dir": "/home/devin/Workspace/HKUDS-project/RAG-Anything/experiment_data",
+  "output_dir": "/home/devin/Workspace/HKUDS-project/RAG-Anything/experiment_data/prepared",
+  "document_count": 36,
+  "group_stats": {
+    "analog": 12,
+    "circuit_analysis": 7,
+    "unclassified": 10,
+    "answer_sheet": 7
+  },
+  "next_step": "Fill prepared/queries/*.json and prepared/gold/*.json, then run pipeline and ablation scripts."
+}

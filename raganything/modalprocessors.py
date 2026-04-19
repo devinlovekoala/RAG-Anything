@@ -28,6 +28,12 @@ from lightrag.operate import extract_entities, merge_nodes_and_edges
 
 # Import prompt templates
 from raganything.prompt import PROMPTS
+from raganything.circuit import (
+    CircuitDesign,
+    CircuitDetector,
+    CircuitNetlistParser,
+    CircuitSpiceConverter,
+)
 
 
 @dataclass
@@ -360,6 +366,8 @@ class ContextExtractor:
 class BaseModalProcessor:
     """Base class for modal processors"""
 
+    processor_type = "generic"
+
     def __init__(
         self,
         lightrag: LightRAG,
@@ -533,6 +541,12 @@ class BaseModalProcessor:
             chunk_id, entity_info["entity_name"], batch_mode
         )
 
+        await self._upsert_structured_knowledge(
+            entity_info=entity_info,
+            chunk_id=chunk_id,
+            file_path=file_path,
+        )
+
         return (
             entity_info["summary"],
             {
@@ -543,6 +557,80 @@ class BaseModalProcessor:
             },
             chunk_results,
         )
+
+    async def _upsert_structured_knowledge(
+        self,
+        entity_info: Dict[str, Any],
+        chunk_id: str,
+        file_path: str,
+    ) -> None:
+        """Persist structured entities/relations provided by a modal processor."""
+        structured_entities = entity_info.get("structured_entities") or []
+        structured_relations = entity_info.get("structured_relations") or []
+        if not structured_entities and not structured_relations:
+            return
+
+        for entity in structured_entities:
+            entity_name = entity.get("entity_name")
+            if not entity_name:
+                continue
+            entity_type = entity.get("entity_type", "entity")
+            description = entity.get("description", "")
+            node_data = {
+                "entity_id": entity_name,
+                "entity_type": entity_type,
+                "description": description,
+                "source_id": chunk_id,
+                "file_path": file_path,
+                "created_at": int(time.time()),
+            }
+            await self.knowledge_graph_inst.upsert_node(entity_name, node_data)
+            await self.entities_vdb.upsert(
+                {
+                    compute_mdhash_id(entity_name, prefix="ent-"): {
+                        "entity_name": entity_name,
+                        "entity_type": entity_type,
+                        "content": description,
+                        "source_id": chunk_id,
+                        "file_path": file_path,
+                    }
+                }
+            )
+
+        for relation in structured_relations:
+            src_id = relation.get("src_id")
+            tgt_id = relation.get("tgt_id")
+            if not src_id or not tgt_id:
+                continue
+            relation_type = relation.get("relation_type", "related_to")
+            keywords = relation.get("keywords") or relation_type
+            relation_data = {
+                "description": relation.get("description", ""),
+                "keywords": keywords,
+                "source_id": chunk_id,
+                "weight": float(relation.get("weight", 10.0)),
+                "file_path": file_path,
+            }
+            await self.knowledge_graph_inst.upsert_edge(src_id, tgt_id, relation_data)
+            relation_id = compute_mdhash_id(
+                f"{src_id}|{tgt_id}|{relation_data['description']}",
+                prefix="rel-",
+            )
+            await self.relationships_vdb.upsert(
+                {
+                    relation_id: {
+                        "src_id": src_id,
+                        "tgt_id": tgt_id,
+                        "keywords": keywords,
+                        "content": (
+                            f"{keywords}\t{src_id}\n{tgt_id}\n"
+                            f"{relation_data['description']}"
+                        ),
+                        "source_id": chunk_id,
+                        "file_path": file_path,
+                    }
+                }
+            )
 
     @staticmethod
     def _strip_thinking_tags(text: str) -> str:
@@ -820,6 +908,8 @@ class BaseModalProcessor:
 class ImageModalProcessor(BaseModalProcessor):
     """Processor specialized for image content"""
 
+    processor_type = "image"
+
     def __init__(
         self,
         lightrag: LightRAG,
@@ -1054,8 +1144,267 @@ class ImageModalProcessor(BaseModalProcessor):
             return cleaned, fallback_entity
 
 
+class CircuitModalProcessor(ImageModalProcessor):
+    """Processor specialized for circuit diagrams embedded as image content."""
+
+    processor_type = "circuit"
+
+    def __init__(
+        self,
+        lightrag: LightRAG,
+        modal_caption_func,
+        context_extractor: ContextExtractor = None,
+    ):
+        super().__init__(lightrag, modal_caption_func, context_extractor)
+        self.netlist_parser = CircuitNetlistParser()
+        self.spice_converter = CircuitSpiceConverter()
+
+    async def generate_description_only(
+        self,
+        modal_content,
+        content_type: str,
+        item_info: Dict[str, Any] = None,
+        entity_name: str = None,
+    ) -> Tuple[str, Dict[str, Any]]:
+        """Generate circuit-aware descriptions and structured circuit metadata."""
+        try:
+            if isinstance(modal_content, str):
+                try:
+                    content_data = json.loads(modal_content)
+                except json.JSONDecodeError:
+                    content_data = {"description": modal_content}
+            else:
+                content_data = modal_content
+
+            image_path = content_data.get("img_path")
+            captions = content_data.get(
+                "image_caption", content_data.get("img_caption", [])
+            )
+            footnotes = content_data.get(
+                "image_footnote", content_data.get("img_footnote", [])
+            )
+
+            if not image_path:
+                raise ValueError(
+                    f"No image path provided in modal_content: {modal_content}"
+                )
+
+            image_path_obj = Path(image_path)
+            if not image_path_obj.exists():
+                raise FileNotFoundError(f"Image file not found: {image_path}")
+
+            context = self._get_context_for_item(item_info) if item_info else ""
+            if not CircuitDetector.is_likely_circuit(content_data, context):
+                description, entity_info = await super().generate_description_only(
+                    modal_content, content_type, item_info, entity_name
+                )
+                entity_info["chunk_type"] = "image"
+                entity_info["circuit_detected"] = False
+                return description, entity_info
+
+            prompt_key = (
+                "circuit_vision_prompt_with_context"
+                if context
+                else "circuit_vision_prompt"
+            )
+            vision_prompt = PROMPTS[prompt_key].format(
+                context=context,
+                entity_name=entity_name
+                if entity_name
+                else "descriptive circuit name",
+                image_path=image_path,
+                captions=captions if captions else "None",
+                footnotes=footnotes if footnotes else "None",
+            )
+
+            image_base64 = self._encode_image_to_base64(image_path)
+            if not image_base64:
+                raise RuntimeError(f"Failed to encode image to base64: {image_path}")
+
+            response = await self.modal_caption_func(
+                vision_prompt,
+                image_data=image_base64,
+                system_prompt=PROMPTS["CIRCUIT_ANALYSIS_SYSTEM"],
+            )
+            return self._parse_circuit_response(response, entity_name, content_data)
+
+        except Exception as e:
+            logger.error(f"Error generating circuit description: {e}")
+            description, entity_info = await super().generate_description_only(
+                modal_content, content_type, item_info, entity_name
+            )
+            entity_info["chunk_type"] = "image"
+            entity_info["circuit_detected"] = False
+            return description, entity_info
+
+    def _parse_circuit_response(
+        self,
+        response: str,
+        entity_name: str = None,
+        content_data: Dict[str, Any] | None = None,
+    ) -> Tuple[str, Dict[str, Any]]:
+        """Parse circuit-oriented model output into a structured entity payload."""
+        cleaned = self._strip_thinking_tags(response)
+        response_data = self._robust_json_parse(cleaned)
+        description = (
+            response_data.get("detailed_description")
+            or response_data.get("description")
+            or cleaned
+        )
+        entity_data = response_data.get("entity_info", {})
+
+        circuit_payload = (
+            response_data.get("circuit_design")
+            or response_data.get("circuit_json")
+            or response_data.get("circuit")
+        )
+        circuit_design = self.netlist_parser.parse_structured_payload(circuit_payload)
+        if circuit_design is None:
+            netlist_text = response_data.get("netlist") or response_data.get(
+                "spice_netlist"
+            )
+            if isinstance(netlist_text, str) and netlist_text.strip():
+                circuit_design = self.netlist_parser.parse(netlist_text)
+        if circuit_design is None:
+            circuit_design = self.netlist_parser.parse(cleaned)
+
+        if circuit_design is None:
+            fallback_entity = {
+                "entity_name": entity_name
+                if entity_name
+                else f"image_{compute_mdhash_id(cleaned)}",
+                "entity_type": "image",
+                "summary": cleaned[:100] + "..." if len(cleaned) > 100 else cleaned,
+                "chunk_type": "image",
+                "circuit_detected": False,
+            }
+            return cleaned, fallback_entity
+
+        resolved_entity_name = (
+            entity_name
+            or entity_data.get("entity_name")
+            or circuit_design.metadata.title
+            or "recognized_circuit"
+        )
+        if not circuit_design.metadata.title:
+            circuit_design.metadata.title = resolved_entity_name
+        if not circuit_design.metadata.description:
+            circuit_design.metadata.description = description
+
+        structured_entities, structured_relations = (
+            circuit_design.build_structured_kg_payload(resolved_entity_name)
+        )
+        circuit_netlist = self.spice_converter.generate_netlist(circuit_design)
+        summary = (
+            entity_data.get("summary")
+            or circuit_design.summarize()
+            or description[:200]
+        )
+
+        entity_info = {
+            "entity_name": resolved_entity_name,
+            "entity_type": "circuit_design",
+            "summary": summary,
+            "chunk_type": "circuit",
+            "circuit_detected": True,
+            "circuit_design": circuit_design.to_dict(),
+            "circuit_netlist": circuit_netlist,
+            "circuit_summary": circuit_design.summarize(),
+            "circuit_components": circuit_design.component_lines(),
+            "circuit_connections": circuit_design.connection_lines(),
+            "structured_entities": structured_entities,
+            "structured_relations": structured_relations,
+            "original_image_path": (content_data or {}).get("img_path", ""),
+        }
+        return description, entity_info
+
+    async def process_multimodal_content(
+        self,
+        modal_content,
+        content_type: str,
+        file_path: str = "manual_creation",
+        entity_name: str = None,
+        item_info: Dict[str, Any] = None,
+        batch_mode: bool = False,
+        doc_id: str = None,
+        chunk_order_index: int = 0,
+    ) -> Tuple[str, Dict[str, Any]]:
+        """Process circuit image content and always emit a circuit-aware chunk."""
+        try:
+            enhanced_caption, entity_info = await self.generate_description_only(
+                modal_content, content_type, item_info, entity_name
+            )
+
+            if entity_info.get("chunk_type") != "circuit":
+                return await super().process_multimodal_content(
+                    modal_content=modal_content,
+                    content_type=content_type,
+                    file_path=file_path,
+                    entity_name=entity_name,
+                    item_info=item_info,
+                    batch_mode=batch_mode,
+                    doc_id=doc_id,
+                    chunk_order_index=chunk_order_index,
+                )
+
+            if isinstance(modal_content, str):
+                try:
+                    content_data = json.loads(modal_content)
+                except json.JSONDecodeError:
+                    content_data = {"description": modal_content}
+            else:
+                content_data = modal_content
+
+            image_path = content_data.get("img_path", "")
+            captions = content_data.get(
+                "image_caption", content_data.get("img_caption", [])
+            )
+            footnotes = content_data.get(
+                "image_footnote", content_data.get("img_footnote", [])
+            )
+
+            modal_chunk = PROMPTS["circuit_chunk"].format(
+                image_path=image_path,
+                captions=", ".join(captions) if captions else "None",
+                footnotes=", ".join(footnotes) if footnotes else "None",
+                circuit_summary=entity_info.get("circuit_summary") or "None",
+                circuit_components="\n".join(entity_info.get("circuit_components") or [])
+                if entity_info.get("circuit_components")
+                else "- None",
+                circuit_connections="\n".join(entity_info.get("circuit_connections") or [])
+                if entity_info.get("circuit_connections")
+                else "- None",
+                circuit_netlist=entity_info.get("circuit_netlist") or "None",
+                enhanced_caption=enhanced_caption,
+            )
+
+            return await self._create_entity_and_chunk(
+                modal_chunk,
+                entity_info,
+                file_path,
+                batch_mode,
+                doc_id,
+                chunk_order_index,
+            )
+
+        except Exception as e:
+            logger.error(f"Error processing circuit content: {e}")
+            return await super().process_multimodal_content(
+                modal_content=modal_content,
+                content_type=content_type,
+                file_path=file_path,
+                entity_name=entity_name,
+                item_info=item_info,
+                batch_mode=batch_mode,
+                doc_id=doc_id,
+                chunk_order_index=chunk_order_index,
+            )
+
+
 class TableModalProcessor(BaseModalProcessor):
     """Processor specialized for table content"""
+
+    processor_type = "table"
 
     async def generate_description_only(
         self,
@@ -1252,6 +1601,8 @@ class TableModalProcessor(BaseModalProcessor):
 class EquationModalProcessor(BaseModalProcessor):
     """Processor specialized for equation content"""
 
+    processor_type = "equation"
+
     async def generate_description_only(
         self,
         modal_content,
@@ -1436,6 +1787,8 @@ class EquationModalProcessor(BaseModalProcessor):
 
 class GenericModalProcessor(BaseModalProcessor):
     """Generic processor for other types of modal content"""
+
+    processor_type = "generic"
 
     async def generate_description_only(
         self,

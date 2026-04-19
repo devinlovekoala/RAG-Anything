@@ -1,0 +1,8 @@
+{"doc_id": "circuit_doc_014", "file_name": "Week 5 Lecture 1 - Operation Amplifier.pdf", "group": "analog", "category": "lecture_scope", "question": "这份讲义主要讲解了哪些核心概念、定律或电路类型？", "answer": ""}
+{"doc_id": "circuit_doc_014", "file_name": "Week 5 Lecture 1 - Operation Amplifier.pdf", "group": "analog", "category": "worked_example", "question": "讲义中最典型的例题或代表性电路是什么，它要解决什么问题？", "answer": ""}
+{"doc_id": "circuit_doc_014", "file_name": "Week 5 Lecture 1 - Operation Amplifier.pdf", "group": "analog", "category": "component_value", "question": "该讲义代表性模拟电路中的关键器件参数分别是什么？", "answer": ""}
+{"doc_id": "circuit_doc_014", "file_name": "Week 5 Lecture 1 - Operation Amplifier.pdf", "group": "analog", "category": "bias_or_operation_region", "question": "文档中的关键模拟器件工作在什么偏置或工作区间，依据是什么？", "answer": ""}
+{"doc_id": "circuit_doc_014", "file_name": "Week 5 Lecture 1 - Operation Amplifier.pdf", "group": "analog", "category": "topology", "question": "讲义展示的核心电路属于什么拓扑，输入、输出和反馈路径如何识别？", "answer": ""}
+{"doc_id": "circuit_doc_014", "file_name": "Week 5 Lecture 1 - Operation Amplifier.pdf", "group": "analog", "category": "formula_mapping", "question": "文档中的主要公式与电路图中的器件、节点或参数分别对应什么物理意义？", "answer": ""}
+{"doc_id": "circuit_doc_014", "file_name": "Week 5 Lecture 1 - Operation Amplifier.pdf", "group": "analog", "category": "opamp_terminal_gain", "question": "讲义中的运算放大器电路属于反相、同相还是其他结构，其增益关系如何确定？", "answer": ""}
+{"doc_id": "circuit_doc_014", "file_name": "Week 5 Lecture 1 - Operation Amplifier.pdf", "group": "analog", "category": "opamp_feedback", "question": "运放电路中的反馈网络由哪些元件构成，它如何影响输出？", "answer": ""}

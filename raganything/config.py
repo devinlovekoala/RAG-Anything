@@ -26,7 +26,7 @@ class RAGAnythingConfig:
     parser_output_dir: str = field(default=get_env_value("OUTPUT_DIR", "./output", str))
     """Default output directory for parsed content."""
 
-    parser: str = field(default=get_env_value("PARSER", "mineru", str))
+    parser: str = field(default=get_env_value("PARSER", "docling", str))
     """Parser selection: 'mineru', 'docling', or 'paddleocr'."""
 
     display_content_stats: bool = field(
@@ -50,6 +50,11 @@ class RAGAnythingConfig:
         default=get_env_value("ENABLE_EQUATION_PROCESSING", True, bool)
     )
     """Enable equation content processing."""
+
+    enable_circuit_processing: bool = field(
+        default=get_env_value("ENABLE_CIRCUIT_PROCESSING", True, bool)
+    )
+    """Enable specialized circuit-diagram processing for image content."""
 
     # Batch Processing Configuration
     # ---

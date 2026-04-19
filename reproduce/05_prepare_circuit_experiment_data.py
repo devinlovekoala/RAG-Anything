@@ -1,0 +1,391 @@
+#!/usr/bin/env python3
+"""
+Step 6: 准备电路实验数据清单与 QA 模板
+
+功能：
+1. 扫描 experiment_data/ 下的 PDF 课件
+2. 生成实验清单 manifest
+3. 按启发式规则给出文档分组建议
+4. 为后续人工补题生成 QA 模板
+
+用法:
+    python reproduce/05_prepare_circuit_experiment_data.py
+    python reproduce/05_prepare_circuit_experiment_data.py --data-dir ./experiment_data --output-dir ./experiment_data/prepared
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+from pathlib import Path
+from typing import Dict, List
+
+
+PDF_SUFFIXES = {".pdf", ".PDF"}
+
+GROUP_RULES = {
+    "analog": [
+        "op amp",
+        "operation amplifier",
+        "bjt",
+        "fets",
+        "feedback",
+        "power amp",
+        "multistage",
+        "frequency",
+    ],
+    "circuit_analysis": [
+        "kcl",
+        "kvl",
+        "thevenin",
+        "norton",
+        "superposition",
+        "node-voltage",
+        "mesh",
+        "frequency domain",
+        "phasor",
+        "rlc",
+        "response",
+        "source transformation",
+    ],
+    "answer_sheet": [
+        "答案",
+        "answer",
+    ],
+}
+
+BASE_QUESTION_TEMPLATES = [
+    {
+        "category": "lecture_scope",
+        "question": "这份讲义主要讲解了哪些核心概念、定律或电路类型？",
+        "answer": "",
+    },
+    {
+        "category": "worked_example",
+        "question": "讲义中最典型的例题或代表性电路是什么，它要解决什么问题？",
+        "answer": "",
+    },
+]
+
+ANALOG_QUESTION_TEMPLATES = [
+    {
+        "category": "component_value",
+        "question": "该讲义代表性模拟电路中的关键器件参数分别是什么？",
+        "answer": "",
+    },
+    {
+        "category": "bias_or_operation_region",
+        "question": "文档中的关键模拟器件工作在什么偏置或工作区间，依据是什么？",
+        "answer": "",
+    },
+    {
+        "category": "topology",
+        "question": "讲义展示的核心电路属于什么拓扑，输入、输出和反馈路径如何识别？",
+        "answer": "",
+    },
+    {
+        "category": "formula_mapping",
+        "question": "文档中的主要公式与电路图中的器件、节点或参数分别对应什么物理意义？",
+        "answer": "",
+    },
+]
+
+CIRCUIT_ANALYSIS_TEMPLATES = [
+    {
+        "category": "known_unknown",
+        "question": "该讲义例题中已知条件、待求量和使用的方法分别是什么？",
+        "answer": "",
+    },
+    {
+        "category": "equivalent_transformation",
+        "question": "如果文档涉及等效变换，原电路与等效电路之间是如何对应的？",
+        "answer": "",
+    },
+    {
+        "category": "solution_steps",
+        "question": "该讲义中的典型电路题目是按什么步骤完成求解的？",
+        "answer": "",
+    },
+    {
+        "category": "result_interpretation",
+        "question": "最终求得的电压、电流、功率或响应结果说明了什么电路特性？",
+        "answer": "",
+    },
+]
+
+UNCLASSIFIED_TEMPLATES = [
+    {
+        "category": "main_topic",
+        "question": "这份讲义的主要主题是什么，文中重点围绕哪些电路或分析对象展开？",
+        "answer": "",
+    },
+    {
+        "category": "diagram_text_alignment",
+        "question": "讲义中的图示与正文解释之间最重要的对应关系是什么？",
+        "answer": "",
+    },
+]
+
+TITLE_KEYWORD_TEMPLATES = {
+    "op amp": [
+        {
+            "category": "opamp_terminal_gain",
+            "question": "讲义中的运算放大器电路属于反相、同相还是其他结构，其增益关系如何确定？",
+            "answer": "",
+        },
+        {
+            "category": "opamp_feedback",
+            "question": "运放电路中的反馈网络由哪些元件构成，它如何影响输出？",
+            "answer": "",
+        },
+    ],
+    "operation amplifier": [
+        {
+            "category": "opamp_terminal_gain",
+            "question": "讲义中的运算放大器电路属于反相、同相还是其他结构，其增益关系如何确定？",
+            "answer": "",
+        },
+        {
+            "category": "opamp_feedback",
+            "question": "运放电路中的反馈网络由哪些元件构成，它如何影响输出？",
+            "answer": "",
+        },
+    ],
+    "bjt": [
+        {
+            "category": "bjt_region",
+            "question": "文档中的 BJT 电路工作在截止区、放大区还是饱和区，依据是什么？",
+            "answer": "",
+        },
+        {
+            "category": "bjt_bias_path",
+            "question": "BJT 偏置网络由哪些元件构成，基极、集电极和发射极分别如何连接？",
+            "answer": "",
+        },
+    ],
+    "fets": [
+        {
+            "category": "fet_region",
+            "question": "讲义中的 FET 工作在什么工作区，栅极、漏极和源极电压关系如何判断？",
+            "answer": "",
+        },
+        {
+            "category": "fet_topology",
+            "question": "该 FET 电路是共源、共漏还是共栅结构，输入输出分别位于哪里？",
+            "answer": "",
+        },
+    ],
+    "thevenin": [
+        {
+            "category": "thevenin_equivalent",
+            "question": "该讲义中的原电路如何化简为戴维宁等效电路，等效电压和等效电阻分别是什么？",
+            "answer": "",
+        },
+    ],
+    "norton": [
+        {
+            "category": "norton_equivalent",
+            "question": "该讲义中的原电路如何化简为诺顿等效电路，等效电流和等效电阻分别是什么？",
+            "answer": "",
+        },
+    ],
+    "superposition": [
+        {
+            "category": "superposition_sources",
+            "question": "若使用叠加定理，文档中的各独立源需要如何分别处理，最终结果如何叠加？",
+            "answer": "",
+        },
+    ],
+    "rlc": [
+        {
+            "category": "rlc_response",
+            "question": "该 RLC 电路对应的是自然响应还是受迫响应，其阻尼状态如何判断？",
+            "answer": "",
+        },
+    ],
+    "frequency": [
+        {
+            "category": "frequency_response",
+            "question": "讲义中的频域分析重点关注哪些量，它们如何随频率变化？",
+            "answer": "",
+        },
+    ],
+    "feedback": [
+        {
+            "category": "feedback_effect",
+            "question": "该反馈电路采用了什么反馈方式，它对增益、稳定性或带宽有什么影响？",
+            "answer": "",
+        },
+    ],
+    "power amp": [
+        {
+            "category": "power_amplifier_mode",
+            "question": "该功率放大电路属于哪一类工作方式，效率和失真特性如何体现？",
+            "answer": "",
+        },
+    ],
+}
+
+
+def detect_group(name: str) -> str:
+    lowered = name.lower()
+    for group, keywords in GROUP_RULES.items():
+        if any(keyword in lowered for keyword in keywords):
+            return group
+    return "unclassified"
+
+
+def infer_tags(name: str) -> List[str]:
+    lowered = name.lower()
+    tags = []
+    for token in [
+        "op amp",
+        "bjt",
+        "fets",
+        "feedback",
+        "power amp",
+        "frequency",
+        "rlc",
+        "thevenin",
+        "norton",
+        "superposition",
+        "phasor",
+        "answer",
+        "答案",
+    ]:
+        if token in lowered:
+            tags.append(token)
+    return tags
+
+
+def slugify(text: str) -> str:
+    lowered = text.lower()
+    lowered = re.sub(r"[^\w\u4e00-\u9fff]+", "_", lowered)
+    lowered = re.sub(r"_+", "_", lowered).strip("_")
+    return lowered or "document"
+
+
+def build_manifest(pdf_files: List[Path], data_dir: Path) -> List[Dict]:
+    manifest = []
+    for index, path in enumerate(sorted(pdf_files), start=1):
+        relative_path = path.relative_to(data_dir)
+        stem = path.stem
+        manifest.append(
+            {
+                "doc_id": f"circuit_doc_{index:03d}",
+                "file_name": path.name,
+                "relative_path": str(relative_path),
+                "group": detect_group(stem),
+                "tags": infer_tags(stem),
+                "title_hint": stem,
+                "qa_file": f"queries/{slugify(stem)}.json",
+                "gold_file": f"gold/{slugify(stem)}.json",
+                "status": "pending_qa",
+            }
+        )
+    return manifest
+
+
+def build_qa_template(manifest_entry: Dict) -> Dict:
+    questions = list(BASE_QUESTION_TEMPLATES)
+    group = manifest_entry["group"]
+    title_hint = manifest_entry["title_hint"].lower()
+
+    if group == "analog":
+        questions.extend(ANALOG_QUESTION_TEMPLATES)
+    elif group == "circuit_analysis":
+        questions.extend(CIRCUIT_ANALYSIS_TEMPLATES)
+    else:
+        questions.extend(UNCLASSIFIED_TEMPLATES)
+
+    for keyword, keyword_templates in TITLE_KEYWORD_TEMPLATES.items():
+        if keyword in title_hint:
+            questions.extend(keyword_templates)
+
+    seen_questions = set()
+    deduped_questions = []
+    for item in questions:
+        question_text = item["question"]
+        if question_text in seen_questions:
+            continue
+        seen_questions.add(question_text)
+        deduped_questions.append(item)
+
+    return {
+        "doc_id": manifest_entry["doc_id"],
+        "file_name": manifest_entry["file_name"],
+        "group": manifest_entry["group"],
+        "questions": deduped_questions,
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Prepare circuit experiment dataset metadata")
+    parser.add_argument("--data-dir", default="experiment_data")
+    parser.add_argument("--output-dir", default="experiment_data/prepared")
+    parser.add_argument(
+        "--force-refresh-queries",
+        action="store_true",
+        help="覆盖已存在的 queries 模板，按新的课程主题问题模板重新生成",
+    )
+    args = parser.parse_args()
+
+    data_dir = Path(args.data_dir).resolve()
+    output_dir = Path(args.output_dir).resolve()
+    queries_dir = output_dir / "queries"
+    gold_dir = output_dir / "gold"
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    queries_dir.mkdir(parents=True, exist_ok=True)
+    gold_dir.mkdir(parents=True, exist_ok=True)
+
+    pdf_files = [
+        path for path in data_dir.iterdir() if path.is_file() and path.suffix in PDF_SUFFIXES
+    ]
+    manifest = build_manifest(pdf_files, data_dir)
+
+    manifest_path = output_dir / "manifest.json"
+    summary_path = output_dir / "summary.json"
+
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    for entry in manifest:
+        qa_template = build_qa_template(entry)
+        qa_path = queries_dir / Path(entry["qa_file"]).name
+        gold_path = gold_dir / Path(entry["gold_file"]).name
+        if args.force_refresh_queries or not qa_path.exists():
+            qa_path.write_text(json.dumps(qa_template, ensure_ascii=False, indent=2), encoding="utf-8")
+        if not gold_path.exists():
+            gold_template = {
+                "doc_id": entry["doc_id"],
+                "file_name": entry["file_name"],
+                "answers": [],
+            }
+            gold_path.write_text(
+                json.dumps(gold_template, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+
+    group_stats: Dict[str, int] = {}
+    for entry in manifest:
+        group_stats[entry["group"]] = group_stats.get(entry["group"], 0) + 1
+
+    summary = {
+        "data_dir": str(data_dir),
+        "output_dir": str(output_dir),
+        "document_count": len(manifest),
+        "group_stats": group_stats,
+        "next_step": "Fill prepared/queries/*.json and prepared/gold/*.json, then run pipeline and ablation scripts.",
+    }
+    summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    print(f"[prepared] manifest: {manifest_path}")
+    print(f"[prepared] summary: {summary_path}")
+    print(f"[prepared] documents: {len(manifest)}")
+    for group, count in sorted(group_stats.items()):
+        print(f"  - {group}: {count}")
+
+
+if __name__ == "__main__":
+    main()

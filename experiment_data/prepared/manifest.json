@@ -1,0 +1,441 @@
+[
+  {
+    "doc_id": "circuit_doc_001",
+    "file_name": "2024-ch2-BJTs.pdf",
+    "relative_path": "2024-ch2-BJTs.pdf",
+    "group": "analog",
+    "tags": [
+      "bjt"
+    ],
+    "title_hint": "2024-ch2-BJTs",
+    "qa_file": "queries/2024_ch2_bjts.json",
+    "gold_file": "gold/2024_ch2_bjts.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_002",
+    "file_name": "2024-ch3-FETs-Enhance.pdf",
+    "relative_path": "2024-ch3-FETs-Enhance.pdf",
+    "group": "analog",
+    "tags": [
+      "fets"
+    ],
+    "title_hint": "2024-ch3-FETs-Enhance",
+    "qa_file": "queries/2024_ch3_fets_enhance.json",
+    "gold_file": "gold/2024_ch3_fets_enhance.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_003",
+    "file_name": "2024-ch4-multistage.pdf",
+    "relative_path": "2024-ch4-multistage.pdf",
+    "group": "analog",
+    "tags": [],
+    "title_hint": "2024-ch4-multistage",
+    "qa_file": "queries/2024_ch4_multistage.json",
+    "gold_file": "gold/2024_ch4_multistage.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_004",
+    "file_name": "2024-ch5-frequency.pdf",
+    "relative_path": "2024-ch5-frequency.pdf",
+    "group": "analog",
+    "tags": [
+      "frequency"
+    ],
+    "title_hint": "2024-ch5-frequency",
+    "qa_file": "queries/2024_ch5_frequency.json",
+    "gold_file": "gold/2024_ch5_frequency.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_005",
+    "file_name": "2024-ch6-feedback-woQ.pdf",
+    "relative_path": "2024-ch6-feedback-woQ.pdf",
+    "group": "analog",
+    "tags": [
+      "feedback"
+    ],
+    "title_hint": "2024-ch6-feedback-woQ",
+    "qa_file": "queries/2024_ch6_feedback_woq.json",
+    "gold_file": "gold/2024_ch6_feedback_woq.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_006",
+    "file_name": "2024-ch7-power amp.pdf",
+    "relative_path": "2024-ch7-power amp.pdf",
+    "group": "analog",
+    "tags": [
+      "power amp"
+    ],
+    "title_hint": "2024-ch7-power amp",
+    "qa_file": "queries/2024_ch7_power_amp.json",
+    "gold_file": "gold/2024_ch7_power_amp.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_007",
+    "file_name": "2024-ch8-op amp.pdf",
+    "relative_path": "2024-ch8-op amp.pdf",
+    "group": "analog",
+    "tags": [
+      "op amp"
+    ],
+    "title_hint": "2024-ch8-op amp",
+    "qa_file": "queries/2024_ch8_op_amp.json",
+    "gold_file": "gold/2024_ch8_op_amp.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_008",
+    "file_name": "3-1 Source Transformation and Superposition.pdf",
+    "relative_path": "3-1 Source Transformation and Superposition.pdf",
+    "group": "circuit_analysis",
+    "tags": [
+      "superposition"
+    ],
+    "title_hint": "3-1 Source Transformation and Superposition",
+    "qa_file": "queries/3_1_source_transformation_and_superposition.json",
+    "gold_file": "gold/3_1_source_transformation_and_superposition.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_009",
+    "file_name": "3-2Simple Resistive Circuit Analysis, Node-Voltage Analysis Method.pdf",
+    "relative_path": "3-2Simple Resistive Circuit Analysis, Node-Voltage Analysis Method.pdf",
+    "group": "circuit_analysis",
+    "tags": [],
+    "title_hint": "3-2Simple Resistive Circuit Analysis, Node-Voltage Analysis Method",
+    "qa_file": "queries/3_2simple_resistive_circuit_analysis_node_voltage_analysis_method.json",
+    "gold_file": "gold/3_2simple_resistive_circuit_analysis_node_voltage_analysis_method.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_010",
+    "file_name": "Week 10 Lecture 1 - Power in Frequency Domain.pdf",
+    "relative_path": "Week 10 Lecture 1 - Power in Frequency Domain.pdf",
+    "group": "analog",
+    "tags": [
+      "frequency"
+    ],
+    "title_hint": "Week 10 Lecture 1 - Power in Frequency Domain",
+    "qa_file": "queries/week_10_lecture_1_power_in_frequency_domain.json",
+    "gold_file": "gold/week_10_lecture_1_power_in_frequency_domain.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_011",
+    "file_name": "Week 10 Lecture 2.pdf",
+    "relative_path": "Week 10 Lecture 2.pdf",
+    "group": "unclassified",
+    "tags": [],
+    "title_hint": "Week 10 Lecture 2",
+    "qa_file": "queries/week_10_lecture_2.json",
+    "gold_file": "gold/week_10_lecture_2.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_012",
+    "file_name": "Week 11 Lecture 1.pdf",
+    "relative_path": "Week 11 Lecture 1.pdf",
+    "group": "unclassified",
+    "tags": [],
+    "title_hint": "Week 11 Lecture 1",
+    "qa_file": "queries/week_11_lecture_1.json",
+    "gold_file": "gold/week_11_lecture_1.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_013",
+    "file_name": "Week 5 - Thévenin Equivalent Circuit, Norton Equivalent Circuit, and Maximum Power Transfer.pdf",
+    "relative_path": "Week 5 - Thévenin Equivalent Circuit, Norton Equivalent Circuit, and Maximum Power Transfer.pdf",
+    "group": "circuit_analysis",
+    "tags": [
+      "norton"
+    ],
+    "title_hint": "Week 5 - Thévenin Equivalent Circuit, Norton Equivalent Circuit, and Maximum Power Transfer",
+    "qa_file": "queries/week_5_thévenin_equivalent_circuit_norton_equivalent_circuit_and_maximum_power_transfer.json",
+    "gold_file": "gold/week_5_thévenin_equivalent_circuit_norton_equivalent_circuit_and_maximum_power_transfer.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_014",
+    "file_name": "Week 5 Lecture 1 - Operation Amplifier.pdf",
+    "relative_path": "Week 5 Lecture 1 - Operation Amplifier.pdf",
+    "group": "analog",
+    "tags": [],
+    "title_hint": "Week 5 Lecture 1 - Operation Amplifier",
+    "qa_file": "queries/week_5_lecture_1_operation_amplifier.json",
+    "gold_file": "gold/week_5_lecture_1_operation_amplifier.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_015",
+    "file_name": "Week 6 Lecture 1 - Natural Response .pdf",
+    "relative_path": "Week 6 Lecture 1 - Natural Response .pdf",
+    "group": "circuit_analysis",
+    "tags": [],
+    "title_hint": "Week 6 Lecture 1 - Natural Response ",
+    "qa_file": "queries/week_6_lecture_1_natural_response.json",
+    "gold_file": "gold/week_6_lecture_1_natural_response.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_016",
+    "file_name": "Week 6 Lecture 2 - Step Response and General Solution Method .pdf",
+    "relative_path": "Week 6 Lecture 2 - Step Response and General Solution Method .pdf",
+    "group": "circuit_analysis",
+    "tags": [],
+    "title_hint": "Week 6 Lecture 2 - Step Response and General Solution Method ",
+    "qa_file": "queries/week_6_lecture_2_step_response_and_general_solution_method.json",
+    "gold_file": "gold/week_6_lecture_2_step_response_and_general_solution_method.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_017",
+    "file_name": "Week 7 Lecture 1 - Nature Response of a Parallel RLC Circuit.pdf",
+    "relative_path": "Week 7 Lecture 1 - Nature Response of a Parallel RLC Circuit.pdf",
+    "group": "circuit_analysis",
+    "tags": [
+      "rlc"
+    ],
+    "title_hint": "Week 7 Lecture 1 - Nature Response of a Parallel RLC Circuit",
+    "qa_file": "queries/week_7_lecture_1_nature_response_of_a_parallel_rlc_circuit.json",
+    "gold_file": "gold/week_7_lecture_1_nature_response_of_a_parallel_rlc_circuit.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_018",
+    "file_name": "Week 7 Lecture 2.pdf",
+    "relative_path": "Week 7 Lecture 2.pdf",
+    "group": "unclassified",
+    "tags": [],
+    "title_hint": "Week 7 Lecture 2",
+    "qa_file": "queries/week_7_lecture_2.json",
+    "gold_file": "gold/week_7_lecture_2.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_019",
+    "file_name": "Week 8 Lecture 1 - The Nature and Step Response of a Series RLC Circuit.pdf",
+    "relative_path": "Week 8 Lecture 1 - The Nature and Step Response of a Series RLC Circuit.pdf",
+    "group": "circuit_analysis",
+    "tags": [
+      "rlc"
+    ],
+    "title_hint": "Week 8 Lecture 1 - The Nature and Step Response of a Series RLC Circuit",
+    "qa_file": "queries/week_8_lecture_1_the_nature_and_step_response_of_a_series_rlc_circuit.json",
+    "gold_file": "gold/week_8_lecture_1_the_nature_and_step_response_of_a_series_rlc_circuit.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_020",
+    "file_name": "Week 8 Lecture 2 - The Phasor and VCR of Passive Elements in Frequency Domain.pdf",
+    "relative_path": "Week 8 Lecture 2 - The Phasor and VCR of Passive Elements in Frequency Domain.pdf",
+    "group": "analog",
+    "tags": [
+      "frequency",
+      "phasor"
+    ],
+    "title_hint": "Week 8 Lecture 2 - The Phasor and VCR of Passive Elements in Frequency Domain",
+    "qa_file": "queries/week_8_lecture_2_the_phasor_and_vcr_of_passive_elements_in_frequency_domain.json",
+    "gold_file": "gold/week_8_lecture_2_the_phasor_and_vcr_of_passive_elements_in_frequency_domain.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_021",
+    "file_name": "Week 9 Lecture 1 - VCR of Passive Elements, KCL, and KVL in Frequency Domain.pdf",
+    "relative_path": "Week 9 Lecture 1 - VCR of Passive Elements, KCL, and KVL in Frequency Domain.pdf",
+    "group": "analog",
+    "tags": [
+      "frequency"
+    ],
+    "title_hint": "Week 9 Lecture 1 - VCR of Passive Elements, KCL, and KVL in Frequency Domain",
+    "qa_file": "queries/week_9_lecture_1_vcr_of_passive_elements_kcl_and_kvl_in_frequency_domain.json",
+    "gold_file": "gold/week_9_lecture_1_vcr_of_passive_elements_kcl_and_kvl_in_frequency_domain.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_022",
+    "file_name": "Week 9 Lecture 2 - Circuit Analysis Methods in Frequency Domain.pdf",
+    "relative_path": "Week 9 Lecture 2 - Circuit Analysis Methods in Frequency Domain.pdf",
+    "group": "analog",
+    "tags": [
+      "frequency"
+    ],
+    "title_hint": "Week 9 Lecture 2 - Circuit Analysis Methods in Frequency Domain",
+    "qa_file": "queries/week_9_lecture_2_circuit_analysis_methods_in_frequency_domain.json",
+    "gold_file": "gold/week_9_lecture_2_circuit_analysis_methods_in_frequency_domain.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_023",
+    "file_name": "ch2.pdf",
+    "relative_path": "ch2.pdf",
+    "group": "unclassified",
+    "tags": [],
+    "title_hint": "ch2",
+    "qa_file": "queries/ch2.json",
+    "gold_file": "gold/ch2.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_024",
+    "file_name": "ch3.pdf",
+    "relative_path": "ch3.pdf",
+    "group": "unclassified",
+    "tags": [],
+    "title_hint": "ch3",
+    "qa_file": "queries/ch3.json",
+    "gold_file": "gold/ch3.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_025",
+    "file_name": "ch4.pdf",
+    "relative_path": "ch4.pdf",
+    "group": "unclassified",
+    "tags": [],
+    "title_hint": "ch4",
+    "qa_file": "queries/ch4.json",
+    "gold_file": "gold/ch4.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_026",
+    "file_name": "ch5.pdf",
+    "relative_path": "ch5.pdf",
+    "group": "unclassified",
+    "tags": [],
+    "title_hint": "ch5",
+    "qa_file": "queries/ch5.json",
+    "gold_file": "gold/ch5.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_027",
+    "file_name": "ch6.pdf",
+    "relative_path": "ch6.pdf",
+    "group": "unclassified",
+    "tags": [],
+    "title_hint": "ch6",
+    "qa_file": "queries/ch6.json",
+    "gold_file": "gold/ch6.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_028",
+    "file_name": "ch7.pdf",
+    "relative_path": "ch7.pdf",
+    "group": "unclassified",
+    "tags": [],
+    "title_hint": "ch7",
+    "qa_file": "queries/ch7.json",
+    "gold_file": "gold/ch7.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_029",
+    "file_name": "ch8.pdf",
+    "relative_path": "ch8.pdf",
+    "group": "unclassified",
+    "tags": [],
+    "title_hint": "ch8",
+    "qa_file": "queries/ch8.json",
+    "gold_file": "gold/ch8.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_030",
+    "file_name": "答案1.pdf",
+    "relative_path": "答案1.pdf",
+    "group": "answer_sheet",
+    "tags": [
+      "答案"
+    ],
+    "title_hint": "答案1",
+    "qa_file": "queries/答案1.json",
+    "gold_file": "gold/答案1.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_031",
+    "file_name": "答案2.pdf",
+    "relative_path": "答案2.pdf",
+    "group": "answer_sheet",
+    "tags": [
+      "答案"
+    ],
+    "title_hint": "答案2",
+    "qa_file": "queries/答案2.json",
+    "gold_file": "gold/答案2.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_032",
+    "file_name": "答案3.pdf",
+    "relative_path": "答案3.pdf",
+    "group": "answer_sheet",
+    "tags": [
+      "答案"
+    ],
+    "title_hint": "答案3",
+    "qa_file": "queries/答案3.json",
+    "gold_file": "gold/答案3.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_033",
+    "file_name": "答案4.PDF",
+    "relative_path": "答案4.PDF",
+    "group": "answer_sheet",
+    "tags": [
+      "答案"
+    ],
+    "title_hint": "答案4",
+    "qa_file": "queries/答案4.json",
+    "gold_file": "gold/答案4.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_034",
+    "file_name": "答案5.PDF",
+    "relative_path": "答案5.PDF",
+    "group": "answer_sheet",
+    "tags": [
+      "答案"
+    ],
+    "title_hint": "答案5",
+    "qa_file": "queries/答案5.json",
+    "gold_file": "gold/答案5.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_035",
+    "file_name": "答案6.PDF",
+    "relative_path": "答案6.PDF",
+    "group": "answer_sheet",
+    "tags": [
+      "答案"
+    ],
+    "title_hint": "答案6",
+    "qa_file": "queries/答案6.json",
+    "gold_file": "gold/答案6.json",
+    "status": "pending_qa"
+  },
+  {
+    "doc_id": "circuit_doc_036",
+    "file_name": "答案7.PDF",
+    "relative_path": "答案7.PDF",
+    "group": "answer_sheet",
+    "tags": [
+      "答案"
+    ],
+    "title_hint": "答案7",
+    "qa_file": "queries/答案7.json",
+    "gold_file": "gold/答案7.json",
+    "status": "pending_qa"
+  }
+]

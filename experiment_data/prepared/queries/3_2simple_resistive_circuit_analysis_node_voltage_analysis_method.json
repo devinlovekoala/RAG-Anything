@@ -1,0 +1,37 @@
+{
+  "doc_id": "circuit_doc_009",
+  "file_name": "3-2Simple Resistive Circuit Analysis, Node-Voltage Analysis Method.pdf",
+  "group": "circuit_analysis",
+  "questions": [
+    {
+      "category": "lecture_scope",
+      "question": "这份讲义主要讲解了哪些核心概念、定律或电路类型？",
+      "answer": ""
+    },
+    {
+      "category": "worked_example",
+      "question": "讲义中最典型的例题或代表性电路是什么，它要解决什么问题？",
+      "answer": ""
+    },
+    {
+      "category": "known_unknown",
+      "question": "该讲义例题中已知条件、待求量和使用的方法分别是什么？",
+      "answer": ""
+    },
+    {
+      "category": "equivalent_transformation",
+      "question": "如果文档涉及等效变换，原电路与等效电路之间是如何对应的？",
+      "answer": ""
+    },
+    {
+      "category": "solution_steps",
+      "question": "该讲义中的典型电路题目是按什么步骤完成求解的？",
+      "answer": ""
+    },
+    {
+      "category": "result_interpretation",
+      "question": "最终求得的电压、电流、功率或响应结果说明了什么电路特性？",
+      "answer": ""
+    }
+  ]
+}

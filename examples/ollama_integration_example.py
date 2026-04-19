@@ -123,9 +123,7 @@ class OllamaRAGIntegration:
                 marker = "✅" if found else "⚠️ "
                 print(f"  {marker} {required}")
                 if not found:
-                    print(
-                        f"     Run: ollama pull {required}"
-                    )
+                    print(f"     Run: ollama pull {required}")
 
             return True
         except ImportError:

@@ -643,7 +643,9 @@ class ProcessorMixin:
                 )
 
                 # Select appropriate processor
-                processor = get_processor_for_type(self.modal_processors, content_type)
+                processor = get_processor_for_type(
+                    self.modal_processors, content_type, item
+                )
 
                 if processor:
                     # Prepare item info for context extraction
@@ -814,7 +816,7 @@ class ProcessorMixin:
 
                     # Select the correct processor based on content type
                     processor = get_processor_for_type(
-                        self.modal_processors, content_type
+                        self.modal_processors, content_type, item
                     )
 
                     if not processor:
@@ -840,6 +842,22 @@ class ProcessorMixin:
                         entity_name=None,  # Let LLM auto-generate
                     )
 
+                    resolved_content_type = entity_info.get(
+                        "chunk_type",
+                        getattr(processor, "processor_type", content_type),
+                    )
+
+                    processed_item = dict(item)
+                    for key in (
+                        "circuit_design",
+                        "circuit_netlist",
+                        "circuit_summary",
+                        "circuit_components",
+                        "circuit_connections",
+                    ):
+                        if key in entity_info:
+                            processed_item[key] = entity_info[key]
+
                     # Update progress (non-blocking)
                     async with progress_lock:
                         completed_count += 1
@@ -854,10 +872,11 @@ class ProcessorMixin:
 
                     return {
                         "index": index,
-                        "content_type": content_type,
+                        "content_type": resolved_content_type,
+                        "original_content_type": content_type,
                         "description": description,
                         "entity_info": entity_info,
-                        "original_item": item,
+                        "original_item": processed_item,
                         "item_info": item_info,
                         "chunk_order_index": existing_chunks_count + index,
                         "processor": processor,  # Keep reference to the processor used
@@ -982,7 +1001,7 @@ class ProcessorMixin:
                 # Multimodal-specific metadata
                 "is_multimodal": True,
                 "modal_entity_name": entity_info["entity_name"],
-                "original_type": data["content_type"],
+                "original_type": data.get("original_content_type", data["content_type"]),
                 "page_idx": data["item_info"].get("page_idx", 0),
             }
 
@@ -1021,6 +1040,38 @@ class ProcessorMixin:
                     image_path=image_path,
                     captions=", ".join(captions) if captions else "None",
                     footnotes=", ".join(footnotes) if footnotes else "None",
+                    enhanced_caption=description,
+                )
+
+            elif content_type == "circuit":
+                image_path = original_item.get("img_path", "")
+                captions = original_item.get(
+                    "image_caption", original_item.get("img_caption", [])
+                )
+                footnotes = original_item.get(
+                    "image_footnote", original_item.get("img_footnote", [])
+                )
+                circuit_design = original_item.get("circuit_design") or {}
+                circuit_summary = original_item.get("circuit_summary") or ""
+                circuit_components = original_item.get("circuit_components") or []
+                circuit_connections = original_item.get("circuit_connections") or []
+                circuit_netlist = original_item.get("circuit_netlist") or ""
+
+                if not circuit_summary and isinstance(circuit_design, dict):
+                    circuit_summary = str(circuit_design.get("metadata", {}).get("description", ""))
+
+                return PROMPTS["circuit_chunk"].format(
+                    image_path=image_path,
+                    captions=", ".join(captions) if captions else "None",
+                    footnotes=", ".join(footnotes) if footnotes else "None",
+                    circuit_summary=circuit_summary or "None",
+                    circuit_components="\n".join(circuit_components)
+                    if circuit_components
+                    else "- None",
+                    circuit_connections="\n".join(circuit_connections)
+                    if circuit_connections
+                    else "- None",
+                    circuit_netlist=circuit_netlist or "None",
                     enhanced_caption=description,
                 )
 
@@ -1173,9 +1224,94 @@ class ProcessorMixin:
                     f"Stored {len(entities_to_store)} multimodal main entities to knowledge graph, entities_vdb, and full_entities"
                 )
 
+                await self._store_structured_multimodal_records(
+                    multimodal_data_list, file_ref
+                )
+
             except Exception as e:
                 self.logger.error(f"Error storing multimodal main entities: {e}")
                 raise
+
+    async def _store_structured_multimodal_records(
+        self, multimodal_data_list: List[Dict[str, Any]], file_ref: str
+    ) -> None:
+        """Persist processor-provided structured entities and relations."""
+        for data in multimodal_data_list:
+            entity_info = data["entity_info"]
+            structured_entities = entity_info.get("structured_entities") or []
+            structured_relations = entity_info.get("structured_relations") or []
+            if not structured_entities and not structured_relations:
+                continue
+
+            formatted_chunk_content = self._apply_chunk_template(
+                data["content_type"], data["original_item"], data["description"]
+            )
+            chunk_id = compute_mdhash_id(formatted_chunk_content, prefix="chunk-")
+
+            for entity in structured_entities:
+                entity_name = entity.get("entity_name")
+                if not entity_name:
+                    continue
+                entity_type = entity.get("entity_type", "entity")
+                description = entity.get("description", "")
+                await self.lightrag.chunk_entity_relation_graph.upsert_node(
+                    entity_name,
+                    {
+                        "entity_id": entity_name,
+                        "entity_type": entity_type,
+                        "description": description,
+                        "source_id": chunk_id,
+                        "file_path": file_ref,
+                        "created_at": int(time.time()),
+                    },
+                )
+                await self.lightrag.entities_vdb.upsert(
+                    {
+                        compute_mdhash_id(entity_name, prefix="ent-"): {
+                            "entity_name": entity_name,
+                            "entity_type": entity_type,
+                            "content": description,
+                            "source_id": chunk_id,
+                            "file_path": file_ref,
+                        }
+                    }
+                )
+
+            for relation in structured_relations:
+                src_id = relation.get("src_id")
+                tgt_id = relation.get("tgt_id")
+                if not src_id or not tgt_id:
+                    continue
+                relation_type = relation.get("relation_type", "related_to")
+                keywords = relation.get("keywords") or relation_type
+                relation_data = {
+                    "description": relation.get("description", ""),
+                    "keywords": keywords,
+                    "source_id": chunk_id,
+                    "weight": float(relation.get("weight", 10.0)),
+                    "file_path": file_ref,
+                }
+                await self.lightrag.chunk_entity_relation_graph.upsert_edge(
+                    src_id, tgt_id, relation_data
+                )
+                await self.lightrag.relationships_vdb.upsert(
+                    {
+                        compute_mdhash_id(
+                            f"{src_id}|{tgt_id}|{relation_data['description']}",
+                            prefix="rel-",
+                        ): {
+                            "src_id": src_id,
+                            "tgt_id": tgt_id,
+                            "keywords": keywords,
+                            "content": (
+                                f"{keywords}\t{src_id}\n{tgt_id}\n"
+                                f"{relation_data['description']}"
+                            ),
+                            "source_id": chunk_id,
+                            "file_path": file_ref,
+                        }
+                    }
+                )
 
     async def _store_multimodal_entities_to_full_entities(
         self, entities_to_store: Dict[str, Any], doc_id: str

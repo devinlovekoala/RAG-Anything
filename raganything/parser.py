@@ -32,6 +32,8 @@ import base64
 import subprocess
 import tempfile
 import logging
+import shutil
+import sys
 from pathlib import Path
 from typing import (
     Dict,
@@ -76,6 +78,22 @@ class Parser:
     def __init__(self) -> None:
         """Initialize the base parser."""
         pass
+
+    @staticmethod
+    def _resolve_cli_command(command_name: str) -> str:
+        """Resolve a parser CLI from the current Python environment before PATH lookup."""
+        executable_dir = Path(sys.executable).absolute().parent
+        candidate_names = [command_name]
+        if os.name == "nt":
+            candidate_names.extend([f"{command_name}.exe", f"{command_name}.bat"])
+
+        for candidate in candidate_names:
+            candidate_path = executable_dir / candidate
+            if candidate_path.exists():
+                return str(candidate_path)
+
+        resolved = shutil.which(command_name)
+        return resolved or command_name
 
     @staticmethod
     def _unique_output_dir(
@@ -656,8 +674,9 @@ class MineruParser(Parser):
             vlm_url: When the backend is `vlm-http-client`, you need to specify the server_url
             **kwargs: Additional parameters for subprocess (e.g., env)
         """
+        mineru_cmd = cls._resolve_cli_command("mineru")
         cmd = [
-            "mineru",
+            mineru_cmd,
             "-p",
             str(input_path),
             "-o",
@@ -1337,7 +1356,8 @@ class MineruParser(Parser):
             if platform.system() == "Windows":
                 subprocess_kwargs["creationflags"] = subprocess.CREATE_NO_WINDOW
 
-            result = subprocess.run(["mineru", "--version"], **subprocess_kwargs)
+            mineru_cmd = self._resolve_cli_command("mineru")
+            result = subprocess.run([mineru_cmd, "--version"], **subprocess_kwargs)
             self.logger.debug(f"MinerU version: {result.stdout.strip()}")
             return True
         except (subprocess.CalledProcessError, FileNotFoundError):
@@ -1482,8 +1502,9 @@ class DoclingParser(Parser):
         file_output_dir = Path(output_dir) / file_stem / "docling"
         file_output_dir.mkdir(parents=True, exist_ok=True)
 
+        docling_cmd = self._resolve_cli_command("docling")
         cmd = [
-            "docling",
+            docling_cmd,
             "--output",
             str(file_output_dir),
             "--to",
@@ -1831,7 +1852,8 @@ class DoclingParser(Parser):
             if platform.system() == "Windows":
                 subprocess_kwargs["creationflags"] = subprocess.CREATE_NO_WINDOW
 
-            result = subprocess.run(["docling", "--version"], **subprocess_kwargs)
+            docling_cmd = self._resolve_cli_command("docling")
+            result = subprocess.run([docling_cmd, "--version"], **subprocess_kwargs)
             self.logger.debug(f"Docling version: {result.stdout.strip()}")
             return True
         except (subprocess.CalledProcessError, FileNotFoundError):

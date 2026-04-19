@@ -6,6 +6,7 @@ Contains all query-related methods for both text and multimodal queries
 
 import json
 import hashlib
+import os
 import re
 import time
 from typing import Dict, List, Any
@@ -22,6 +23,36 @@ from raganything.utils import (
 
 class QueryMixin:
     """QueryMixin class containing query functionality for RAGAnything"""
+
+    def _resolve_enable_rerank(self, explicit_value: bool | None = None) -> bool:
+        """
+        Resolve whether reranking should be enabled for the current query.
+
+        Priority:
+        1. Explicit query kwargs
+        2. ENABLE_RERANK environment variable
+        3. Auto-enable only when a rerank model function is configured
+        """
+        if explicit_value is not None:
+            return explicit_value
+
+        env_value = os.getenv("ENABLE_RERANK")
+        if env_value is not None and env_value.strip() != "":
+            return env_value.strip().lower() in {"1", "true", "yes", "on"}
+
+        rerank_model_func = None
+        if getattr(self, "lightrag", None) is not None:
+            rerank_model_func = getattr(self.lightrag, "rerank_model_func", None)
+
+        return rerank_model_func is not None
+
+    def _build_query_param(self, mode: str, **kwargs) -> QueryParam:
+        """Build QueryParam with a project-aware rerank default."""
+        query_kwargs = dict(kwargs)
+        query_kwargs["enable_rerank"] = self._resolve_enable_rerank(
+            query_kwargs.get("enable_rerank")
+        )
+        return QueryParam(mode=mode, **query_kwargs)
 
     def _generate_multimodal_cache_key(
         self, query: str, multimodal_content: List[Dict[str, Any]], mode: str, **kwargs
@@ -158,7 +189,7 @@ class QueryMixin:
             )
 
         # Create query parameters
-        query_param = QueryParam(mode=mode, **kwargs)
+        query_param = self._build_query_param(mode=mode, **kwargs)
 
         self.logger.info(f"Executing text query: {query[:100]}...")
         self.logger.info(f"Query mode: {mode}")
@@ -369,7 +400,9 @@ class QueryMixin:
             delattr(self, "_current_images_base64")
 
         # 1. Get original retrieval prompt (without generating final answer)
-        query_param = QueryParam(mode=mode, only_need_prompt=True, **kwargs)
+        query_param = self._build_query_param(
+            mode=mode, only_need_prompt=True, **kwargs
+        )
         raw_prompt = await self.lightrag.aquery(query, param=query_param)
 
         self.logger.debug("Retrieved raw prompt from LightRAG")
@@ -382,7 +415,7 @@ class QueryMixin:
         if not images_found:
             self.logger.info("No valid images found, falling back to normal query")
             # Fallback to normal query
-            query_param = QueryParam(mode=mode, **kwargs)
+            query_param = self._build_query_param(mode=mode, **kwargs)
             return await self.lightrag.aquery(
                 query, param=query_param, system_prompt=system_prompt
             )
@@ -425,7 +458,9 @@ class QueryMixin:
 
             try:
                 # Get appropriate processor
-                processor = get_processor_for_type(self.modal_processors, content_type)
+                processor = get_processor_for_type(
+                    self.modal_processors, content_type, content
+                )
 
                 if processor:
                     # Generate content description

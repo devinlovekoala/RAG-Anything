@@ -1,0 +1,42 @@
+{
+  "doc_id": "circuit_doc_004",
+  "file_name": "2024-ch5-frequency.pdf",
+  "group": "analog",
+  "questions": [
+    {
+      "category": "lecture_scope",
+      "question": "这份讲义主要讲解了哪些核心概念、定律或电路类型？",
+      "answer": ""
+    },
+    {
+      "category": "worked_example",
+      "question": "讲义中最典型的例题或代表性电路是什么，它要解决什么问题？",
+      "answer": ""
+    },
+    {
+      "category": "component_value",
+      "question": "该讲义代表性模拟电路中的关键器件参数分别是什么？",
+      "answer": ""
+    },
+    {
+      "category": "bias_or_operation_region",
+      "question": "文档中的关键模拟器件工作在什么偏置或工作区间，依据是什么？",
+      "answer": ""
+    },
+    {
+      "category": "topology",
+      "question": "讲义展示的核心电路属于什么拓扑，输入、输出和反馈路径如何识别？",
+      "answer": ""
+    },
+    {
+      "category": "formula_mapping",
+      "question": "文档中的主要公式与电路图中的器件、节点或参数分别对应什么物理意义？",
+      "answer": ""
+    },
+    {
+      "category": "frequency_response",
+      "question": "讲义中的频域分析重点关注哪些量，它们如何随频率变化？",
+      "answer": ""
+    }
+  ]
+}
