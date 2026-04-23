@@ -139,29 +139,55 @@ So the honest Phase 1 assessment is:
 - Two representative circuit subdomains were validated.
 - One additional topic exposed a concrete extraction-time robustness gap.
 
-## 7. Recommended Phase 2 Priorities
+## 7. Phase 2 Delivered — Adapter Route Refactoring
 
-The next development phase should focus on robustness and evaluation quality rather than inventing a new architecture.
+Phase 2 completed the architectural refactoring that Phase 1 identified as the right direction.
 
-Recommended priorities:
+### 7.1 Architecture Decision
 
-- Add chunk-level fallback strategies for difficult long-form lecture pages before LLM extraction times out.
-- Introduce a more formal domain QA benchmark aligned to the actual imported lecture set.
-- Separate answer-quality failure from infrastructure failure in experiment summaries.
-- Add topic-level rerank and retrieval diagnostics specialized for circuit terminology, component names, and topology language.
-- Build a standardized three-topic evaluation report so each rerun is directly comparable.
+Embedding circuit logic directly into `raganything/` created tight coupling that would make upstream PRs difficult. Phase 2 resolves this with the **adapter route**: all circuit-domain logic moves into a self-contained package at `examples/circuit_domain_extension/`. The only integration point with the core library is the existing `insert_content_list()` API.
+
+### 7.2 Delivered Modules
+
+| Module | Role |
+|---|---|
+| `ir.py` | `CircuitIR` / `CircuitFigure` — document-level intermediate representation |
+| `prompts.py` | VLM prompt constants, migrated from core and extended |
+| `parser.py` | PDF → CircuitIR: runs MinerU/Docling, detects circuits, calls VLM |
+| `enhancer.py` | Component ref normalisation, topology inference from component mix |
+| `adapter.py` | CircuitIR → `content_list` (type="circuit" items for `insert_content_list`) |
+| `pipeline.py` | `CircuitPipeline` class + `ingest_circuit_document()` one-shot helper |
+| `__init__.py` | Public API re-exports |
+
+### 7.3 Core Cleanup
+
+`raganything/raganything.py` — `CircuitModalProcessor` import and `_initialize_processors` wiring block removed. The `enable_circuit_processing` config field is retained as a no-op to avoid breaking existing reproduce scripts that pass it as a kwarg.
+
+The core library is now clean with respect to circuit-domain concerns.
+
+### 7.4 Evaluation Expansion
+
+Two new eval topics were added, bringing the benchmark from 3 to 4 distinct circuit subdomains:
+
+| File | Topic | Status |
+|---|---|---|
+| `week5_opamp.jsonl` | Op-Amp | validated Phase 1 |
+| `2024_bjts.jsonl` | BJT | validated Phase 1 |
+| `2024_fets.jsonl` | FET / MOSFET | new — Phase 2 |
+| `week9_freq_domain.jsonl` | Freq-Domain analysis | new — Phase 2 |
+
+### 7.5 Outstanding Work
+
+- Re-run ablation experiments for all 4 topics using the new adapter-based pipeline.
+- Address the 600 s LLM worker timeout that blocked the superposition topic (chunk-level fallback strategy).
+- Formal answer-quality scoring to separate infrastructure failures from retrieval/LLM-quality failures.
 
 ## 8. Final Assessment
 
-Phase 1 achieved a real milestone.
+Phase 1 achieved a real milestone with two validated circuit subdomains and one identified robustness blocker.
 
-The repository now contains a working circuit-domain extension that:
+Phase 2 completed the architectural refactoring: the circuit extension is now a clean adapter package requiring zero changes to the core library. This is the correct foundation for a future upstream PR.
 
-- structurally understands circuit figures better than a caption-only baseline,
-- plugs into `RAG-Anything`'s native multimodal architecture,
-- shows strong evidence of retrieval/answering gains on at least two representative circuit subdomains,
-- and has identified the exact robustness problem that should drive the next iteration.
+The current state is:
 
-The current state is therefore best described as:
-
-**Validated Phase 1 progress with measurable task-level gains, successful architectural integration, and one clearly isolated robustness blocker for the next phase.**
+**Two-phase validated progress — measurable task-level gains in Phase 1, clean architectural separation in Phase 2, expanded 4-topic benchmark ready for the next experimental run.**

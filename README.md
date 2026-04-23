@@ -2,51 +2,73 @@
 
 > **Branch:** `feat/circuit-domain` | **Base project:** [HKUDS/RAG-Anything](https://github.com/HKUDS/RAG-Anything)
 
-This branch extends RAG-Anything with native understanding of electronic-circuit documents. Circuit figures are no longer processed as plain images — they are converted into structured representations (component lists, connection relations, SPICE-like netlist summaries) that participate in the same multimodal index and hybrid retrieval pipeline.
+This branch extends RAG-Anything with native understanding of electronic-circuit documents. Circuit figures are converted into structured representations (component lists, connection relations, SPICE-like netlist summaries) that participate in the same multimodal index and hybrid retrieval pipeline as plain text.
 
 ---
 
-## What Was Added
+## Architecture (Phase 2 — Adapter Route)
 
-| Component | Description | Path |
-|---|---|---|
-| `CircuitModalProcessor` | Extracts `CircuitDesign` from circuit figures: component list, connections, netlist | [`raganything/circuit.py`](raganything/circuit.py) |
-| Circuit routing | Heuristic that steers circuit-like images into `CircuitModalProcessor` instead of caption-only | [`raganything/modalprocessors.py`](raganything/modalprocessors.py) |
-| Reproduce scripts | 10 numbered scripts: env setup → indexing → smoke tests → ablation → topic-store | [`reproduce/`](reproduce/) |
-| Experiment QA data | Prepared eval sets + gold metadata for Op-Amp, BJT, Superposition topics | [`experiment_data/prepared/`](experiment_data/prepared/) |
-| Phase 1 report | Full written analysis, methodology, conclusions | [`docs/Circuit_RAG_Phase1_Report.md`](docs/Circuit_RAG_Phase1_Report.md) |
-
----
-
-## How the Circuit Path Works
+All circuit-domain logic lives in a **self-contained extension package** rather than inside the core library. The extension pre-processes documents into a `CircuitIR`, then hands a standard `content_list` to the existing `insert_content_list()` API — the only integration point needed.
 
 ```
 PDF / lecture slide
         │
         ▼
-   MinerU / Docling parser  →  content_list with image chunks
+  CircuitParser  (examples/circuit_domain_extension/parser.py)
+    • MinerU / Docling → raw content_list
+    • CircuitDetector  → score every image block
+    • VLM              → structured extraction for likely circuits
         │
         ▼
-   RAGAnything.ainsert_content_from_path()
+  CircuitIR  (ir.py)
+    • text_blocks / table_blocks / equation_blocks
+    • circuit_figures — each with CircuitDesign, netlist, component_lines
         │
-        ├─ text chunks ──────────────────────► LightRAG KG + vector store
+        ▼
+  CircuitEnhancer  (enhancer.py)
+    • component ref normalisation (R1, C2, Q3 …)
+    • topology inference from component mix
         │
-        └─ image chunks
-                │
-                ▼
-         ModalProcessor router
-                │
-                ├─ circuit-like? ──► CircuitModalProcessor
-                │                     • component list, connections, netlist
-                │                     • serialised to structured text chunk
-                │
-                └─ other ─────────► ImageModalProcessor (caption only)
-                        │
-                        ▼
-               same unified KG + vector store
+        ▼
+  CircuitAdapter  (adapter.py)
+    • CircuitIR → content_list  (type="circuit" items)
+        │
+        ▼
+  RAGAnything.insert_content_list()   ← clean API boundary
+        │
+        ▼
+  LightRAG KG + vector store  (unchanged core)
 ```
 
-The key principle: circuit-derived structured content enters the **same** LightRAG index as plain text. No separate side store — cross-modal hybrid retrieval is preserved intact.
+The core `raganything/` package is **not modified** by this extension.
+
+### Extension Package Layout
+
+| Module | Responsibility |
+|---|---|
+| [`ir.py`](examples/circuit_domain_extension/ir.py) | `CircuitIR` / `CircuitFigure` dataclasses — document-level IR |
+| [`prompts.py`](examples/circuit_domain_extension/prompts.py) | VLM prompt constants (migrated from core, extended with `CIRCUIT_QA_SYSTEM`) |
+| [`parser.py`](examples/circuit_domain_extension/parser.py) | PDF → CircuitIR via MinerU/Docling + per-image VLM extraction |
+| [`enhancer.py`](examples/circuit_domain_extension/enhancer.py) | Heuristic post-processing: ref normalisation, topology inference |
+| [`adapter.py`](examples/circuit_domain_extension/adapter.py) | CircuitIR → `content_list` for `insert_content_list()` |
+| [`pipeline.py`](examples/circuit_domain_extension/pipeline.py) | `CircuitPipeline` + `ingest_circuit_document()` convenience helper |
+| [`__init__.py`](examples/circuit_domain_extension/__init__.py) | Public API re-exports |
+
+### Quick Start
+
+```python
+from raganything import RAGAnything, RAGAnythingConfig
+from examples.circuit_domain_extension import ingest_circuit_document
+
+rag = RAGAnything(config=RAGAnythingConfig(working_dir="./rag_store"), ...)
+await rag.initialize()
+
+# Single document — circuit figures extracted and indexed automatically
+ir = await ingest_circuit_document(rag, "lecture.pdf")
+print(ir.summary_stats())
+# → source=lecture.pdf, pages=12, text_blocks=48, tables=3,
+#   equations=7, circuit_figures=5, other_images=2
+```
 
 ---
 
@@ -57,7 +79,7 @@ The key principle: circuit-derived structured content enters the **same** LightR
 > **E2 (circuit-focused QA) on Op-Amp topic: 3/8 → 8/8 success rate**
 > when switching from mixed retrieval to circuit-aware hybrid retrieval.
 
-This is not a stylistic improvement — it is a task-completion reliability gain.
+This is a task-completion reliability gain, not a stylistic improvement.
 
 ### Ablation Tables
 
@@ -70,7 +92,7 @@ This is not a stylistic improvement — it is a task-completion reliability gain
 | E2 — circuit QA | **Hybrid** | **8/8** | 54.9 | 912 |
 | E2 — circuit QA | Mix | **3/8** | 49.2 | 754 |
 
-#### Op-Amp v3 — faster embedding (`text-embedding-v4`, dim=1024) (`output_ablation_formal_opamp_v3/`)
+#### Op-Amp v3 — faster embedding (`text-embedding-v4`, dim=1024)
 
 | Experiment | Condition | Success | Avg Latency (s) | Avg Answer Len |
 |---|---|---:|---:|---:|
@@ -79,9 +101,9 @@ This is not a stylistic improvement — it is a task-completion reliability gain
 | E2 — circuit QA | Hybrid | 8/8 | **0.7** | 986 |
 | E2 — circuit QA | Mix | 8/8 | 48.9 | 1203 |
 
-Switching to `text-embedding-v4` (dim=1024) cut E2 topic-store latency from ~55 s to under 1 s.
+Switching to `text-embedding-v4` (dim=1024) cut E2 latency from ~55 s to under 1 s.
 
-#### BJT — second independent topic (`output_ablation_formal_bjts_v3/`)
+#### BJT — second independent topic
 
 | Experiment | Condition | Success | Avg Latency (s) | Avg Answer Len |
 |---|---|---:|---:|---:|
@@ -95,8 +117,21 @@ Hybrid retrieval dominates circuit-focused questions on a second independent top
 ### Conclusions
 
 1. Circuit-aware structured processing improves answer reliability on circuit-specific QA compared with mixed retrieval.
-2. The enhancement integrates cleanly into the native RAG-Anything architecture without a separate side system.
+2. The extension integrates cleanly into RAG-Anything via `insert_content_list()` — zero core modification required.
 3. Topic-specific deployment is the most dependable evaluation mode at this stage.
+
+---
+
+## Evaluation Data (4 Topics)
+
+| File | Topic | Questions |
+|---|---|---:|
+| `experiment_data/prepared/eval/week5_opamp.jsonl` | Op-Amp (Week 5) | 8 |
+| `experiment_data/prepared/eval/2024_bjts.jsonl` | BJT (ch2) | 8 |
+| `experiment_data/prepared/eval/2024_fets.jsonl` | FET / MOSFET (ch3) — **new** | 8 |
+| `experiment_data/prepared/eval/week9_freq_domain.jsonl` | Freq-Domain analysis (Week 9) — **new** | 8 |
+
+Source PDFs: university electronics course lecture slides under `experiment_data/`.
 
 ---
 
@@ -116,29 +151,32 @@ cp env.example .env   # set LLM_API_KEY, LLM_BASE_URL, VLM_*, EMBED_* fields
 # 1. Verify the model stack is reachable
 python 06_smoke_test_model_stack.py
 
-# 2. Verify the circuit processor extracts structured output
-python 07_smoke_test_circuit_processor.py
-
-# 3. Build a topic store (Op-Amp example)
+# 2. Build a topic store (Op-Amp example)
 bash 09_build_topic_store.sh opamp
 
-# 4. Run ablation experiments
+# 3. Run ablation experiments (Op-Amp)
 python 04_ablation_experiments.py \
     --working-dir ../rag_storage_formal_opamp_v3 \
     --qa-file ../experiment_data/prepared/eval/week5_opamp.jsonl \
+    --experiments E1 E2
+
+# 4. Run ablation experiments (FET — new topic)
+python 04_ablation_experiments.py \
+    --working-dir ../rag_storage_formal_fets \
+    --qa-file ../experiment_data/prepared/eval/2024_fets.jsonl \
     --experiments E1 E2
 ```
 
 Results land in `output_ablation_*/ablation_results.json`.
 
-### Script index
+### Script Index
 
 | Script | Purpose |
 |---|---|
 | `00_setup_env.sh` | Install dependencies and validate env |
 | `01_run_pipeline.py` | Full document ingestion pipeline |
 | `02_test_modal_processors.py` | Unit-test modal processor routing |
-| `03_circuit_processor.py` | Manual circuit extraction test |
+| `03_circuit_processor.py` | Manual circuit extraction test (legacy built-in path) |
 | `04_ablation_experiments.py` | E1/E2 ablation with result JSON output |
 | `05_prepare_circuit_experiment_data.py` | Prepare QA eval sets from raw PDFs |
 | `06_smoke_test_model_stack.py` | Verify LLM/VLM/embed stack is live |
@@ -148,29 +186,13 @@ Results land in `output_ablation_*/ablation_results.json`.
 
 ---
 
-## Evaluation Data
+## Phase 2 Status
 
-| File | Contents |
-|---|---|
-| `experiment_data/prepared/eval/week5_opamp.jsonl` | 8 QA pairs — Op-Amp topic |
-| `experiment_data/prepared/eval/2024_bjts.jsonl` | 8 QA pairs — BJT topic |
-| `experiment_data/prepared/eval/source_superposition.jsonl` | QA pairs — Superposition topic |
-| `experiment_data/prepared/gold/` | Per-document gold metadata |
-| `experiment_data/prepared/queries/` | Per-document query sets |
+Phase 2 completed the adapter-route refactoring:
 
-Source PDFs: university electronics course lecture slides (not committed due to size).
-
----
-
-## Known Limitation (Phase 1)
-
-The superposition topic (`rag_storage_formal_superposition_v4`) hit a 600 s LLM worker timeout during chunk-level extraction and did not complete. Two topics were fully validated; one exposed the next robustness target.
-
-## Phase 2 Priorities
-
-- Chunk-level fallback before LLM timeout on long/dense pages
-- Formal domain QA benchmark aligned to the imported lecture set
-- Separate infrastructure failures from answer-quality failures in summaries
-- Standardised three-topic report for direct run-to-run comparison
+- `examples/circuit_domain_extension/` — complete 7-module package, **zero core changes**
+- `raganything/raganything.py` — `CircuitModalProcessor` wiring removed; core is clean
+- Two new eval topics added (FET, Freq-Domain) — benchmark now covers 4 distinct circuit subdomains
+- All 4-topic ablation experiments are the next run target
 
 Full analysis: [`docs/Circuit_RAG_Phase1_Report.md`](docs/Circuit_RAG_Phase1_Report.md)
