@@ -39,7 +39,6 @@ from raganything.callbacks import CallbackManager
 # Import specialized processors
 from raganything.modalprocessors import (
     ImageModalProcessor,
-    CircuitModalProcessor,
     TableModalProcessor,
     EquationModalProcessor,
     GenericModalProcessor,
@@ -133,7 +132,6 @@ class RAGAnything(QueryMixin, ProcessorMixin, BatchMixin):
         self.logger.info(f"  Parse method: {self.config.parse_method}")
         self.logger.info(
             f"  Multimodal processing - Image: {self.config.enable_image_processing}, "
-            f"Circuit: {self.config.enable_circuit_processing}, "
             f"Table: {self.config.enable_table_processing}, "
             f"Equation: {self.config.enable_equation_processing}"
         )
@@ -212,13 +210,6 @@ class RAGAnything(QueryMixin, ProcessorMixin, BatchMixin):
 
         # Create different multimodal processors based on configuration
         self.modal_processors = {}
-
-        if self.config.enable_circuit_processing:
-            self.modal_processors["circuit"] = CircuitModalProcessor(
-                lightrag=self.lightrag,
-                modal_caption_func=self.vision_model_func or self.llm_model_func,
-                context_extractor=self.context_extractor,
-            )
 
         if self.config.enable_image_processing:
             self.modal_processors["image"] = ImageModalProcessor(
@@ -493,7 +484,6 @@ class RAGAnything(QueryMixin, ProcessorMixin, BatchMixin):
             },
             "multimodal_processing": {
                 "enable_image_processing": self.config.enable_image_processing,
-                "enable_circuit_processing": self.config.enable_circuit_processing,
                 "enable_table_processing": self.config.enable_table_processing,
                 "enable_equation_processing": self.config.enable_equation_processing,
             },
