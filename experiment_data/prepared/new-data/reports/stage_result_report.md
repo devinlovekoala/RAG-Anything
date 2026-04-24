@@ -1,18 +1,18 @@
-# 电子电路 QA Benchmark 阶段成果报告
+# Electronic Circuit QA Benchmark Stage Report
 
-日期：2026-04-24
+Date: 2026-04-24
 
-## 1. 目标
+## 1. Objective
 
-本阶段评测的目标是验证：在大学电子电路讲义问答场景下，加入电子电路支持后的 RAG-Anything 相比基线检索设置，是否能够带来可观测、可复现的答案质量提升。
+This stage evaluates whether the electronic-circuit enhanced version of RAG-Anything provides measurable and reproducible answer-quality improvements over the baseline retrieval setting on university electronics lecture materials.
 
-本轮评测按照“阶段冻结版 benchmark”执行，而不是临时 smoke test。评测过程中固定文档集合、问题集合、模型配置和评分规则，只比较不同检索/回答条件下的输出差异。
+The evaluation is treated as a frozen stage benchmark rather than an exploratory smoke test. During this run, the document set, question set, model configuration, and scoring protocol are fixed; only the retrieval/answering condition changes between the compared methods.
 
-## 2. Benchmark 协议
+## 2. Benchmark Protocol
 
-### 数据集
+### Dataset
 
-本轮 benchmark 共包含 80 道中文 QA，覆盖 4 个电子电路 topic：
+The benchmark contains 80 Chinese QA items across four electronic-circuit topics:
 
 | Topic | Source document | Questions |
 |---|---|---:|
@@ -21,22 +21,22 @@
 | Frequency domain | `experiment_data/2024-ch5-frequency.pdf` | 20 |
 | Op-Amp | `experiment_data/2024-ch8-op amp.pdf` | 20 |
 
-每道题均包含稳定的 `qid`、topic、category、中文问题、参考答案和规则评分 rubric。题型覆盖概念理解、事实问答、电路拓扑、公式与电路映射、解题步骤、推理、跨模态图文理解，以及不可回答问题。
+Each item includes a stable `qid`, topic, category, Chinese question, reference answer, and rule-based scoring rubric. The benchmark covers conceptual understanding, factoid recall, circuit topology, formula-to-circuit mapping, solution procedures, reasoning, cross-modal figure/text interpretation, and unanswerable controls.
 
-### 对比方法
+### Compared Methods
 
-本报告使用 E1 设置作为主结论口径：
+This report uses the E1 setting as the main answer-quality comparison:
 
 | Method label | Runtime condition | Interpretation |
 |---|---|---|
-| Baseline | `naive` | 偏文本的基线检索/回答路径 |
-| Enhanced | `hybrid` | 启用电子电路增强后的多模态/图检索路径 |
+| Baseline | `naive` | Text-oriented baseline retrieval/answering path |
+| Enhanced | `hybrid` | Electronic-circuit enhanced multimodal/graph retrieval path |
 
-本轮实验也生成了 E2 结果，即 `hybrid` vs `mix`，用于分析双图策略相关表现；但本阶段答案质量主结论以 E1 为准。
+The experiment also produced E2 results (`hybrid` vs `mix`) for dual-graph analysis. However, the headline answer-quality conclusion in this stage report is based on E1.
 
-### 产物文件
+### Execution Artifacts
 
-本轮完整运行生成了以下关键产物：
+The full benchmark run produced the following artifacts:
 
 | Artifact | Path |
 |---|---|
@@ -48,19 +48,19 @@
 | Scoring report | `experiment_data/prepared/new-data/results/benchmark_report.json` |
 | Stage report | `experiment_data/prepared/new-data/reports/stage_result_report.md` |
 
-四个 topic 的 topic store 均成功完成，且 `multimodal_processed=true`。四个 topic 的 E1/E2 ablation 均达到 `20/20` query success rate，未发现 query 级别 `error`。
+All four topic stores were built successfully with `multimodal_processed=true`. For all four topics, E1 and E2 reached `20/20` query success rate, and no query-level `error` was found in the generated `ablation_results.json` files.
 
-## 3. 结果
+## 3. Results
 
-### 总体结果
+### Overall Result
 
 | Metric | Baseline | Enhanced | Delta |
 |---|---:|---:|---:|
 | Overall rule-based score | 0.413 | 0.443 | +0.030 |
 
-在当前规则评分器下，电子电路增强版取得了小幅但稳定的总体提升。
+Under the current rule-based scorer, the enhanced system achieves a modest but positive overall improvement.
 
-### Topic 维度结果
+### Topic-Level Results
 
 | Topic | Baseline | Enhanced | Delta |
 |---|---:|---:|---:|
@@ -69,9 +69,9 @@
 | Frequency domain | 0.417 | 0.492 | +0.075 |
 | Op-Amp | 0.482 | 0.493 | +0.011 |
 
-提升最明显的是频域分析，其次是 BJT。FET 与 Op-Amp 上提升较小，但仍保持正向。
+The largest topic-level gain appears in frequency-domain circuit analysis, followed by BJT. FET and Op-Amp show smaller but still positive deltas.
 
-### 题型维度结果
+### Category-Level Results
 
 | Category | Baseline | Enhanced | Delta |
 |---|---:|---:|---:|
@@ -84,9 +84,9 @@
 | Topology | 0.408 | 0.479 | +0.071 |
 | Unanswerable | 1.000 | 1.000 | +0.000 |
 
-增强版的主要收益集中在 topology、reasoning、concept 和 cross-modal 题型上。这与电子电路增强模块的目标一致：它更应该帮助模型理解电路结构、图文对应关系和分析过程，而不是单纯提升直接事实检索。
+The main gains are concentrated in topology, reasoning, concept, and cross-modal categories. This aligns with the intended value of the electronic-circuit enhancement: it should help the system better use circuit structure, figure/text correspondence, and analytical context, rather than merely improving direct keyword-style factual retrieval.
 
-### 逐题胜负
+### Per-Question Outcome
 
 | Outcome | Count |
 |---|---:|
@@ -94,48 +94,59 @@
 | Ties | 62 / 80 |
 | Enhanced losses | 4 / 80 |
 
-逐题结果显示，增强版没有造成大面积退化，主要是在一部分结构更强、推理更重的问题上取得提升。
+The per-question profile suggests that the enhanced method improves a targeted subset of structure-heavy and reasoning-heavy questions without causing broad regression on simpler items.
 
-## 4. 结论解读
+## 4. Interpretation
 
-本轮阶段 benchmark 支持以下结论：
+This stage benchmark supports the following conclusions:
 
-1. 电子电路增强版 RAG-Anything 在 80 题冻结 benchmark 上具备稳定运行能力。四个 topic 均完成多模态处理和问答评测，未出现 query 级失败。
-2. 在 E1 口径下，增强版相对基线取得 `+0.030` 的总体规则评分提升。
-3. 提升主要集中在更符合电路理解价值的题型上，包括 topology、reasoning、cross-modal 和 frequency-domain analysis。
-4. factoid 与 mapping 题型基本持平，说明增强版并不是依靠简单关键词题拉开差距；其优势更多体现在结构理解与综合分析问题上。
+1. The electronic-circuit enhanced version of RAG-Anything runs stably on the frozen 80-question benchmark. All four topics completed multimodal processing and QA evaluation without query-level failures.
+2. Under the E1 comparison, the enhanced setting achieves a positive overall rule-based score delta of `+0.030`.
+3. The strongest improvements appear in categories that are most aligned with circuit understanding: topology, reasoning, cross-modal interpretation, and frequency-domain analysis.
+4. Factoid and mapping questions remain largely tied, which suggests that the enhanced method is not merely exploiting simple keyword matches. Its value is more visible in structurally richer and more analytical questions.
 
-## 5. 局限性
+## 5. Data Limitations and Expected Scaling
 
-本阶段结果应表述为“基于规则评分器的初步答案质量对比”，而不是完全人工裁决的最终质量评测。
+The current benchmark should be interpreted as a stage-level validation rather than a final large-scale domain benchmark. The source materials are undergraduate-level university lecture slides. This has several implications:
 
-当前局限包括：
+1. The data scale is limited: the benchmark currently contains 80 QA items across four lecture documents.
+2. The source quality is constrained by slide-style teaching materials, which often contain sparse explanations, incomplete derivations, and limited visual annotations.
+3. The difficulty level is primarily undergraduate instructional content rather than professional engineering documentation, datasheets, design notes, SPICE reports, or advanced circuit design cases.
+4. Many questions are answerable from local textual evidence alone, so the gap between baseline and enhanced retrieval can be naturally compressed.
 
-1. 评分器基于 `must_include` 与 `must_not_claim` 做规则评分，较保守。
-2. 长答案如果使用了等价但不同的表述，可能被低估。
-3. 本轮 benchmark 固定为中文问答，不覆盖跨语言问答能力。
-4. 原始讲义 PDF 作为本地实验输入存在；版本化产物主要保留问题集、参考答案、评分协议和生成结果。
+Because of these limitations, the observed `+0.030` overall improvement should be read conservatively. It demonstrates that the enhanced system is stable and directionally better on this stage benchmark, but it may understate the potential benefit of the electronic-circuit enhancement. On larger, more specialized, and more visually/structurally demanding circuit datasets, the advantage of circuit-aware multimodal processing and graph retrieval is likely to become more pronounced.
 
-## 6. 复现实验命令
+## 6. Remaining Limitations
 
-运行完整 benchmark：
+This stage result is based on an automatic rule-based scorer, not a fully human-adjudicated final benchmark.
+
+Known limitations:
+
+1. The scoring function relies on `must_include` and `must_not_claim` rubric checks, so it is intentionally conservative.
+2. Long-form reasoning answers can be under-scored if they use correct but different wording.
+3. The benchmark is Chinese-only by design and does not evaluate cross-lingual QA.
+4. The raw lecture PDFs are local experiment inputs. The versioned artifacts preserve the benchmark questions, reference answers, scoring protocol, generated outputs, and report.
+
+## 7. Reproduction Commands
+
+Run the full benchmark:
 
 ```bash
 cd /home/devin/Workspace/HKUDS-project/RAG-Anything
 bash experiment_data/prepared/new-data/run_benchmark_experiments.sh
 ```
 
-运行本地答案质量评分：
+Run local answer-quality scoring:
 
 ```bash
 cd /home/devin/Workspace/HKUDS-project/RAG-Anything
 bash experiment_data/prepared/new-data/run_benchmark_quality_eval.sh
 ```
 
-第二条命令只做本地结果导出和规则评分，不会再次调用 LLM。
+The second command only exports existing results and runs local rule-based scoring. It does not call the LLM again.
 
-## 7. 阶段成果结论
+## 8. Stage Conclusion
 
-本阶段建立了一套可复现的 80 题电子电路 QA benchmark，并在该 benchmark 上验证了电子电路增强版 RAG-Anything 相比基线设置的答案质量提升。总体提升幅度不夸张，但集中出现在最能体现电路理解能力的题型上，尤其是拓扑分析、推理和频域分析。
+This stage establishes a reproducible 80-question electronic-circuit QA benchmark and shows that the electronic-circuit enhanced version of RAG-Anything improves automatic answer-quality scores over the baseline retrieval setting. The overall improvement is modest, but the gains appear in the categories where circuit understanding matters most, especially topology analysis, reasoning, cross-modal interpretation, and frequency-domain analysis.
 
-因此，本轮结果可以作为阶段性专业成果输出。后续若进入更高规格的最终评测，可在该 benchmark 基础上增加人工复核或 LLM-as-judge，对 reasoning 与 cross-modal 题型进行抽样裁决，从而进一步增强结论的说服力。
+Given the undergraduate lecture-slide nature of the current data, these results should be viewed as a professional stage outcome and a lower-bound signal rather than the final ceiling of the approach. Future evaluation on larger, higher-quality, and more professionally demanding circuit datasets is expected to provide a stronger testbed and may reveal larger gains from the circuit-aware enhancement.
