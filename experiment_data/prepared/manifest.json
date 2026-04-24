@@ -40,7 +40,7 @@
     "doc_id": "circuit_doc_004",
     "file_name": "2024-ch5-frequency.pdf",
     "relative_path": "2024-ch5-frequency.pdf",
-    "group": "analog",
+    "group": "frequency_domain",
     "tags": [
       "frequency"
     ],
@@ -116,7 +116,7 @@
     "doc_id": "circuit_doc_010",
     "file_name": "Week 10 Lecture 1 - Power in Frequency Domain.pdf",
     "relative_path": "Week 10 Lecture 1 - Power in Frequency Domain.pdf",
-    "group": "analog",
+    "group": "frequency_domain",
     "tags": [
       "frequency"
     ],
@@ -234,7 +234,7 @@
     "doc_id": "circuit_doc_020",
     "file_name": "Week 8 Lecture 2 - The Phasor and VCR of Passive Elements in Frequency Domain.pdf",
     "relative_path": "Week 8 Lecture 2 - The Phasor and VCR of Passive Elements in Frequency Domain.pdf",
-    "group": "analog",
+    "group": "frequency_domain",
     "tags": [
       "frequency",
       "phasor"
@@ -248,7 +248,7 @@
     "doc_id": "circuit_doc_021",
     "file_name": "Week 9 Lecture 1 - VCR of Passive Elements, KCL, and KVL in Frequency Domain.pdf",
     "relative_path": "Week 9 Lecture 1 - VCR of Passive Elements, KCL, and KVL in Frequency Domain.pdf",
-    "group": "analog",
+    "group": "frequency_domain",
     "tags": [
       "frequency"
     ],
@@ -261,7 +261,7 @@
     "doc_id": "circuit_doc_022",
     "file_name": "Week 9 Lecture 2 - Circuit Analysis Methods in Frequency Domain.pdf",
     "relative_path": "Week 9 Lecture 2 - Circuit Analysis Methods in Frequency Domain.pdf",
-    "group": "analog",
+    "group": "frequency_domain",
     "tags": [
       "frequency"
     ],

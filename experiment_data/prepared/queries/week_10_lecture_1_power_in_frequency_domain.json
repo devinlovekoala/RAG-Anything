@@ -1,7 +1,7 @@
 {
   "doc_id": "circuit_doc_010",
   "file_name": "Week 10 Lecture 1 - Power in Frequency Domain.pdf",
-  "group": "analog",
+  "group": "frequency_domain",
   "questions": [
     {
       "category": "lecture_scope",
@@ -14,28 +14,48 @@
       "answer": ""
     },
     {
-      "category": "component_value",
-      "question": "该讲义代表性模拟电路中的关键器件参数分别是什么？",
+      "category": "study_focus",
+      "question": "如果我要快速复习这份讲义，最应该优先关注哪些公式、图示、结论或分析步骤？",
       "answer": ""
     },
     {
-      "category": "bias_or_operation_region",
-      "question": "文档中的关键模拟器件工作在什么偏置或工作区间，依据是什么？",
+      "category": "component_value",
+      "question": "该讲义代表性频域电路中的关键器件参数分别是什么？",
       "answer": ""
     },
     {
       "category": "topology",
-      "question": "讲义展示的核心电路属于什么拓扑，输入、输出和反馈路径如何识别？",
+      "question": "讲义展示的核心电路属于什么拓扑，信号路径和关键节点如何识别？",
       "answer": ""
     },
     {
       "category": "formula_mapping",
-      "question": "文档中的主要公式与电路图中的器件、节点或参数分别对应什么物理意义？",
+      "question": "文档中的主要频域公式与电路图中的阻抗、节点、电压或电流分别对应什么物理意义？",
+      "answer": ""
+    },
+    {
+      "category": "phasor_analysis",
+      "question": "讲义中的相量分析方法如何应用于该电路，阻抗与相位应如何表示？",
+      "answer": ""
+    },
+    {
+      "category": "node_mesh_freq",
+      "question": "频域中节点电压法或网孔电流法如何建立方程，与时域分析相比最关键的区别是什么？",
+      "answer": ""
+    },
+    {
+      "category": "transfer_function",
+      "question": "该电路的传递函数、频率响应、截止频率或谐振点是如何得到的？",
       "answer": ""
     },
     {
       "category": "frequency_response",
       "question": "讲义中的频域分析重点关注哪些量，它们如何随频率变化？",
+      "answer": ""
+    },
+    {
+      "category": "impedance_interpretation",
+      "question": "文档中的复阻抗表达式分别对应哪些元件，它们如何决定幅值和相位的变化？",
       "answer": ""
     }
   ]

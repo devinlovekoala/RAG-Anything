@@ -126,12 +126,13 @@ Hybrid retrieval dominates circuit-focused questions on a second independent top
 
 | File | Topic | Questions |
 |---|---|---:|
-| `experiment_data/prepared/eval/week5_opamp.jsonl` | Op-Amp (Week 5) | 8 |
-| `experiment_data/prepared/eval/2024_bjts.jsonl` | BJT (ch2) | 8 |
-| `experiment_data/prepared/eval/2024_fets.jsonl` | FET / MOSFET (ch3) — **new** | 8 |
-| `experiment_data/prepared/eval/week9_freq_domain.jsonl` | Freq-Domain analysis (Week 9) — **new** | 8 |
+| `experiment_data/prepared/eval/week5_opamp.jsonl` | Op-Amp (Week 5) | 12 |
+| `experiment_data/prepared/eval/2024_bjts.jsonl` | BJT (ch2) | 12 |
+| `experiment_data/prepared/eval/2024_fets.jsonl` | FET / MOSFET (ch3) — **new** | 12 |
+| `experiment_data/prepared/eval/week9_freq_domain.jsonl` | Freq-Domain analysis (Week 9) — **new** | 11 |
 
 Source PDFs: university electronics course lecture slides under `experiment_data/`.
+The refreshed question sets mix lecture-summary, study-support, circuit-structure, and formula-mapping prompts to better reflect realistic document QA needs.
 
 ---
 

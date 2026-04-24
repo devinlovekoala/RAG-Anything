@@ -1,0 +1,1674 @@
+[
+  {
+    "qid": "bjt_q01",
+    "doc_id": "circuit_doc_bjt",
+    "question": "BJT 工作在有源区（active region）需要满足什么偏置条件？讲义中如何描述这两个结的状态？",
+    "answer": "\n要回答BJT工作在有源区（active region）的偏置条件及讲义中的描述，需从提供的知识图和文档中提取关键信息，以下是具体分析：  \n\n\n### BJT工作在有源区（active region）的偏置条件  \nBJT工作在有源区时，需要满足**发射极-基极（Emitter-Base）结正向偏置**且**基极-集电极（Base-Collector）结反向偏置**的偏置条件。这种偏置状态是BJT实现线性放大（电流放大）的基础，区别于截止区（两个结均反向偏置）和饱和区（两个结均正向偏置）。  \n\n\n### 讲义中对两个结状态的描述  \n讲义（如Section 2.1.3 “Modes of Operation”）明确指出：  \n- 发射极-基极结（Emitter-Base junction）：**正向偏置（forward biased）**，这是有源区实现载流子注入的前提。  \n- 基极-集电极结（Base-Collector junction）：**反向偏置（reverse biased）**，确保集电极能有效收集从发射极注入的载流子，维持高输出阻抗和稳定的电流放大特性。  \n\n此外，知识图谱中“Active Region”的定义也直接对应这一描述：“The Active Region is a fundamental operating mode of the bipolar junction transistor (BJT), defined by specific biasing conditions: the base–emitter junction is forward-biased (typically with a voltage drop of approximately 0.7 V for silicon devices), and the base–collector junction is reverse-biased。”  \n\n\n### 总结  \nBJT工作在有源区需满足发射极-基极结正向偏置、基极-集电极结反向偏置的偏置条件，讲义通过“正向偏置（forward bias）”和“反向偏置（reverse bias）”明确描述了这两个PN结的状态，这是理解BJT线性放大原理的核心条件。  \n\n\n### References  \n- [1] 2024-ch2-BJTs.pdf  \n- [1] 2024-ch2-BJTs.pdf  \n- [1] 2024-ch2-BJTs.pdf  \n- [1] 2024-ch2-BJTs.pdf  \n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "有源区要求发射结正偏（forward bias）、集电结反偏（reverse bias）。讲义第7页的工作模式表明：emitter-base junction forward biased，base-collector junction reverse biased，此时晶体管具有线性放大能力，适合用作放大器。",
+    "category": "concept",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "发射结正偏",
+        "集电结反偏"
+      ],
+      "must_not_claim": [
+        "两个结都正偏",
+        "两个结都反偏"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q02",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中定义的直流电流增益 β（beta）公式是什么？它与 α 之间有什么关系？",
+    "answer": "在讲义中，直流电流增益 **β（beta）** 的核心定义公式为：\n\n$$\nI_C = \\beta \\, I_B\n$$\n\n该式明确指出：**在双极结型晶体管（BJT）的共发射极（common-emitter）直流偏置工作状态下，集电极电流 $I_C$ 与基极电流 $I_B$ 成正比，比例系数即为直流电流增益 $\\beta$**。  \n此关系严格适用于**有源区（active region）**——即发射结正偏、集电结反偏的稳定工作状态。$\\beta$ 是一个无量纲、器件特异性的参数，通常取值范围为 **20 至 300**（常见设计值为 50–300），也记作 $h_{FE}$ 或 $\\beta_{DC}$。它不仅是 Q 点（静态工作点）计算的基础，也是连接基极回路与集电极-发射极回路的关键桥梁。\n\n---\n\n与此同时，讲义中明确定义了另一个基本电流增益参数：**α（alpha）**，即**共基极直流电流增益（$\\alpha_{DC}$）**，其定义为：\n\n$$\n\\alpha_{DC} = \\frac{I_C}{I_E}\n$$\n\n其中 $I_E$ 为发射极电流，并满足基尔霍夫电流定律（KCL）：$I_E = I_C + I_B$。\n\n由此，$\\beta$ 与 $\\alpha$ 之间存在严格的数学转换关系。讲义中多次强调并推导出以下两个等价表达式：\n\n- 由 $\\alpha$ 求 $\\beta$：\n  $$\n  \\beta = \\frac{\\alpha}{1 - \\alpha}\n  $$\n\n- 由 $\\beta$ 求 $\\alpha$：\n  $$\n  \\alpha = \\frac{\\beta}{\\beta + 1}\n  $$\n\n这一关系源于电流守恒：因 $I_B = I_E - I_C$，代入定义可得  \n$$\n\\beta = \\frac{I_C}{I_B} = \\frac{I_C}{I_E - I_C} = \\frac{I_C/I_E}{1 - I_C/I_E} = \\frac{\\alpha}{1 - \\alpha}\n$$\n\n物理上，$\\alpha$ 表征载流子从发射极穿越基区到达集电极的传输效率，典型值介于 **0.95 至 0.998**（硅管常取 0.98–0.998），始终小于 1；而 $\\beta$ 则反映共发射极配置下的电流放大能力，其高值正是由 $\\alpha$ 接近 1 所决定。例如，当 $\\alpha = 0.99$ 时，$\\beta = 0.99 / (1 - 0.99) = 99$；当 $\\alpha = 0.995$ 时，$\\beta \\approx 199$。\n\n因此，$\\beta$ 与 $\\alpha$ 并非独立参数，而是同一物理过程（ minority-carrier injection and transport）在不同组态下的两种表征，二者通过上述代数关系完全耦合，共同构成 BJT 直流模型的基石。\n\n### References\n\n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第25页给出 β_dc = IC / IB，是集电极电流与基极电流之比，也称 hfe。α = IC / IE，两者关系为 IC = βIB = αIE，IE = (1+β)IB，以及 α = β/(β+1)。讲义还指出 AC 模式下 β_ac ≈ β_dc。",
+    "category": "factoid",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "IC/IB",
+        "β",
+        "α"
+      ],
+      "must_not_claim": [
+        "β是电压增益"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q03",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义 Fixed Bias 电路中，基极电流 IBQ 的计算公式是什么？请写出完整推导来源。",
+    "answer": "在讲义所描述的 **Fixed Bias（固定偏置）电路** 中，基极电流的静态值（即**直流工作点电流**）记为 $ I_{BQ} $。其计算公式为：\n\n$$\nI_{BQ} = \\frac{U_{CC} - U_{BE}}{R_B}\n$$\n\n---\n\n### ✅ 完整推导来源（基于讲义内容与知识图谱）\n\n该公式源自对 **固定偏置 NPN BJT 电路的基极–发射极回路（Base–Emitter Loop）** 应用 **基尔霍夫电压定律（KVL）** 的直流稳态分析。\n\n#### 步骤 1：明确电路结构（Fixed-Bias Configuration）\n- 固定偏置电路是最简化的 BJT 直流偏置形式；\n- 仅含一个**基极偏置电阻 $ R_B $**，一端接直流电源 $ U_{CC} $，另一端接晶体管基极（B）；\n- 发射极（E）直接接地（无发射极电阻 $ R_E $）；\n- 集电极通过 $ R_C $ 接 $ U_{CC} $；\n- 晶体管工作于**放大区（Active Region）**，要求：\n  - 发射结正偏：$ U_{BE} > 0 $，\n  - 集电结反偏：$ U_{CE} > U_{BE} $。\n\n#### 步骤 2：写出基极–发射极回路的 KVL 方程  \n沿该回路（从 $ U_{CC} $ 出发 → 经 $ R_B $ → 到基极 → 经 $ U_{BE} $ → 到发射极地）列写 KVL：\n\n$$\nU_{CC} - I_{BQ} \\cdot R_B - U_{BE} = 0\n$$\n\n> ✅ 此方程在知识图谱中被明确定义为：  \n> **“Fixed-Bias Base-Emitter KVL Equation (equation)”**, 描述为：  \n> *“This equation, $ U_{CC} - U_{BE} - I_B \\cdot R_B = 0 $, expresses Kirchhoff’s Voltage Law applied to the base-emitter loop of a fixed-bias BJT circuit.”*  \n> 同时，Document Chunk [1] 多次确认该式为：  \n> `+UCC − IB·RB − UBE = 0`（见 reference_id: \"1\", 第三段）  \n> 及其等价变形 `CC BE B B U U I R − =`（即 $ U_{CC} - U_{BE} = I_B R_B $）（见 reference_id: \"1\", 第四段）。\n\n#### 步骤 3：代入硅管近似模型 —— $ U_{BE} \\approx 0.7\\,\\text{V} $  \n讲义中反复强调此经验近似（如 Document Chunk [1] 第一段与第七段）：\n\n> *“UBE ≈ 0.7 V is a piecewise-constant approximation of the forward-biased base-emitter junction voltage in a silicon bipolar junction transistor (BJT) operating in the active region.”*\n\n该简化使非线性二极管特性线性化，使 KVL 成为可解代数方程。\n\n#### 步骤 4：解出 $ I_{BQ} $  \n由 KVL 方程移项得：\n\n$$\nI_{BQ} = \\frac{U_{CC} - U_{BE}}{R_B}\n$$\n\n> ✅ 此即讲义中固定偏置电路的**标准基极电流计算公式**；  \n> 在知识图谱中，它被归类为 **“Fixed-Bias Base Current Solution”**, 并明确指出其适用前提为“无发射极电阻”的纯固定偏置（对比含 $ R_E $ 的 emitter-stabilized bias，其分母含 $ (\\beta + 1)R_E $）；  \n> Document Chunk [1] 第八段也给出其一般形式（含 $ R_E $），并特别指出：**当 $ R_E = 0 $ 时，该式退化为本公式**。\n\n#### 补充说明：为何不显含 $ \\beta $？  \n- $ I_{BQ} $ 是**由外部电路（$ U_{CC}, R_B $）和器件内建压降（$ U_{BE} $）共同决定的输入控制量**；\n- $ \\beta $ 不参与 $ I_{BQ} $ 的直接求解，仅用于后续计算 $ I_{CQ} = \\beta I_{BQ} $ 和 $ U_{CEQ} = U_{CC} - I_{CQ} R_C $；\n- 这也正是 Fixed Bias **稳定性差**的根本原因：$ I_{CQ} $ 对 $ \\beta $ 变化极度敏感（因 $ I_{BQ} $ 固定，$ I_{CQ} \\propto \\beta $）。\n\n---\n\n### ✅ 结论  \n讲义中 Fixed Bias 电路的基极电流 $ I_{BQ} $ 计算公式为：\n\n$$\n\\boxed{I_{BQ} = \\frac{U_{CC} - U_{BE}}{R_B} \\quad \\text{（其中 } U_{BE} \\approx 0.7\\,\\text{V} \\text{ for Si）}}\n$$\n\n该式严格来源于：\n- 基极–发射极回路的 **KVL 约束**（$ U_{CC} - I_{BQ} R_B - U_{BE} = 0 $），\n- 硅 BJT 在有源区工作的 **$ U_{BE} $ 恒压模型**（$ \\approx 0.7\\,\\text{V} $），\n- 且对应于 **无发射极电阻（$ R_E = 0 $）** 的最简固定偏置拓扑。\n\n### References\n\n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第10页，对 base-emitter 回路列 KVL：+UCC − IB·RB − UBE = 0，整理得 IB = (UCC − UBE) / RB，其中 UBE ≈ 0.7V。然后 ICQ = β·IBQ，最后由 collector-emitter 回路 KVL 得 UCEQ = UCC − IC·RC。",
+    "category": "factoid",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "(UCC-UBE)/RB",
+        "KVL",
+        "UBE≈0.7V"
+      ],
+      "must_not_claim": [
+        "IB=UCC/RB"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q04",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中介绍的三种基本 BJT 放大器配置是什么？各自的输入端和输出端在哪个极？",
+    "answer": "\n要回答讲义中介绍的三种基本BJT放大器配置及其输入端和输出端位置，需从提供的知识资源中提取关键信息。以下是具体分析结果：\n\n### 三种基本BJT放大器配置及终端映射\n讲义中介绍的三种基本BJT放大器配置为**共发射极（Common-Emitter, CE）**、**共基极（Common-Base, CB）** 和 **共集电极（Common-Collector, CC）**。它们的输入端、公共端（common terminal）和输出端位置可通过终端映射表（参考文档[1]）明确如下：\n\n1. **共发射极（Common-Emitter, CE）配置**  \n   - 输入端：基极（Base, B）  \n   - 公共端：发射极（Emitter, E）  \n   - 输出端：集电极（Collector, C）  \n\n2. **共基极（Common-Base, CB）配置**  \n   - 输入端：发射极（Emitter, E）  \n   - 公共端：基极（Base, B）  \n   - 输出端：集电极（Collector, C）  \n\n3. **共集电极（Common-Collector, CC）配置**  \n   - 输入端：基极（Base, B）  \n   - 公共端：集电极（Collector, C）  \n   - 输出端：发射极（Emitter, E）  \n\n### 关键依据\n上述信息来源于对BJT放大器配置终端映射表（参考文档[1]）的分析，该表系统性地定义了三种拓扑的输入/公共/输出终端关系，并与讲义中关于“根据公共端定义BJT放大器配置”的论述（Section 2.4.1）一致。每种配置的终端角色直接决定了其增益特性（如CE的高电压增益与相位反转、CC的电压跟随特性等）和阻抗特性（如CB的高带宽、CC的高输入阻抗等）。\n\n### 参考文献\n* [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第20页总结了三种配置：①共基极（CB）：输入在 emitter，输出在 collector，base 为公共端；②共射极（CE）：输入在 base，输出在 collector，emitter 为公共端；③共集极（CC，也称 emitter follower）：输入在 base，输出在 emitter，collector 为公共端。",
+    "category": "topology",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "共基极",
+        "共射极",
+        "共集极"
+      ],
+      "must_not_claim": [
+        "CE输入在emitter"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q05",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义对 CE 放大器的特性总结了哪四点？并说明输入与输出之间的相位关系。",
+    "answer": "\n### CE放大器的四点特性总结及输入输出相位关系\n\n根据提供的讲义内容，对CE（Common-Emitter）放大器的特性总结如下四点，并说明输入与输出之间的相位关系：\n\n1. **高输入阻抗**：CE放大器在输入端呈现较高的等效阻抗，便于从前级信号源获取信号且减少对源信号的负载影响。  \n2. **低输出阻抗**：输出端呈现相对较低的等效阻抗，适合驱动低阻抗负载并实现有效的功率传输。  \n3. **高电压和电流增益**：该配置能显著放大输入信号的电压和电流，是电压放大应用的核心选择之一。  \n4. **输入与输出之间的相位关系**：CE放大器具有180°的相位反转特性，即输出信号与输入信号在相位上相差180°（输出波形相对于输入波形倒相）。  \n\n\n### 参考文献\n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第32页总结 CE 放大器特性：①高输入阻抗（high input impedance）；②低输出阻抗（low output impedance）；③高电压增益和电流增益（high voltage and current gain）；④输入与输出之间相位差 180°（phase shift is 180°，即反相）。电压增益公式 Au = −RL/re，负号体现反相。",
+    "category": "topology",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "输入阻抗高",
+        "输出阻抗低",
+        "反相",
+        "180°"
+      ],
+      "must_not_claim": [
+        "CE放大器同相输出"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q06",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中 re 模型的 re 值如何计算？它在 CE 配置的 re 模型中对应哪个参数？",
+    "answer": "\n### re 模型中 re 值的计算方法  \n在讲义中，re 模型里的 **r_e（即 re）** 是发射极的动态（小信号）电阻，其计算公式为：  \n\\[ r_e = \\frac{V_T}{I_E} \\]  \n其中，\\( V_T \\) 是热电压（室温下约 25–26 mV，工程计算中常取 26 mV），\\( I_E \\) 是直流发射极偏置电流（即 Q 点的发射极静态电流）。这一公式源于对正向偏置发射结的线性化处理（对 Shockley 二极管方程在 Q 点附近求导），反映了发射结的动态电阻特性。  \n\n\n### 在 CE 配置的 re 模型中对应哪个参数  \n在 Common-Emitter（CE）配置的 re 模型中，**r_e 对应发射极动态电阻**（即小信号发射极电阻）。具体来说，在 CE 小信号等效电路中，r_e 是连接发射极（e）与基极（b）（或地）的电阻元件，用于表征发射结的动态电阻特性。该参数是 re 模型的核心元素，直接参与输入阻抗（\\( Z_i \\approx \\beta r_e \\)）、电压增益（\\( A_v \\approx -\\frac{R_C}{r_e} \\)）等 AC 分析的计算，是 CE 放大器小信号模型的关键参数。  \n\n\n### 参考文献  \n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第19、28页给出 re = 26mV / IE，即热电压除以发射极直流工作电流。在 CE 配置的 re 模型中，BJT 的基极到发射极之间等效为 βre（因为 ie = (β+1)ib ≈ βib，输入阻抗为 βre），电流源为 βib。re 模型需要先做 DC 分析求出 IE，才能确定 re 值。",
+    "category": "mapping",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "26mV/IE",
+        "βre"
+      ],
+      "must_not_claim": [
+        "re=26mV/IC"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q07",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义第33页，CE with Emitter-Bias 电路中，ZB 的表达式是什么？它如何影响输入阻抗 Zi？",
+    "answer": "在提供的知识库中，**并未提及“讲义第33页”**，也**没有关于“CE with Emitter-Bias 电路中 ZB 的表达式”的直接信息**。所有明确标注的页码包括：Page 15、22、23、24、24–26、28、29、30，但**无 Page 33**。因此，无法从给定上下文中提取“第33页”的具体内容。\n\n然而，问题核心——**Z_B 的定义及其对输入阻抗 Z_i 的影响**——在知识图谱与文档块中有**充分且一致的描述**，可基于权威、高频出现的定义进行严谨推导与解释。以下分析严格依据所提供材料：\n\n---\n\n### 一、Z_B 的标准定义与物理含义\n\nZ_B 明确被定义为 **BJT 在共集电极（即发射极跟随器，Common-Collector）配置下，从基极（base）端口看入的输入阻抗**，其标准表达式为：\n\n\\[\nZ_B \\approx r_\\pi + (\\beta + 1)R_E\n\\]\n\n其中：\n- \\(r_\\pi\\) 是混合-π模型中的基极-发射极扩散电阻，\\(r_\\pi = \\beta \\, r_e = \\beta \\frac{V_T}{I_E}\\)；\n- \\(\\beta\\) 是晶体管的直流电流放大系数；\n- \\(R_E\\) 是发射极电阻（含外部 unbypassed 发射极电阻及可能的内阻）；\n- \\((\\beta + 1)R_E\\) 项体现了**发射极电阻经电流增益反射至基极的阻抗变换效应**，是负反馈稳定化的核心机制。\n\n该定义在多处被交叉验证：\n- 知识图谱中：“Z_B is the transistor’s base-input impedance in the hybrid-π small-signal model… canonically approximated as \\(r_\\pi + (\\beta+1)R_E\\)”；\n- “Z_B is the canonical input impedance expression for the common-collector amplifier”；\n- 文档块 [1] 中明确指出：“Z_B ≈ r_π + (β+1)R_E”，并强调其源于关系式 \\(Z_B = v_{\\text{in}} / i_B = (v_{be} + i_e R_E)/i_B\\)，其中 \\(i_e = (\\beta+1)i_B\\)。\n\n> ✅ 注意：Z_B **并非用于共射极（CE）放大器的输入阻抗主表达式**，而是**共集电极（CC/Emitter-Follower）的专属符号**。在 CE 配置中，等效的基极侧阻抗常记为 \\(Z_{\\text{in},B}\\) 或直接融入 \\(Z_i\\)。\n\n---\n\n### 二、Z_B 如何影响共射极放大器（CE with Emitter-Bias）的输入阻抗 Zi？\n\n虽然 Z_B 本身是 CC 配置的术语，但在**带发射极偏置（Emitter-Bias）的共射极放大器**中，**完全相同的物理机制——即发射极电阻 R_E 对基极输入阻抗的提升作用——依然存在，且数学形式高度一致**。\n\n对于发射极有未旁路电阻 \\(R_E\\) 的 CE 放大器，其输入阻抗 \\(Z_i\\)（在基极端子处测得）的标准表达式为：\n\n\\[\nZ_i \\approx R_B \\parallel \\left[ r_\\pi + (\\beta + 1)R_E \\right] = R_B \\parallel Z_B\n\\]\n\n其中：\n- \\(R_B\\) 是基极偏置网络的戴维南等效电阻（如电压分压偏置中的 \\(R_1 \\parallel R_2\\)）；\n- 方括号内正是 \\(Z_B\\) —— 即**发射极电阻反射到基极所形成的高阻支路**；\n- “\\(\\parallel\\)” 表示并联，表明总输入阻抗是偏置电阻与晶体管自身高输入阻抗的并联结果。\n\n这一关系在知识图谱中被多次确认：\n- “Z_B depends directly on R_E through the term \\((\\beta+1)R_E\\)”；\n- “R_E increases Z_i to \\(\\beta(r_e + R_E)\\) when present”（等价于 \\(r_\\pi + (\\beta+1)R_E\\)，因 \\(r_\\pi = \\beta r_e\\)）；\n- 文档块 [1] 明确给出：“Z_i ≈ R₁ || R₂ || [β(r_e + R_E)]”，而 \\(\\beta(r_e + R_E) = \\beta r_e + \\beta R_E = r_\\pi + \\beta R_E \\approx r_\\pi + (\\beta+1)R_E\\)（当 \\(\\beta \\gg 1\\) 时，\\(\\beta R_E \\approx (\\beta+1)R_E\\)）。\n\n因此，**Z_B 实质上构成了 Zi 的晶体管内部贡献部分**；它的存在使 Zi **显著高于无发射极电阻（即 \\(R_E = 0\\)）时的 \\(\\beta r_e\\) 或 \\(r_\\pi\\)**，从而带来关键设计优势：\n- ✅ **增强偏置稳定性**：因 \\(Z_i\\) 增大，基极电流 \\(i_B\\) 对偏置网络的负载效应减小，Q点更不易受 \\(\\beta\\) 波动影响；\n- ✅ **提高线性度与带宽**：发射极退化（emitter degeneration）降低增益但改善失真，并减弱密勒效应；\n- ❌ **代价是电压增益下降**：因交流发射极压降增大，有效跨导被抑制，典型增益变为 \\(A_v \\approx -R_C / (r_e + R_E)\\)。\n\n---\n\n### 三、总结：Z_B 与 Zi 的本质联系\n\n| 概念 | 符号 | 表达式 | 所属配置 | 对 Zi 的作用 |\n|------|------|--------|-----------|----------------|\n| **基极输入阻抗（晶体管本征）** | \\(Z_B\\) | \\(r_\\pi + (\\beta+1)R_E\\) | Common-Collector（Emitter-Follower） | 是 Zi 的核心组成部分；在 CE with \\(R_E\\) 中，它作为并联支路之一，**决定 Zi 的上限值** |\n| **总输入阻抗（电路级）** | \\(Z_i\\) | \\(R_B \\parallel Z_B\\) | Common-Emitter with Emitter-Bias | **直接受 Z_B 主导**；当 \\(R_B \\gg Z_B\\) 时，\\(Z_i \\approx Z_B\\)；它是衡量信号源驱动难度的关键参数 |\n\n综上，尽管“第33页”不可考，但基于全部可用材料，Z_B 的表达式及其对 Zi 的提升机制是清晰、统一且物理意义明确的：**它代表了发射极电阻通过电流放大实现的阻抗反射，是实现高输入阻抗、高稳定性共射极放大器的设计基石**。\n\n### References\n\n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第33页给出 ZB = βre + (β+1)RE ≈ β(re + RE)。整个放大器输入阻抗 Zi = RB || ZB。由于 ZB 中包含 (β+1)RE 项，RE 被放大了 (β+1) 倍后叠加到 βre 上，使输入阻抗相比无 RE 的 fixed bias 显著提高。电压增益 Au = −βRC / ZB = −RC / (re + RE)。",
+    "category": "mapping",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "(β+1)RE",
+        "ZB",
+        "Zi=RB||ZB"
+      ],
+      "must_not_claim": [
+        "RE不影响输入阻抗"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q08",
+    "doc_id": "circuit_doc_bjt",
+    "question": "用讲义介绍的 Voltage Divider Bias（分压偏置）方法，写出求解 Q 点的完整步骤。",
+    "answer": "\n要使用电压分压偏置（Voltage Divider Bias）方法求解BJT的Q点（静态工作点），需遵循以下完整步骤，基于讲义中介绍的原理和公式：  \n\n\n### 1. 基极偏置网络的Thevenin等效转换  \n电压分压偏置电路中，基极由电阻 \\( R_1 \\) 和 \\( R_2 \\) 构成的分压网络供电。首先将此网络等效为**Thevenin电路**，简化分析：  \n- 等效电压 \\( E_{Th} \\)：由分压公式计算，\\( E_{Th} = U_{CC} \\cdot \\frac{R_2}{R_1 + R_2} \\)（\\( U_{CC} \\) 为直流电源电压）。  \n- 等效电阻 \\( R_{Th} \\)：\\( R_{Th} = R_1 \\parallel R_2 = \\frac{R_1 \\cdot R_2}{R_1 + R_2} \\)。  \n\n\n### 2. 基极-发射极回路的KVL分析  \n对基极-发射极回路应用**基尔霍夫电压定律（KVL）**，建立方程：  \n\\[ E_{Th} - U_{BE} = I_B \\cdot \\left( R_{Th} + (1 + \\beta)R_E \\right) \\]  \n其中：  \n- \\( U_{BE} \\approx 0.7\\,\\text{V} \\)（硅BJT在放大区的基极-发射极正向压降，为简化近似）；  \n- \\( \\beta \\) 为BJT的直流电流增益（\\( I_C = \\beta I_B \\)）；  \n- \\( R_E \\) 为发射极电阻（引入负反馈，提升Q点稳定性）。  \n\n\n### 3. 求解基极电流 \\( I_B \\)  \n从上述基极回路方程中解出基极电流 \\( I_B \\)：  \n\\[ I_B = \\frac{E_{Th} - U_{BE}}{R_{Th} + (1 + \\beta)R_E} \\]  \n\n\n### 4. 计算集电极电流 \\( I_C \\)  \n利用BJT的直流电流关系 \\( I_C = \\beta I_B \\)，代入 \\( I_B \\) 的值，得到集电极电流：  \n\\[ I_C = \\beta \\cdot I_B \\]  \n\n\n### 5. 集电极-发射极回路的KVL分析  \n对集电极-发射极回路应用KVL，建立方程：  \n\\[ U_{CE} = U_{CC} - I_C R_C - I_E R_E \\]  \n由于 \\( I_E \\approx I_C + I_B \\approx (\\beta + 1)I_B \\)（放大区近似 \\( I_C \\gg I_B \\)），代入 \\( I_C \\) 和 \\( I_B \\) 的值，计算得到集电极-发射极电压 \\( U_{CE} \\)。  \n\n\n### 6. 确认Q点位置  \nQ点由 \\( (I_C, U_{CE}) \\) 定义，需验证其位于**放大区**（保证线性放大）：  \n- 条件1：\\( U_{CE} > U_{BE} \\)（确保发射结正向偏置、集电结反向偏置）；  \n- 条件2：\\( I_C < I_{C(\\text{sat})} \\)（避免进入饱和区）。  \n\n\n通过以上步骤，可完整求解电压分压偏置BJT的Q点，确保电路在无交流信号时处于稳定的放大工作状态。  \n\n### References  \n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第16页给出步骤：①用 Thévenin 等效简化偏置网络：RTh = R1||R2，ETh = R2·UCC/(R1+R2)；②对 base-emitter 回路列 KVL：IB = (ETh − UBE) / (RTh + (β+1)RE)；③计算 ICQ = β·IBQ；④对 collector-emitter 回路列 KVL：UCEQ = UCC − IC(RC + RE)。讲义指出分压偏置是\"非常稳定的偏置电路\"，工作点几乎不随 β 变化。",
+    "category": "procedure",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "Thévenin",
+        "ETh",
+        "RTh",
+        "KVL",
+        "ICQ=βIBQ"
+      ],
+      "must_not_claim": [
+        "分压偏置不需要Thevenin等效"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q09",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中绘制 DC 等效电路需要哪三个步骤？AC 等效电路又需要哪些步骤？",
+    "answer": "\n要回答讲义中绘制DC等效电路和AC等效电路的步骤，需从提供的Context中提取相关信息并梳理逻辑。以下是具体分析：\n\n### DC等效电路的绘制步骤\n根据Context中关于“DC Equivalent Circuit”的描述（参考知识图谱数据），绘制DC等效电路需遵循以下三个步骤：  \n1. **开路耦合电容和旁路电容**：在直流分析中，耦合电容（如输入、输出耦合电容）因直流下容抗无穷大而开路；旁路电容（如发射极旁路电容）同样在直流下开路。  \n2. **短路电感**：直流下电感的感抗为零，因此所有电感元件被短路处理。  \n3. **保留直流电源和电阻等无源元件**：直流源（如 \\( U_{CC} \\)）和电阻（如 \\( R_B, R_C \\) 等）在直流等效电路中直接保留，用于分析直流偏置状态（如Q点）。  \n\n\n### AC等效电路的绘制步骤\n根据Context中关于“AC Equivalent Circuit”的描述（参考知识图谱数据），绘制AC等效电路需遵循以下三个步骤：  \n1. **移除直流源**：将直流电源（如 \\( U_{CC} \\)）替换为短路（因为交流信号分析时直流源不影响小信号行为）。  \n2. **替换耦合/旁路电容为短路**：耦合电容（输入、输出耦合电容）和旁路电容（发射极旁路电容）在交流频率下容抗很小，因此替换为短路，以隔离直流并允许交流信号通过。  \n3. **使用小信号模型表示BJT**：将BJT替换为线性化的小信号模型（如 \\( r_e \\) 模型、混合-π模型等），通过参数（如 \\( \\beta, r_e \\)）描述其小信号特性，便于分析交流增益、输入/输出阻抗等动态性能。  \n\n\n### 参考依据\n- 关于DC等效电路的步骤，参考“DC Equivalent Circuit”的描述（对应知识图谱中“DC Equivalent Circuit”实体）。  \n- 关于AC等效电路的步骤，参考“AC Equivalent Circuit”的描述（对应知识图谱中“AC Equivalent Circuit”实体）。  \n\n### References\n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "DC 等效电路（讲义第9页）：①将电容替换为开路（open-circuit equivalent）；②将电感替换为短路（short-circuit equivalent）；③DC 电源可分开分析。AC 等效电路（讲义第18页）：①移除 DC 电压源（短路替换）；②耦合电容和旁路电容替换为短路。两套等效电路分离，体现了\"DC 和 AC 响应是分开分析的\"这一核心原则。",
+    "category": "procedure",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "电容开路",
+        "DC电源短路",
+        "耦合电容短路"
+      ],
+      "must_not_claim": [
+        "DC和AC分析步骤相同"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q10",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中为什么说在发射极加 RE（Emitter Bias）能提高电路稳定性？其稳定机制是什么？",
+    "answer": "\n在讲义中，发射极加入电阻 \\( R_E \\)（即**发射极偏置，Emitter Bias**配置）能提高电路稳定性的核心原因是**通过引入负反馈机制（Negative DC Feedback）来抑制温度和晶体管参数（如电流放大系数 \\( \\beta \\)）的变化对静态工作点（Q点）的影响**。其稳定机制可从以下方面解析：\n\n### 为什么加入 \\( R_E \\) 能提高稳定性？\n发射极偏置（Emitter Bias）是一种直流偏置配置，通过在发射极回路串联电阻 \\( R_E \\)，利用 \\( R_E \\) 引入的**负反馈**特性，使电路对温度变化和晶体管参数（尤其是 \\( \\beta \\)）的波动不敏感，从而稳定静态工作点。\n\n### 稳定机制详解\n1. **负反馈的形成**  \n   \\( R_E \\) 连接在发射极与地之间，当发射极电流 \\( I_E \\) 发生变化时，会在 \\( R_E \\) 上产生电压降 \\( U_E = I_E \\cdot R_E \\)。根据基极-发射极回路的基尔霍夫电压定律（KVL），回路电压关系为：  \n   \\[\n   U_{CC} - I_B R_B - U_{BE} - I_E R_E = 0\n   \\]  \n   其中 \\( U_{BE} \\approx 0.7\\ \\text{V} \\)（硅晶体管基极-发射极正向压降）。当温度升高或 \\( \\beta \\) 增大时，集电极电流 \\( I_C \\) 会增大，进而导致发射极电流 \\( I_E \\approx I_C + I_B \\approx (\\beta + 1)I_B \\) 也增大。此时，\\( I_E R_E \\) 的电压降增大，根据上述KVL方程，\\( U_{BE} \\) 必然减小（因为 \\( U_{CC} \\)、\\( I_B R_B \\) 近似不变）。  \n   \\( U_{BE} \\) 的减小会抑制基极电流 \\( I_B \\) 的进一步增大（\\( I_B = \\frac{U_{CC} - U_{BE}}{R_B + (\\beta + 1)R_E} \\)），最终限制集电极电流 \\( I_C \\) 的增长。这种“电流变化→电压反馈→抑制电流变化”的闭环过程，就是**负反馈**，它有效抵消了温度和 \\( \\beta \\) 变化对 \\( I_C \\) 的影响。\n\n2. **对温度和 \\( \\beta \\) 变化的抑制**  \n   - **温度稳定性**：温度升高时，晶体管的 \\( U_{BE} \\) 会减小（负温度系数），但 \\( R_E \\) 引入的负反馈会补偿这一变化——温度升高导致 \\( I_C \\) 增大，\\( I_E R_E \\) 增大，进而降低 \\( U_{BE} \\)，抑制 \\( I_C \\) 的进一步上升，保持 \\( I_C \\) 稳定。  \n   - **参数稳定性**：晶体管的 \\( \\beta \\) 随制造工艺和温度变化，但 \\( R_E \\) 的负反馈使 \\( I_C \\) 对 \\( \\beta \\) 不敏感。例如，当 \\( \\beta \\) 增大时，\\( I_C \\) 本应增大，但 \\( I_E R_E \\) 的增大会降低 \\( U_{BE} \\)，从而减小 \\( I_B \\)，最终限制 \\( I_C \\) 的增长，实现参数稳定。\n\n3. **静态工作点（Q点）的稳定**  \n   通过上述负反馈机制，发射极电流 \\( I_E \\)、集电极电流 \\( I_C \\) 和集电极-发射极电压 \\( U_{CE} \\) 的变化被显著抑制，静态工作点（Q点）保持稳定。这确保了放大器在温度波动或晶体管参数分散性下仍能工作在放大区（线性区），避免进入截止区或饱和区。\n\n### 对比与验证\n讲义中通过“固定偏置（Fixed Bias）”与“发射极偏置（Emitter Bias）”的电路对比图（如参考文档中的电路示意图）直观展示了 \\( R_E \\) 的加入。固定偏置电路无 \\( R_E \\)，其Q点对 \\( \\beta \\) 和温度变化敏感；而发射极偏置电路通过 \\( R_E \\) 引入负反馈，明显提升了稳定性。这一设计思想也符合“改进偏置稳定性（Improved Biased Stability）”的核心目标，即通过发射极电阻 \\( R_E \\) 的引入，实现“增强热稳定性（Thermal Stability）”和“参数稳定性（Parameter Stability）”。\n\n---\n\n### References\n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第14-15页说明：RE 引入负反馈稳定机制——若温度升高导致 IC 增大，则 IE 增大，UE = IE·RE 增大，使 UBE = UB − UE 减小，从而 IB 减小，IC 回落，抑制了最初的增大趋势。讲义指出 stability 指偏置电路在宽温度范围和 β 变化下，电流电压保持基本稳定。RE 的代价是交流增益降低（分母出现 RE 项），实际使用中常在 RE 上并联旁路电容来恢复交流增益。",
+    "category": "reasoning",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "负反馈",
+        "UBE减小",
+        "稳定",
+        "RE"
+      ],
+      "must_not_claim": [
+        "RE增大增益"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q11",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中饱和区（saturation region）的特征是什么？此时 IC 与 IB 还满足 IC = βIB 吗？",
+    "answer": "饱和区（Saturation Region）是双极结型晶体管（BJT）三种基本工作模式之一，与截止区（Cutoff）和放大区（Active Region）并列。根据讲义内容，其核心特征可系统归纳如下：\n\n**一、饱和区的物理与电气特征**\n\n- **结偏置状态**：饱和区的定义性条件是**发射结（Base–Emitter Junction）和集电结（Base–Collector Junction）均处于正向偏置**。这与放大区（发射结正偏、集电结反偏）和截止区（两结均反偏）形成鲜明对比。\n\n- **电压特征**：此时集电极–发射极电压 $V_{CE}$（或记为 $U_{CE}$）极低，被钳位在饱和压降 $V_{CE(sat)}$（或 $U_{CE,sat}$）附近，典型值为 **0.1 V 至 0.3 V**（硅管），远低于放大区中常见的几伏特。讲义明确指出：“Saturation occurs when $V_{CE}$ falls to $V_{CE,sat}$ (~0.2 V)”。\n\n- **电流特征**：集电极电流 $I_C$ 达到该电路配置下的**最大可能值**，即 $I_{C,\\text{max}} \\approx U_{CC} / R_C$，由外部电源电压 $U_{CC}$ 和集电极电阻 $R_C$ 共同决定，而非由晶体管自身的电流增益控制。因此，BJT 在此状态下表现为一个**低阻通路**，如同一个“闭合的开关”，适用于数字开关和功率驱动等应用。\n\n- **图形表征**：在输出特性曲线（$I_C$–$U_{CE}$ 图）上，饱和区位于图的**最左侧区域**，表现为当 $U_{CE}$ 很小时，$I_C$ 仍维持在较高水平，且随 $U_{CE}$ 的微小增加而急剧上升。讲义中的图 (a) 明确将该区域标注为 “saturation region”，并指出 Point B 位于此区域内。\n\n**二、IC 与 IB 的关系：IC = βIB 是否成立？**\n\n**不成立。** 这是饱和区与放大区最本质的区别之一。\n\n- 在放大区，晶体管工作在线性放大状态，其核心大信号模型正是 $I_C = \\beta I_B$（其中 $\\beta$ 是直流电流放大系数）。该关系是讲义中反复强调的“fundamental DC current gain relationship”，是 Q 点分析、负载线绘制和放大器设计的基石。\n\n- 然而，在饱和区，由于集电结的正向偏置，晶体管的内部载流子输运机制发生根本改变。此时，$I_C$ 不再受 $I_B$ 的线性控制，而是主要由外部电路参数（$U_{CC}, R_C$）所限制。讲义多处明确指出：\n  - “In this state, the BJT behaves like a closed switch... collector current is no longer governed by the relationship $I_C = \\beta \\cdot I_B$”。\n  - “In saturation, $I_C$ is no longer approximated by $\\beta_{DC} \\cdot I_B$ — and in fact significantly exceeds it”。\n  - “The standard active-mode current relationship breaks down”。\n\n因此，在饱和区，$I_C$ 会**显著大于** $\\beta I_B$ 所预测的值，$\\beta$ 参数本身也因工作点偏离理想条件而“坍塌”（collapses），失去其作为有效放大系数的意义。此时，$I_C \\approx I_E$ 的近似也失效，因为大量载流子在基区复合，导致 $I_B$ 相对增大。\n\n### References\n\n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第7-8页：饱和区的偏置条件是 emitter-base junction forward biased 且 base-collector junction forward biased（两个结都正偏）。讲义第27页说明此时 IC 达到最大值 ICmax，UCE 达到最小值 UCEsat。由于集电结也正偏，IC 不再由 βIB 控制，而是由外电路（RC、UCC）决定：ICsat ≈ UCC/RC。因此 IC = βIB 在饱和区不适用。",
+    "category": "concept",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "两个结正偏",
+        "IC不再等于βIB",
+        "UCEsat"
+      ],
+      "must_not_claim": [
+        "饱和区IC=βIB仍然成立"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q12",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中截止区（cutoff region）的特征是什么？此时 IC 的值接近多少？",
+    "answer": "\n要理解讲义中截止区（cutoff region）的特征及此时集电极电流 \\( I_C \\) 的值，需结合提供的知识库信息分析：  \n\n\n### 截止区的核心特征  \n截止区是双极结型晶体管（BJT）的基本工作模式之一，此时晶体管被**有效关断**，在电路中表现为“开路”状态。其关键特征包括：  \n1. **PN结偏置状态**：基极-发射极（base-emitter）和基极-集电极（base-collector）两个PN结均处于**反向偏置**状态。  \n2. **电流特性**：所有端口的电流近似为零。具体表现为：基极电流 \\( I_B \\) 接近零或略为负值，集电极电流 \\( I_C \\) 接近漏电流 \\( I_{CEO} \\)（即基极开路时的集电极-发射极漏电流），发射极电流 \\( I_E \\) 也接近零。  \n3. **关系失效**：主动模式下的电流关系（如 \\( I_C = \\beta I_B \\)）因 \\( I_B \\approx 0 \\) 而失效，晶体管无法实现电流放大。  \n\n\n### 此时 \\( I_C \\) 的值  \n在截止区，集电极电流 \\( I_C \\) **接近最小值**，即近似等于漏电流 \\( I_{CEO} \\)（或称 \\( I_CEO \\)）。文档明确指出：“在截止区，\\( U_{CE} \\) 达到最大值且 \\( I_C \\) 达到最小值（\\( I_{C\\text{min}} = I_{CEO} \\)）”。  \n\n\n### 参考依据  \n- 关于截止区的定义与电流特性，可参考知识库中 `Cutoff Region` 实体描述（对应文档内容）。  \n- 关于 \\( I_C \\) 在截止区的最小值特性，参考文档片段中对“截止区”的说明（如 `reference_id: 1` 中“UCE is at maximum and I C is at minimum (I Cmin = I CEO ) in the cutoff region”）。  \n\n\n### 参考文献  \n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第7-8页：截止区的条件是 emitter-base junction reverse biased（两个结都反偏）。此时没有载流子注入基区，IC 降至最小值，约等于 ICEO（≈ β·ICBO），ICBO 是极小的反向漏电流，通常可忽略。讲义第6页 output characteristics 图中，IB = 0μA 对应的最低曲线即为截止区边界，UCE = UCC 时 IC = 0mA（近似）。",
+    "category": "concept",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "截止区",
+        "两个结反偏",
+        "IC≈0"
+      ],
+      "must_not_claim": [
+        "截止区IC很大"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q13",
+    "doc_id": "circuit_doc_bjt",
+    "question": "从讲义第6页的 CE output characteristics（IC-UCE 特性曲线）图中，说明 load line（负载线）的两个端点坐标如何确定，以及 Q-point 如何从图上读取。",
+    "answer": "\n### 负载线两个端点的坐标确定方法  \n根据负载线方程 \\( U_{CE} = U_{CC} - I_C R_C \\)（由基尔霍夫电压定律KVL推导，对应文档中“DC Collector-Emitter Load Line Equation for Common-Emitter BJT (equation)”等内容），负载线的两个端点可通过以下方式确定：  \n1. **饱和点（Saturation Point）**：当 \\( U_{CE} = 0 \\, \\text{V} \\) 时，代入方程得 \\( I_C = \\frac{U_{CC}}{R_C} \\)，因此饱和点坐标为 \\( \\left( \\frac{U_{CC}}{R_C}, 0 \\right) \\)（即 \\( I_C = \\frac{U_{CC}}{R_C} \\) 时，\\( U_{CE} = 0 \\, \\text{V} \\)）。  \n2. **截止点（Cutoff Point）**：当 \\( I_C = 0 \\, \\text{mA} \\) 时，代入方程得 \\( U_{CE} = U_{CC} \\)，因此截止点坐标为 \\( \\left( U_{CC}, 0 \\right) \\)（即 \\( I_C = 0 \\) 时，\\( U_{CE} = U_{CC} \\)）。  \n\n这两个端点在 \\( I_C - U_{CE} \\) 平面上定义了负载线的位置和走向，其直线斜率为 \\( -\\frac{1}{R_C} \\)（参考文档中“Load Line”概念描述）。  \n\n\n### Q-point的图上读取方法  \nQ-point（静态工作点）是负载线与晶体管输出特性曲线（不同基极电流 \\( I_B \\) 对应的 \\( I_C - U_{CE} \\) 曲线）的**交点**。具体读取步骤如下：  \n1. 在输出特性曲线图中，找到对应特定 \\( I_B \\) 的水平曲线（每条曲线代表一个固定的 \\( I_B \\) 值，如 \\( I_{BQ} \\) 曲线）。  \n2. 观察该 \\( I_B \\) 曲线与负载线的交点，该交点即为Q-point。  \n3. 读取交点的坐标值：横坐标为 \\( U_{CEQ} \\)（截止-发射极电压），纵坐标为 \\( I_{CQ} \\)（集电极电流）。  \n\n例如，在提供的“BJT Collector Characteristics with Load Line”图中，负载线与 \\( I_{BQ} \\) 曲线的交点 \\( Q \\) 即为Q-point，其坐标可通过图中标注直接读取（参考文档中“Load Line Analysis”和“Q-Point”相关描述）。  \n\n\n### 参考文献  \n- [5] 2024-ch2-BJTs.pdf  \n- [1] 2024-ch2-BJTs.pdf  \n- [1] 2024-ch2-BJTs.pdf  \n- [1] 2024-ch2-BJTs.pdf  \n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第12页：负载线由 KVL 方程 UCE = UCC − IC·RC 决定，两个端点为：①饱和端（UCE=0）：IC = UCC/RC（纵轴截距）；②截止端（IC=0）：UCE = UCC（横轴截距）。Q-point 是负载线与特定 IB 曲线的交点，该 IB 由基极偏置电路确定。Q-point 同时给出 UCEQ 和 ICQ 的工作值，应位于有源区（active region）中，不能落入饱和或截止区。",
+    "category": "cross_modal",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "UCC/RC",
+        "UCC",
+        "交点",
+        "Q-point"
+      ],
+      "must_not_claim": [
+        "负载线是水平线"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q14",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义第13页展示了三组改变电路参数后 Q 点移动的图，分别是改变哪三个参数？Q 点如何移动？",
+    "answer": "\n### 三个被改变的电路参数及Q点移动方式\n\n讲义第13页展示的三组“Circuit Values Affecting the Q-Point”图中，分别改变了以下三个电路参数，且Q点移动方式如下：  \n\n1. **基极电流（\\(I_B\\)）**  \n   - 当基极电流增大时，Q点沿负载线水平移动（或更准确地说，沿负载线向左上方移动）。具体来说，基极电流增大导致集电极电流 \\(I_C\\) 增大，而 \\(U_{CE}\\) 减小，因此Q点在 \\(I_C\\text{-}U_{CE}\\) 平面上的位置会沿负载线向左上方偏移。  \n\n2. **集电极电阻（\\(R_C\\)）**  \n   - 当集电极电阻增大时，负载线变得更陡峭，Q点向左移动。这是因为 \\(U_{CE} = U_{CC} - I_C R_C\\) 公式中，\\(R_C\\) 增大使得负载线的斜率增大（斜率为 \\(-R_C\\)），从而Q点位置随 \\(I_C\\) 减小而向左偏移（\\(U_{CE}\\) 增大）。  \n\n3. **集电极电源电压（\\(U_{CC}\\)）**  \n   - 当集电极电源电压增大时，负载线整体上移，Q点向上移动。由于 \\(U_{CC}\\) 增大，负载线与 \\(U_{CE}\\) 轴的交点（即 \\(I_C=0\\) 时的 \\(U_{CE}\\)）增大，因此Q点在 \\(I_C\\) 增大、\\(U_{CE}\\) 增大的方向上移动。  \n\n\n### References\n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第13页展示：①改变 IB（通过改变 RB）：IB 增大，Q 点沿负载线向左上方（高IC低UCE方向）移动，靠近饱和区；IB 减小则向右下方靠近截止区；②改变 RC（影响负载线斜率）：RC 增大，负载线斜率变缓（纵轴截距 UCC/RC 降低），Q 点随之移动；③改变 UCC（平移负载线）：UCC 增大，两端点均右移/上移，Q 点也向右上方移动。",
+    "category": "cross_modal",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "IB",
+        "RC",
+        "UCC",
+        "Q点移动"
+      ],
+      "must_not_claim": [
+        "三个参数对Q点无影响"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q15",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义指出 DC 分析和 AC 分析可以完全分离，这一原则的依据是什么？工作点选择对 AC 响应有何影响？",
+    "answer": "\n### DC 分析和 AC 分析分离的依据  \n根据提供的 Context，DC 分析与 AC 分析可以完全分离的依据在于 **Page 32 解释的分离原则**，即 DC 偏置分析用于确定静态工作点（Q 点），而 AC 小信号分析基于此静态点进行线性化建模。具体来说：  \n- DC 分析的目标是确定稳态直流工作点（如 \\( I_{CQ} \\)、\\( U_{CEQ} \\) 等），这是 AC 小信号分析的基础，因为 AC 分析需在稳定的 DC 偏置下对非线性器件（如 BJT）进行小信号线性化（如通过 Hybrid-π 或 \\( r_e \\) 模型）。  \n- 从 Knowledge Graph Data 中“DC/AC Analysis Separation”与“Page 32”的关系可知，该页明确阐述了 DC 偏置分析（确定 Q 点）与 AC 小信号分析（基于 Q 点的线性化）的分离逻辑，二者通过 DC 网络的 KVL/KCL 分析和 AC 小信号模型的线性化实现独立处理。  \n\n\n### 工作点选择对 AC 响应的影响  \n工作点（Q 点）作为 DC 静态偏置的体现，直接影响 AC 小信号分析的性能：  \n1. **小信号参数的决定作用**：Q 点的直流电流/电压（如 \\( I_C \\)、\\( U_{CE} \\)）决定了小信号模型的关键参数（如跨导 \\( g_m = \\frac{I_C}{V_T} \\)、发射极电阻 \\( r_e = \\frac{V_T}{I_E} \\)）。这些参数直接关联 AC 增益（如共发射极电压增益 \\( A_v \\approx -\\frac{R_C}{r_e} \\)）、输入输出阻抗等。  \n2. **线性化有效性**：若 Q 点稳定且位于 BJT 的 **主动区**（正向偏置发射结、反向偏置集电结），则小信号线性化（如 Taylor 展开近似）有效，AC 响应（增益、带宽、失真）可准确预测；若 Q 点偏离主动区（如进入饱和或截止区），会导致 AC 信号失真（输出被限幅），且小信号模型失效。  \n3. **稳定性与性能**：稳定的 Q 点（如通过发射极电阻 \\( R_E \\) 引入负反馈稳定 \\( I_C \\)）可减少温度、β 变化对 AC 响应的影响，保证增益、阻抗等指标的稳定性；而不稳定的 Q 点会导致 AC 响应随参数波动，影响电路可靠性。  \n\n简言之，工作点选择决定了 AC 小信号分析的线性化基础和性能边界，是 DC 偏置设计与 AC 性能优化的核心关联点。  \n\n\n### References  \n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第38页总结：对主动和非线性器件，DC 和 AC 响应不同，因此 DC 分析可以与 AC 响应完全分开。依据是叠加原理的线性化近似：在小信号条件下，将器件在 Q 点线性化，DC 建立工作点，AC 小信号叠加其上。但两者并非独立：工作点参数（如 IE）决定了小信号模型参数（re = 26mV/IE），即 Q 点的选择直接影响 re，进而影响 AC 增益 Au = −RC/re。讲义第38页明确指出\"the choice of parameters for DC levels will affect the AC response\"。",
+    "category": "reasoning",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "线性化",
+        "re=26mV/IE",
+        "Q点影响AC增益"
+      ],
+      "must_not_claim": [
+        "DC和AC完全独立无关"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q16",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中 Emitter Follower（CC 配置）的电压增益约为多少？其输入阻抗和输出阻抗各有什么特点？",
+    "answer": "在讲义中，**Emitter Follower（即共集电极配置，Common-Collector, CC）** 的电压增益、输入阻抗与输出阻抗具有如下明确且一致的特性：\n\n### 一、电压增益（Voltage Gain）\n\nEmitter Follower 的**电压增益约为 1（即近似单位增益）**，且**无相位反转**（非反相）。  \n严格而言，其小信号电压增益表达式为：\n\n\\[\nA_v = \\frac{v_o}{v_i} \\approx \\frac{R_E}{R_E + r_e}\n\\]\n\n其中：\n- \\(R_E\\) 是发射极外接电阻（含可能的旁路或退化电阻），\n- \\(r_e = V_T / I_E\\) 是晶体管固有的交流发射结电阻（典型值约几欧姆至几十欧姆，取决于偏置电流）。\n\n由于在正常设计中满足 \\(R_E \\gg r_e\\)（例如 \\(R_E = 1\\,\\text{k}\\Omega\\)，\\(r_e \\approx 25\\,\\Omega\\)），因此：\n\n\\[\nA_v \\approx \\frac{R_E}{R_E + r_e} \\approx 1 - \\frac{r_e}{R_E} < 1\n\\]\n\n即：**实际增益略小于 1，但非常接近 1**。讲义多处直接表述为 “\\(A_v \\approx 1\\)” 或 “unity voltage gain”，并强调这是其作为**电压缓冲器（voltage buffer）** 的核心依据。\n\n---\n\n### 二、输入阻抗（Input Impedance）\n\nEmitter Follower 具有**很高的输入阻抗**，是三种基本 BJT 配置中**最高者**。  \n其输入阻抗（在基极处测得）近似为：\n\n\\[\nZ_{\\text{in}} \\approx R_B \\parallel \\left[ r_\\pi + (\\beta + 1) R_E \\right] \\quad \\text{或等价地} \\quad Z_{\\text{in}} \\approx R_B \\parallel \\left[ (\\beta + 1)(r_e + R_E) \\right]\n\\]\n\n其中：\n- \\(R_B\\) 是基极偏置网络等效电阻（如分压偏置中的 \\(R_1 \\parallel R_2\\)），\n- \\(r_\\pi = \\beta\\, r_e\\) 是混合π模型中的基-射极电阻，\n- \\((\\beta + 1) R_E\\) 体现了发射极电阻经电流增益反射至基极的“自举效应”。\n\n该高输入阻抗使其能**最小化对前级信号源的负载效应**，特别适用于高阻抗源（如传感器、长传输线）与低阻抗负载之间的隔离与耦合。\n\n---\n\n### 三、输出阻抗（Output Impedance）\n\nEmitter Follower 的输出阻抗**很低**，是三种配置中**最低者**，位于发射极输出端。  \n其近似表达式为：\n\n\\[\nZ_{\\text{out}} \\approx r_e \\parallel R_E \\parallel \\frac{r_o}{\\beta + 1}\n\\]\n\n在忽略 Early 效应（即 \\(r_o \\to \\infty\\)）且 \\(R_E \\gg r_e\\) 时，可进一步简化为：\n\n\\[\nZ_{\\text{out}} \\approx r_e \\parallel R_E \\approx r_e \\quad (\\text{因 } r_e \\ll R_E)\n\\]\n\n典型值常为几欧姆至几十欧姆，远低于共射极（CE）放大器的数千欧姆甚至兆欧级别。这一**低输出阻抗**使其具备**强带载能力**，可有效驱动低阻抗负载（如扬声器、电缆、下一级输入）而不引起明显信号衰减。\n\n---\n\n综上，Emitter Follower（CC 配置）的核心功能定位是：  \n✅ **电压缓冲（Unity-gain voltage buffer）** —— 增益 ≈ 1，无相移；  \n✅ **高输入阻抗** —— 减轻前级负载；  \n✅ **低输出阻抗** —— 增强后级驱动能力；  \n✅ **高电流增益（≈ β + 1）** —— 补偿电压增益缺失，实现功率增益。\n\n这些特性共同构成其在模拟电路中作为**阻抗匹配、级间隔离与信号整形**关键单元的理论基础。\n\n### References\n\n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第35页：CC 配置（emitter follower）的电压增益 Au = RE/(RE + re) ≈ 1（当 RE >> re 时），输出与输入同相，无相位反转。输入阻抗 ZB = βre + (β+1)RE ≈ βRE（高），Zi = RB||ZB（高）。输出阻抗 Zo = RE||re ≈ re（低，约几十欧量级）。讲义还给出电流增益公式。射极跟随器常用于阻抗变换：高输入阻抗对信号源友好，低输出阻抗可驱动低阻负载。",
+    "category": "topology",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "Au≈1",
+        "高输入阻抗",
+        "低输出阻抗",
+        "同相"
+      ],
+      "must_not_claim": [
+        "射极跟随器有高增益"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q17",
+    "doc_id": "circuit_doc_bjt",
+    "question": "用讲义 re 模型分析 CE with Voltage-Divider Bias（Example 2.5）时，求输入阻抗 Zi 的步骤是什么？",
+    "answer": "在讲义中使用 **re 模型（emitter resistance model）** 分析 **带电压分压偏置（Voltage-Diver Bias）的共射极（CE）BJT 放大器**（如 Example 2.5 所示）时，求输入阻抗 $ Z_i $ 是一个系统性的小信号分析过程，需严格区分 **DC 偏置分析** 与 **AC 等效电路构建** 两个阶段。以下是完整、规范的求解步骤，全部依据提供的知识图谱与文档内容（特别是 Reference [1] 及其多条方程解析）：\n\n---\n\n### ✅ 第一步：完成 DC 偏置分析，确定 Q 点并计算 $ r_e $\n\n输入阻抗 $ Z_i $ 是小信号参数，但其核心元件 $ r_e $ 由直流工作点决定：\n\n- 利用 **Thevenin 等效法** 将基极偏置网络（$ R_1 $–$ R_2 $–$ V_{CC} $）简化为：\n  - Thevenin 电压：$ U_{Th} = V_{CC} \\cdot \\dfrac{R_2}{R_1 + R_2} $\n  - Thevenin 电阻：$ R_{Th} = R_1 \\parallel R_2 $\n- 对 **基–射回路（Base–Emitter Loop）** 列写 KVL 方程（含发射极电阻 $ R_E $）：\n  $$\n  U_{Th} = I_B R_{Th} + U_{BE} + I_E R_E\n  $$\n  其中 $ I_E = (\\beta + 1) I_B $，代入得：\n  $$\n  I_E = \\dfrac{U_{Th} - U_{BE}}{R_E + \\dfrac{R_{Th}}{\\beta + 1}}\n  $$\n- 计算 **发射极直流电流** $ I_E $（典型值为 mA 量级）；\n- 据定义求 **交流发射结电阻**：\n  $$\n  r_e = \\dfrac{V_T}{I_E} \\approx \\dfrac{25\\,\\text{mV}}{I_E} \\quad (\\text{室温下})\n  $$\n  此 $ r_e $ 是 re 模型中唯一动态电阻，是后续所有 AC 参数的基础。\n\n> 📌 *注：该步骤对应知识图谱中 “Base-Emitter Loop KVL Equation for Voltage-Divider Biased BJT” 和 “r_e” 实体描述；亦见 Document Chunk [1] 中第二段对 $ I_E $ 的推导。*\n\n---\n\n### ✅ 第二步：构建 AC 等效电路（re 模型）\n\n移除所有 DC 电源（$ V_{CC} $ 短路）、电容视为短路（$ C_1, C_2, C_E $），保留：\n\n- BJT 替换为 **re 模型**：  \n  - 发射结等效为电阻 $ r_e $（串联于发射极）；  \n  - 控制电流源 $ \\beta i_b $ 并联于集电极–发射极之间；  \n  - 忽略输出电阻 $ r_o $（re 模型简化假设，适用于中低频分析）；\n- 偏置电阻保留：$ R_1 $、$ R_2 $（仍接在基极与地之间）；  \n- 若 $ R_E $ 未被旁路电容 $ C_E $ 短路，则 **保留 $ R_E $**（即“发射极退化”结构）；  \n- 输入端口定义在耦合电容 $ C_1 $ 左侧（即基极节点与地之间）。\n\n> 📌 *该模型结构对应知识图谱中 “r_e model for Common-Emitter (CE) configuration equivalent circuit (image)” 与 “AC Equivalent Circuit With R E Model”。*\n\n---\n\n### ✅ 第三步：写出 $ Z_i $ 的通用表达式（并联组合）\n\n从输入端（基极）向电路看进去的总小信号输入阻抗 $ Z_i $，是以下三部分的**并联**：\n\n$$\nZ_i = R_1 \\parallel R_2 \\parallel Z_{\\text{base}}\n$$\n\n其中 $ Z_{\\text{base}} $ 是晶体管本身在基极呈现的输入阻抗（不含偏置电阻），在 re 模型中为：\n\n- 若 **发射极电阻 $ R_E $ 被完全旁路（$ C_E \\to $ 短路）**：  \n  $$\n  Z_{\\text{base}} = \\beta r_e\n  $$  \n  ⇒ $ Z_i = R_1 \\parallel R_2 \\parallel (\\beta r_e) $\n\n- 若 **$ R_E $ 未被旁路（Example 2.5 典型情况，即发射极退化）**：  \n  $$\n  Z_{\\text{base}} = \\beta (r_e + R_E)\n  $$  \n  ⇒ $ Z_i = R_1 \\parallel R_2 \\parallel \\big[\\beta (r_e + R_E)\\big] $\n\n> 📌 *此公式直接对应知识图谱中 “Z_in”、“Zi”、“Input Impedance Z_in” 等实体描述，并被 Document Chunk [1] 第一段明确重建为：*  \n> *“Z_i ≈ R₁ || R₂ || [β(r_e + R_E)]”，且强调 β ≥ 10 是使该表达式主导成立的关键设计条件。*\n\n---\n\n### ✅ 第四步：数值代入与工程近似（Example 2.5 实践要点）\n\n- 通常 $ R_1 $、$ R_2 $ 为几十至几百 kΩ，而 $ \\beta r_e $ 约为几 kΩ（例如 $ \\beta = 100 $, $ r_e = 25\\,\\Omega $ → $ \\beta r_e = 2.5\\,\\text{k}\\Omega $）；\n- 因此 $ R_1 \\parallel R_2 $ 往往远大于 $ \\beta (r_e + R_E) $，可近似忽略偏置网络影响：\n  $$\n  Z_i \\approx \\beta (r_e + R_E) \\quad \\text{（当 } R_1, R_2 \\gg \\beta(r_e + R_E)\\text{）}\n  $$\n- 若 $ R_E \\gg r_e $（如 $ R_E = 1\\,\\text{k}\\Omega $, $ r_e = 25\\,\\Omega $），则进一步简化为：\n  $$\n  Z_i \\approx \\beta R_E\n  $$\n  这凸显了 **发射极退化对提高输入阻抗的显著作用**。\n\n> 📌 *该近似逻辑见 Document Chunk [1] 第四段：“Zi = β′ · (r_e || R_E)”，以及知识图谱中 “Emitter Degeneration → Z_i” 关系。*\n\n---\n\n### ✅ 第五步：验证物理意义与设计约束\n\n- $ Z_i $ 必须满足：**β ≥ 10**，否则基极电流不可忽略，$ \\beta r_e $ 项失效（见 Document Chunk [1] 第一段）；\n- $ Z_i $ 单位为 Ω，量级应在 **kΩ 至 100 kΩ** 范围，符合 CE 放大器“中等输入阻抗”特性（区别于 CC 的高阻、CB 的低阻）；\n- 该 $ Z_i $ 将用于后续计算：\n  - 电压增益修正：$ A_v = -\\dfrac{R_C}{r_e + R_E} \\cdot \\dfrac{Z_i}{Z_i + R_s} $（考虑信号源内阻）；\n  - 电流增益：$ A_i = A_v \\cdot \\dfrac{Z_i}{Z_o} $；\n  - 与前级/后级的阻抗匹配评估。\n\n> 📌 *此步呼应知识图谱中 “Input Impedance Z_i” 与 “Voltage Gain A_v” 的双向关联，以及 “Transistor Amplifier Analysis” 整体框架。*\n\n---\n\n### 总结：Example 2.5 中 Zi 求解流程图\n\n```mermaid\ngraph LR\nA[DC Analysis] --> B[Calculate I_E from Thévenin + KVL]\nB --> C[Compute r_e = V_T / I_E]\nC --> D[Build AC re-model: include R1, R2, r_e, R_E if unbypassed]\nD --> E[Apply parallel rule: Zi = R1 ∥ R2 ∥ β r_e or β r_e+R_E]\nE --> F[Apply β ≥ 10 & R1,R2 >> β r_e+R_E approximations]\nF --> G[Final Zi value used in Av, Ai, Zo derivation]\n```\n\n该流程完全基于讲义（2024-ch2-BJTs.pdf）所采用的 re 模型方法论，紧扣 Example 2.5 的教学目标——**将 DC 偏置稳定性（Voltage-Divider Bias）与 AC 小信号性能（Zi, Av）统一建模**。\n\n### References\n\n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第34页，CE with Voltage-Divider Bias 的 AC 等效电路中：偏置电阻 R1、R2 在 AC 等效后并联（DC 电源短路），R′ = R1||R2。BJT 用 re 模型替换，基极到发射极等效为 βre。因此 Zi = R′||βre = (R1||R2)||βre。若 ro ≥ 10RC 则输出阻抗 Zo ≈ RC。电压增益 Au = −(RC||ro)/re ≈ −RC/re。",
+    "category": "procedure",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "R1||R2",
+        "βre",
+        "Zi"
+      ],
+      "must_not_claim": [
+        "Zi只等于βre"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q18",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中的 BJT 电路在−40°C 至+85°C 工作温度范围内 β 的具体变化数值曲线是什么？",
+    "answer": "\n根据提供的Context，讲义中未包含关于BJT电路在-40°C至+85°C工作温度范围内β的具体变化数值曲线信息。因此无法基于所给内容回答该问题。",
+    "correct_answer": "讲义中没有提供 β 随温度变化的具体数值曲线。讲义仅提到偏置电路的 stability（稳定性）目标是使工作点在温度和 β 变化时保持稳定，但没有给出具体的 β-温度量化数据。这类参数需要查阅具体器件的 datasheet。",
+    "category": "unanswerable",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "未提供",
+        "datasheet"
+      ],
+      "must_not_claim": [
+        "β随温度线性变化到某具体值"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q19",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中的 BJT 放大电路最大允许耗散功率 PCmax 的具体数值是多少瓦？",
+    "answer": "\n根据提供的Context内容，未包含讲义中BJT放大电路最大允许耗散功率 \\( P_{C\\text{max}} \\) 的具体数值信息。因此无法基于所给内容回答该问题。",
+    "correct_answer": "讲义第27页仅给出 PCmax = UCE·IC 的公式定义，以及在 output characteristics 图中用双曲线标注了功率限制边界，但没有给出具体的数值（如几毫瓦或几瓦）。具体数值取决于使用的 BJT 型号，需查阅器件手册。",
+    "category": "unanswerable",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "未给出具体数值",
+        "需查器件手册"
+      ],
+      "must_not_claim": [
+        "PCmax=5W"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q20",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中 CB 放大器（Common-Base）的电流增益 Ai ≈ −α ≈ −1，但它仍有高电压增益，这在物理上如何解释？",
+    "answer": "\n要解释**Common-Base (CB) 放大器电流增益 \\( A_i \\approx -\\alpha \\approx -1 \\) 但仍有高电压增益**的物理现象，需从电流增益与电压增益的物理机制差异入手分析：  \n\n\n### 1. 电流增益的物理本质：电流传输效率的限制  \nCB 放大器的电流增益定义为 \\( A_i = i_o / i_i \\approx -\\alpha \\)，其中 \\( \\alpha = I_C / I_E \\) 是**共基极电流增益**（\\( \\alpha < 1 \\)，典型值 0.98–0.998）。其物理意义是：从发射极注入的电流 \\( I_E \\) 中，只有约 \\( \\alpha \\) 比例的载流子能成功穿过基区到达集电极（剩余部分因基区复合损失）。因此，电流增益小于1，**无电流放大作用**。  \n\n\n### 2. 电压增益的物理本质：电压-电流转换与负载电阻的作用  \n电压增益 \\( A_v = v_o / v_i \\) 是输出电压与输入电压的比值，其核心机制是**电压-电流转换**（由跨导 \\( g_m \\) 实现）和**电流-电压转换**（由集电极负载电阻 \\( R_C \\) 实现）：  \n- **电压-电流转换**：基极-发射极结的电压 \\( v_{BE} \\) 通过跨导 \\( g_m \\) 转换为发射极电流 \\( i_e \\)（\\( g_m = \\partial I_C / \\partial V_{BE} \\)，定义为“跨导”，本质是“电压控制电流源”的转换系数）。  \n- **电流-电压转换**：发射极电流（或集电极电流）通过集电极负载电阻 \\( R_C \\) 转换为输出电压 \\( v_o \\)（\\( v_o \\approx -i_c R_C \\)，负号反映相位关系，但CB配置无反相，实际为同相增益）。  \n\n结合小信号模型，电压增益可近似为：  \n\\[ A_v \\approx g_m \\cdot R_C \\]  \n由于 \\( g_m = I_C / V_T \\)（\\( V_T \\approx 26\\ \\text{mV} \\) 为热电压），而 \\( I_C \\) 可通过偏置设计（如增大发射极电流 \\( I_E \\)）提高（\\( I_C \\approx I_E \\) 在α≈1时成立），因此 \\( g_m \\) 可较大。同时，集电极负载电阻 \\( R_C \\) 通常设计为较大值（如几千欧至几十千欧），两者相乘即可实现高电压增益。  \n\n\n### 3. 电流增益与电压增益的权衡  \nCB 放大器的核心优势是**高电压增益**和**宽带宽**（无米勒效应），但以“电流增益小于1”为代价。这是因为：  \n- 电流增益受限于载流子传输效率（α<1），但电压增益由跨导 \\( g_m \\)（与电流相关）和负载电阻 \\( R_C \\) 共同决定，可通过增大 \\( I_C \\) 提高g_m，或增大 \\( R_C \\) 直接提升增益。  \n- 例如，当 \\( I_E \\) 较大时，\\( r_e = V_T / I_E \\) 较小（\\( r_e \\approx 26\\ \\text{mV} / I_E \\)），因此 \\( g_m = 1 / r_e \\) 较大，结合 \\( R_C \\) 的电压转换作用，电压增益 \\( A_v \\approx R_C / r_e \\) 可显著提升。  \n\n\n综上，CB 放大器“电流增益小但电压增益高”的物理本质是：**电流增益由载流子传输效率（α<1）限制，而电压增益由跨导（g_m）与集电极负载电阻（R_C）的电压-电流转换机制实现，两者机制独立，可通过电路设计优化电压增益**。  \n\n\n### References  \n- [1] 2024-ch2-BJTs.pdf",
+    "correct_answer": "讲义第24、36页：CB 放大器中 IC ≈ IE（α ≈ 1），电流增益约为1，没有电流放大。但是输入端阻抗极低（Zi = re，几欧到几十欧），输出端阻抗极高（Zo ≈ ∞），因此同样的电流流经高阻抗输出负载 RC 时，产生的电压 uo = IC·RC = αIE·RC 远大于输入电压 ui = IE·re。电压增益 Au = αRC/re ≈ RC/re，可以很大。本质是阻抗转换带来的电压放大，而非电流放大。",
+    "category": "reasoning",
+    "topic": "bjt",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "阻抗变换",
+        "Zi=re",
+        "Au=RC/re",
+        "α≈1"
+      ],
+      "must_not_claim": [
+        "CB放大器有电流放大"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q01",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 FET 与 BJT 相比，在控制方式和输入阻抗上有什么本质区别？",
+    "answer": "\n### 控制方式上的本质区别  \n在控制方式上，BJT与FET存在根本性差异：  \n- **BJT（双极结型晶体管）** 是**电流控制型**器件。其工作原理是通过基极电流 \\( I_B \\) 来控制集电极电流 \\( I_C \\)，遵循关系 \\( I_C = \\beta I_B \\)（其中 \\( \\beta \\) 为电流放大系数）。控制信号是电流，因此需要从基极注入电流以改变输出电流。  \n- **FET（场效应晶体管）** 是**电压控制型**器件。其核心是通过栅源电压 \\( V_{GS} \\) 来控制漏极电流 \\( I_D \\)，例如JFET的转移特性满足 \\( I_D = I_{DSS}(1 - \\frac{V_{GS}}{V_P})^2 \\)（\\( V_P \\) 为夹断电压）。控制信号是电压，且栅极电流 \\( I_G \\approx 0 \\)，因此无需注入电流即可通过电压改变输出电流。  \n\n### 输入阻抗上的本质区别  \n输入阻抗（\\( Z_i \\)）是衡量器件输入端对信号源负载能力的关键参数：  \n- **FET** 因栅极电流极小（\\( I_G \\approx 0 \\)），输入阻抗极高（理想情况下趋近无穷大；实际JFET由栅极偏置网络决定，但仍远高于BJT）。这种高输入阻抗特性使其在放大电路中能最小化对前级信号源的负载影响。  \n- **BJT** 因基极需要注入控制电流 \\( I_B \\)，输入阻抗相对较低。基极的电流输入导致输入端的等效阻抗有限，这在信号源匹配和低噪声设计方面存在劣势。  \n\n\n### 参考文献  \n- [1] 2024-ch3-FETs-Enhance.pdf  \n- [2] Document Content (Image_13.png)  \n- [3] Document Content (Image_14.png)  \n- [4] Document Content (Image_44.png)",
+    "correct_answer": "讲义第3页给出对比：BJT 是电流控制器件（current controlled device），通过 IB 控制 IC；FET 是电压控制器件（voltage controlled device），通过 VGS 控制 ID，栅极几乎不需要输入电流（IG ≈ 0）。因此 FET 具有比 BJT 高得多的输入阻抗。此外，FET 对温度变化不敏感，更易于集成电路（IC）制造。",
+    "category": "concept",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "电压控制",
+        "电流控制",
+        "输入阻抗高",
+        "IG≈0"
+      ],
+      "must_not_claim": [
+        "FET和BJT控制方式相同"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q02",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 JFET 的 Shockley 方程是什么？其中 IDSS 和 VP 各代表什么物理意义？",
+    "answer": "JFET 的 **Shockley 方程**（也称 **Shockley 的平方律方程**）是描述其在**饱和区（active region）**工作的核心直流数学模型，其标准形式为：\n\n$$\nI_D = I_{DSS} \\left(1 - \\frac{V_{GS}}{V_P}\\right)^2\n$$\n\n该方程精确刻画了**漏极电流 $ I_D $** 与**栅源电压 $ V_{GS} $** 之间的**非线性、二次（抛物线）关系**，是 JFET 转移特性（Transfer Characteristic）的理论基础。它仅适用于**耗尽型器件**（如 JFET 和 D-MOSFET），且严格成立的前提是器件工作在**饱和区**，即满足 $ |V_{DS}| > |V_P| $。\n\n---\n\n### ✅ $ I_{DSS} $ 的物理意义  \n$ I_{DSS} $（Zero-Gate-Voltage Saturation Drain Current）是 JFET 的一个**关键本征直流参数**，定义为：  \n> **当栅源电压 $ V_{GS} = 0 \\,\\text{V} $，且漏源电压 $ V_{DS} $ 足够大（满足 $ V_{DS} > |V_P| $）使器件处于饱和区时，流过的最大漏极电流。**\n\n- 它代表器件在**零栅压下通道完全导通**时的极限电流能力，反映 JFET 的**固有导电强度**，取决于沟道几何尺寸（宽长比 $ W/L $）、掺杂浓度及载流子迁移率等物理结构参数。  \n- 在转移特性曲线（$ I_D $–$ V_{GS} $ 图）中，$ I_{DSS} $ 对应于曲线在纵轴（$ V_{GS} = 0 $）上的**截距值**，是 Shockley 方程中的**比例系数和上限标度因子**。  \n- 典型值范围常为几毫安（例如图中显示约为 10 mA），是器件选型、偏置设计与增益估算的核心依据。\n\n---\n\n### ✅ $ V_P $ 的物理意义  \n$ V_P $（Pinch-Off Voltage，又称 **夹断电压** 或 **关断电压 $ V_{GS(off)} $**）是另一个**器件级固有参数**，定义为：  \n> **使沟道完全夹断、漏极电流 $ I_D $ 减小至零所需的栅源电压值**，即满足 $ I_D = 0 $ 时的 $ V_{GS} $。\n\n- 对于**n沟道 JFET**，$ V_P $ 是一个**负值**（例如 $-4\\,\\text{V}$），因为需施加负栅压以反向偏置 p-n 结，扩大耗尽区直至沟道闭合；  \n- 在转移特性曲线上，$ V_P $ 对应于曲线与横轴（$ I_D = 0 $）的**交点**，是曲线的左边界；  \n- 它决定了 JFET 可控 $ V_{GS} $ 的**动态范围**（从 $ V_P $ 到 0 V），并直接参与 Shockley 方程中对 $ V_{GS} $ 的归一化处理；  \n- 物理上，$ V_P $ 由沟道掺杂浓度、厚度及半导体材料属性决定，是连接微观器件物理与宏观电路行为的关键桥梁。\n\n---\n\n综上，Shockley 方程将 $ I_{DSS} $（最大导通能力）与 $ V_P $（关断阈值）这两个本质物理参数有机统一，不仅为 JFET 的**DC 偏置分析**（如自偏置、分压偏置）、**Q 点求解**提供解析工具，也是推导**跨导 $ g_m $**、构建**小信号模型**及设计**线性放大器**的理论出发点。\n\n### References\n\n- [1] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第9页给出 Shockley 方程：ID = IDSS × (1 − UGS/VP)²。IDSS 是当 UGS = 0 且 UDS > |VP| 时（饱和区）的最大漏极电流；VP（或 UGS(off)）是使 ID = 0mA 所需的夹断电压（pinch-off voltage），对 n-channel JFET 为负值。Shockley 方程仅在饱和区有效，是非线性关系，且不随外部网络改变。",
+    "category": "factoid",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "IDSS",
+        "VP",
+        "(1-UGS/VP)²",
+        "夹断"
+      ],
+      "must_not_claim": [
+        "Shockley方程在线性区适用"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q03",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 E-MOSFET（增强型 MOSFET）的漏极电流公式是什么？与 JFET 的 Shockley 方程有何区别？",
+    "answer": "在讲义中，**E-MOSFET（增强型 MOSFET）的漏极电流公式**为：\n\n$$\nI_D = k(V_{GS} - V_T)^2\n$$\n\n该式明确出现在文档多个位置（如 reference_id: 1 的多处数学分析段落），并被标注为 **“增强型 MOSFET 在饱和区的平方律（quadratic）漏极电流模型”**。其中：\n\n- $ I_D $：漏极电流（单位：A 或 mA），是输出变量；  \n- $ V_{GS} $：栅源电压（控制输入变量）；  \n- $ V_T $（或记作 $ V_{GS(th)} $、$ U_{GS(Th)} $）：**阈值电压**，即开启导电所需的最小 $ V_{GS} $，当 $ V_{GS} \\leq V_T $ 时 $ I_D = 0 $；  \n- $ k $：**工艺跨导参数**（transconductance parameter），定义为 $ k = \\frac{1}{2}\\mu_n C_{ox}(W/L) $，反映器件几何尺寸与材料特性，单位为 A/V²。\n\n该公式适用于 **n 沟道增强型 MOSFET 在饱和区（active/saturation region）** 的工作状态，条件为 $ V_{DS} > V_{GS} - V_T $。它构成了 E-MOSFET 的**转移特性曲线（$ I_D $–$ V_{GS} $）** 的数学基础，也是 DC 偏置点（Q 点）计算与小信号跨导 $ g_m = \\frac{dI_D}{dV_{GS}} = 2k(V_{GS} - V_T) $ 推导的起点。\n\n---\n\n与之对比，**JFET 的 Shockley 方程**（也称 Shockley 的平方律方程）为：\n\n$$\nI_D = I_{DSS}\\left(1 - \\frac{V_{GS}}{V_P}\\right)^2\n$$\n\n该式在讲义中被反复强调为 JFET 和 D-MOSFET（耗尽型 MOSFET）的**专属 DC 模型**（见 reference_id: 1 中 “For JFETs and D-MOSFET, Shockley's equation is applied” 及多处图示与分析）。其关键参数含义如下：\n\n- $ I_{DSS} $：零栅压漏极饱和电流（$ V_{GS} = 0 $ 时的最大 $ I_D $）；  \n- $ V_P $（或 $ V_{GS(off)} $、$ U_{GS(off)} $）：**夹断电压（pinch-off voltage）**，即使沟道完全关闭、$ I_D = 0 $ 所需的 $ V_{GS} $ 值（对 n 沟道 JFET 为负值）；  \n- 该方程天然满足 **“常开”（normally-on）特性**：当 $ V_{GS} = 0 $ 时，$ I_D = I_{DSS} > 0 $；随 $ V_{GS} $ 负向增大（对 n 沟道），$ I_D $ 减小至零。\n\n---\n\n二者的核心区别可归纳为以下四点：\n\n1. **物理工作机制与导通逻辑不同**：  \n   - E-MOSFET 是 **“常关型”（normally-off）** 器件，必须施加 $ V_{GS} > V_T $ 才能**感应出导电沟道**；  \n   - JFET 是 **“常开型”（normally-on）** 器件，$ V_{GS} = 0 $ 时已存在沟道，需反向偏置（$ V_{GS} < 0 $，n 沟道）**耗尽沟道**以减小 $ I_D $。\n\n2. **数学形式与参考点不同**：  \n   - E-MOSFET 公式以 $ (V_{GS} - V_T) $ 为自变量，体现**过驱动电压（overdrive voltage）** 的二次依赖；  \n   - JFET 公式以 $ (1 - V_{GS}/V_P) $ 为自变量，体现**归一化栅压**对剩余导电能力的调制，其零点位于 $ V_{GS} = V_P $，而非原点。\n\n3. **适用器件范围不同**：  \n   - $ I_D = k(V_{GS} - V_T)^2 $ **仅适用于增强型 MOSFET（E-MOSFET）**；讲义明确指出 Shockley 方程 *不直接适用于* E-MOSFET（如 reference_id: 1 中 “Shockley's equation does not apply directly to enhancement-type MOSFETs”）；  \n   - $ I_D = I_{DSS}(1 - V_{GS}/V_P)^2 $ **专用于 JFET 和耗尽型 MOSFET（D-MOSFET）**，属**耗尽模式器件的统一模型**。\n\n4. **参数物理意义与测量方式不同**：  \n   - $ V_T $ 是**开启阈值**，需外部电压“创建”沟道；  \n   - $ V_P $ 是**关闭阈值**，对应已有沟道被“夹断”的临界点；  \n   - $ I_{DSS} $ 是器件固有最大导通能力（$ V_{GS}=0 $ 测得）；  \n   - $ k $ 是工艺参数，需通过 $ I_D $–$ V_{GS} $ 曲线拟合获得，不具直接直流测试对应量。\n\n综上，尽管两者均为描述 FET 饱和区漏极电流的**二次函数模型**，但其结构、参数定义、物理内涵及适用对象截然不同——这反映了增强型与耗尽型场效应器件在构造原理与控制机制上的根本差异。\n\n### References\n\n- [1] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第16页给出 E-MOSFET 的转移特性方程：ID = k(VGS − VT)²，其中 VT（或 UGS(Th)）是阈值电压，k 是常数。区别在于：JFET 在 VGS = 0 时就有最大电流 IDSS，需要负向 VGS 来减小电流（耗尽型）；E-MOSFET 在 VGS < VT 时 ID = 0，必须 VGS > VT 才能导通（增强型），两者都是非线性二次方关系，但 E-MOSFET 无 IDSS 参数。",
+    "category": "factoid",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "k(VGS-VT)²",
+        "VT",
+        "阈值"
+      ],
+      "must_not_claim": [
+        "E-MOSFET使用Shockley方程"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q04",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 JFET、D-MOSFET 和 E-MOSFET 三种 FET 在工作模式上有什么核心区别？",
+    "answer": "\n### 核心区别分析  \n\nJFET、D - MOSFET 和 E - MOSFET 三种场效应晶体管（FET）在工作模式上的核心区别主要体现在**导通条件与栅源电压（\\(V_{GS}\\)）的关系**上，具体如下：  \n\n1. **JFET（结型场效应晶体管）**  \n   - 属于**耗尽模式（Depletion Mode）**：零栅源电压（\\(V_{GS}=0\\)）时，器件自然导通；通过施加反向栅源电压（使栅极 - 通道 p - n 结反偏）来关断电流。其电流 - 电压特性由 Shockley 方程描述，即 \\(I_D = I_{DSS}(1 - \\frac{V_{GS}}{V_P})^2\\)（其中 \\(I_{DSS}\\) 是零栅源电压下的饱和漏电流，\\(V_P\\) 是夹断电压）。  \n   - 关键特性：无栅极电流（\\(I_G \\approx 0\\)），输入阻抗极高，适合低噪声、高阻抗的模拟放大电路。  \n\n2. **D - MOSFET（耗尽型 MOSFET）**  \n   - 同样属于**耗尽模式**：零栅源电压时存在预存在的导电通道，因此导通；通过施加反向栅源电压（耗尽通道电荷）来关断。其直流偏置方程与 JFET 一致，遵循 Shockley 方程（\\(I_D \\propto (V_{GS}-V_P)^2\\)），且小信号跨导（\\(g_m\\)）的推导方式与 JFET 类似。  \n   - 与 JFET 的区别：结构上通过绝缘栅（如二氧化硅层）实现，但核心工作模式（耗尽模式）与 JFET 一致。  \n\n3. **E - MOSFET（增强型 MOSFET）**  \n   - 属于**增强模式（Enhancement Mode）**：零栅源电压时无导电通道，不导通；需施加**超过阈值电压（\\(V_{th}\\)）的正向栅源电压**（\\(V_{GS}>V_{th}\\)）才能形成反型层（导电通道），从而导通。其漏电流遵循平方律方程 \\(I_D = k(V_{GS}-V_{th})^2\\)（\\(k\\) 为过程相关参数）。  \n   - 关键特性：零栅源电压时关断，需外部电压驱动开启，常用于需要“常关”状态的电路设计。  \n\n\n### 关键结论  \n三种器件的核心区别可总结为：  \n- JFET 和 D - MOSFET 是**耗尽模式**（零栅源电压导通，反向栅源电压关断）；  \n- E - MOSFET 是**增强模式**（零栅源电压不导通，需正向栅源电压（\\(V_{GS}>V_{th}\\)）开启）。  \n\n这种模式差异决定了它们在电路设计中的应用场景（如 JFET/D - MOSFET 适合自偏置稳定电路，E - MOSFET 适合需要阈值控制的开关或放大电路）。",
+    "correct_answer": "讲义总结：JFET 只工作在耗尽模式（depletion mode），VGS 只能为负（n-channel），通过减小 VGS 来减小 ID，VGS = VP 时 ID = 0；D-MOSFET 可工作在耗尽模式（VGS < 0）和增强模式（VGS > 0）两种模式，转移特性穿越 UGS = 0 轴（讲义第13页）；E-MOSFET 只工作在增强模式，VGS < VT 时完全截止，必须正向 VGS 超过 VT 才能导通，没有 IDSS 参数（讲义第14-16页）。",
+    "category": "topology",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "JFET耗尽",
+        "D-MOSFET两种模式",
+        "E-MOSFET仅增强",
+        "VT"
+      ],
+      "must_not_claim": [
+        "三者工作模式相同"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q05",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 Common Source（CS）FET 放大器的电压增益、输入阻抗和输出阻抗公式是什么？",
+    "answer": "\n要回答讲义中 Common Source（CS）FET 放大器的电压增益、输入阻抗和输出阻抗公式，需从提供的上下文中提取关键信息并整理如下：  \n\n\n### 1. 电压增益（Voltage Gain）公式  \nCommon Source FET 放大器的**小信号电压增益**公式为：  \n\\[ A_v \\approx -g_m \\cdot (R_D \\parallel r_d) \\]  \n其中：  \n- \\( A_v \\) 是电压增益（负号表示相位反转，是 Common-Source 结构的特征）；  \n- \\( g_m \\) 是 FET 的跨导（反映输入电压对漏极电流的控制能力）；  \n- \\( R_D \\) 是漏极电阻；  \n- \\( r_d \\) 是 FET 内部的输出电阻（源于沟道长度调制效应）。  \n\n该公式由小信号等效电路推导得出，核心逻辑是输入电压通过跨导 \\( g_m \\) 控制漏极电流，再经漏极电阻 \\( R_D \\)（与输出电阻 \\( r_d \\) 并联）转换成输出电压，体现 Common-Source 放大器的电压放大特性。  \n\n\n### 2. 输入阻抗（Input Impedance）公式  \nCommon Source FET 放大器的**输入阻抗**主要由栅极偏置电阻 \\( R_G \\) 决定，公式为：  \n\\[ Z_i \\approx R_G \\]  \n\n由于 FET 栅极电流近似为 0（高输入阻抗特性），输入阻抗主要受栅极偏置电阻 \\( R_G \\) 影响。这一特性使 FET 放大器能减少对前级信号源的负载影响，适用于高阻抗信号源接口场景。  \n\n\n### 3. 输出阻抗（Output Impedance）公式  \nCommon Source FET 放大器的**输出阻抗**是漏极电阻 \\( R_D \\) 与 FET 内部输出电阻 \\( r_d \\) 的并联组合，公式为：  \n\\[ Z_o = r_d \\parallel R_D \\]  \n\n该阻抗反映了放大器输出端的小信号等效电阻，影响负载变化时的增益稳定性。其中 \\( r_d \\) 由沟道长度调制效应决定，是 FET 特有的输出电阻参数，需结合 \\( R_D \\) 并联计算总输出阻抗。  \n\n\n### 参考文献  \n- [1] 2024-ch3-FETs-Enhance.pdf  \n- [1] 2024-ch3-FETs-Enhance.pdf  \n- [1] 2024-ch3-FETs-Enhance.pdf  \n- [1] 2024-ch3-FETs-Enhance.pdf  \n- [1] 2024-ch3-FETs-Enhance.pdf  \n\n\n（注：以上引用基于提供的上下文内容，重点参考了小信号模型、偏置特性及阻抗分析的相关章节。）",
+    "correct_answer": "讲义第30-31页：CS 放大器（以分压偏置为例）：①电压增益 Au = uo/ui = −gm(rd||RD) ≈ −gmRD（当 rd ≥ 10RD 时）；②输入阻抗 Zi = R1||R2（由偏置电阻决定，FET 栅极阻抗近似无穷大）；③输出阻抗 Zo = RD||rd ≈ RD（当 rd ≥ 10RD 时）。与 BJT CE 类似，输出也反相（负号），电压增益由 gm 和 RD 决定。",
+    "category": "topology",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "-gmRD",
+        "Zi=R1||R2",
+        "Zo=RD",
+        "反相"
+      ],
+      "must_not_claim": [
+        "CS放大器同相输出"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q06",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 FET 小信号模型的跨导 gm 定义是什么？对 JFET 如何用 Shockley 方程推导 gm 的表达式？",
+    "answer": "在讲义中，**FET 小信号模型的跨导 $ g_m $** 被明确定义为：  \n> **$ g_m $ 是漏极电流 $ I_D $ 对栅源电压 $ U_{GS} $ 的偏导数，在直流工作点（Q 点）处求值，且保持漏源电压 $ U_{DS} $ 恒定**。  \n数学表达为：  \n$$\ng_m = \\left. \\frac{\\partial I_D}{\\partial U_{GS}} \\right|_{Q,\\, U_{DS} = \\text{const}}\n$$  \n该定义强调 $ g_m $ 是一个**小信号参数**，反映 FET 在静态工作点附近的**线性化电压控制能力**——即单位微小栅源电压变化所引起的漏极电流变化量（单位：西门子，S = A/V）。它本质上是 **转移特性曲线 $ I_D $–$ U_{GS} $ 在 Q 点处的切线斜率**，是构建所有小信号等效模型（如 hybrid-π 模型、T 模型）的核心参数，直接决定放大器的电压增益（如 $ A_v \\approx -g_m R_D $）、输入/输出阻抗及带宽等关键性能指标。\n\n---\n\n对 **JFET**，其 DC 行为由 **Shockley 方程（即平方律模型）** 描述：  \n$$\nI_D = I_{DSS} \\left(1 - \\frac{U_{GS}}{V_P}\\right)^2\n$$  \n其中：  \n- $ I_{DSS} $：零栅压时的饱和漏极电流（器件参数），  \n- $ V_P $（或 $ U_P $）：夹断电压（pinch-off voltage），对 n 沟道 JFET 为负值，  \n- 该方程仅适用于 JFET 工作在**饱和区（active/saturation region）**，即 $ U_{DS} \\geq |U_{GS} - V_P| $，且不适用于欧姆区（ohmic region）。\n\n为推导 $ g_m $，对上述 Shockley 方程关于 $ U_{GS} $ 求导：  \n$$\ng_m = \\frac{dI_D}{dU_{GS}} = I_{DSS} \\cdot 2 \\left(1 - \\frac{U_{GS}}{V_P}\\right) \\cdot \\left(-\\frac{1}{V_P}\\right)\n= \\frac{2I_{DSS}}{|V_P|} \\left(1 - \\frac{U_{GS}}{V_P}\\right)\n$$  \n（注意：因 $ V_P < 0 $，取绝对值以保证 $ g_m > 0 $；实际计算中常写作 $ \\frac{2I_{DSS}}{|V_P|} \\left(1 - \\frac{U_{GS}}{V_P}\\right) $，保留符号一致性）\n\n令 $ g_{m0} = \\dfrac{2I_{DSS}}{|V_P|} $（即 $ U_{GS} = 0 $ 时的最大跨导），则最终表达式为：  \n$$\ng_m = g_{m0} \\left(1 - \\frac{U_{GS}}{V_P}\\right)\n$$  \n\n该结果表明：  \n- $ g_m $ 是 **Q 点的强函数**，随 $ U_{GS} $ 线性减小，当 $ U_{GS} \\to V_P $（夹断）时，$ g_m \\to 0 $；  \n- 它与 $ \\sqrt{I_D} $ 成正比（因 $ I_D \\propto (1 - U_{GS}/V_P)^2 $），体现 JFET 的平方律本质；  \n- 推导过程严格基于 Shockley 方程，是讲义中 **Section 3.4.1 “FET small signal model”** 的核心内容，并被图示的转移特性曲线（如 Page 18 的 ID–UGS 图）直观验证——曲线上任一点的斜率即为该点对应的 $ g_m $ 值。\n\n---\n\n### References\n\n- [1] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第28页定义 gm = ΔID/ΔVGS = ∂ID/∂VGS|VDS=const，是转移特性曲线在 Q 点的斜率，单位 mA/V（毫西门子）。对 JFET（讲义第29页），对 Shockley 方程求导：gm = dID/dUGS = 2IDSS/|VP| × (1 − UGS/VP) = gm0(1 − UGS/VP)，其中 gm0 = 2IDSS/|VP| 是 UGS = 0 时的最大跨导。讲义指出 gm 是 Q 点处特性曲线的斜率，随 UGS 变化。",
+    "category": "mapping",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "gm",
+        "ΔID/ΔVGS",
+        "gm0",
+        "2IDSS/|VP|"
+      ],
+      "must_not_claim": [
+        "gm是固定常数不随Q点变化"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q07",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 Common Source FET Amplifier（3.3.1节）的 Q 点求解有数学法和图解法两种，两种方法的核心方程各是什么？",
+    "answer": "\n要解决Common Source FET Amplifier（3.3.1节）的Q点求解问题，数学法和图解法各自的核心方程如下：  \n\n### 数学法（Mathematical Approach）的核心方程  \n数学法通过**Kirchhoff电压定律（KVL）**与**Shockley方程**联立求解Q点，核心方程为：  \n1. **KVL约束方程**：由FET栅极电流近似为0（\\(I_G \\approx 0\\) A），对栅-源回路应用KVL，得到栅-源静态电压与偏置网络的关系：  \n   \\[\n   U_{GSQ} = V_G - I_{DQ} \\cdot R_S\n   \\]  \n   其中，\\(U_{GSQ}\\) 为静态栅-源电压，\\(V_G\\) 为栅极偏置电压，\\(I_{DQ}\\) 为静态漏极电流，\\(R_S\\) 为源极电阻。  \n2. **Shockley方程**：描述JFET（或D-MOSFET）在饱和区（active region）的漏极电流与栅-源电压的非线性关系：  \n   \\[\n   I_{DQ} = I_{DSS} \\left(1 - \\frac{U_{GSQ}}{V_P}\\right)^2\n   \\]  \n   其中，\\(I_{DSS}\\) 为零栅压时的饱和漏极电流，\\(V_P\\) 为夹断电压（负值，适用于n-通道JFET）。  \n\n这两个方程联立构成非线性系统，需通过代数变换（如二次代换法）求解静态工作点（Q点）。  \n\n\n### 图解法（Graphical Approach）的核心方程  \n图解法通过**DC负载线（bias line）**与**FET转移特性曲线（transfer curve）**的交点确定Q点，核心方程为：  \n1. **DC负载线方程**：由KVL约束得到的线性关系，在\\(I_D - U_{GS}\\)平面上表现为直线，表达式为：  \n   \\[\n   U_{GS} = V_G - I_D \\cdot R_S\n   \\]  \n   该直线表示偏置网络对栅-源电压的约束，其斜率为\\(-R_S\\)，截距与\\(V_G\\)相关。  \n2. **转移特性曲线方程**：由Shockley方程定义的FET非线性曲线，表达式为：  \n   \\[\n   I_D = I_{DSS} \\left(1 - \\frac{U_{GS}}{V_P}\\right)^2\n   \\]  \n   该曲线展示了漏极电流随栅-源电压的变化关系，是FET的固有特性。  \n\n负载线与转移特性曲线的交点即为静态工作点（Q点），对应坐标为\\((U_{GSQ}, I_{DQ})\\)。  \n\n\n### 关键依据  \n上述方程均源自讲义中3.3.1节对Common Source FET Amplifier的分析，其中数学法结合KVL与Shockley方程联立求解，图解法通过负载线与转移曲线的几何交点直观确定Q点。",
+    "correct_answer": "讲义第21-22页：①数学法：联立两个方程——偏置网络方程 UGSQ = VG − IDQ·RS（直线方程），以及 Shockley 方程 IDQ = IDSS(1 − UGSQ/VP)²（曲线方程），解方程组得 Q 点；②图解法：在转移特性曲线（Shockley 曲线，纵轴 ID，横轴 VGS）上叠加偏置直线 UGS = VG − ID·RS（由两个特殊点确定：ID=0时VGS=VG，VGS=0时ID=VG/RS），两者交点即为 Q 点。两种方法结果相同。",
+    "category": "mapping",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "偏置直线",
+        "Shockley方程",
+        "交点",
+        "UGSQ=VG-IDQRS"
+      ],
+      "must_not_claim": [
+        "只能用数学法求解"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q08",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义 3.3.2 节 Self-biased Amplifier 中，UGS 是如何通过 RS 自行产生的？写出 Q 点的求解公式。",
+    "answer": "在讲义第 3.3.2 节 “Self-biased Amplifier”（自偏置放大器）中，**UGS 是通过源极电阻 $ R_S $ 上的电流压降自动产生的**，其物理机制基于**负反馈**与**基尔霍夫电压定律（KVL）**。\n\n具体过程如下：  \n- 在典型的自偏置 JFET（或耗尽型 MOSFET）共源放大器中，**栅极通过高阻值电阻 $ R_G $ 接地**（或连接至零电位偏置网络），因此栅极直流电位 $ V_G \\approx 0\\,\\text{V} $（因栅极电流 $ I_G \\approx 0 $）。  \n- 漏极电流 $ I_D $（等于源极电流 $ I_S $，由 KCL 决定）流经源极电阻 $ R_S $，在其上产生电压降 $ U_{R_S} = I_D \\cdot R_S $。  \n- 该压降使源极对地电位 $ V_S = I_D \\cdot R_S $（取正值，因电流从漏极→沟道→源极→$ R_S $→地）。  \n- 由定义，**栅–源电压为**：  \n  $$\n  U_{GS} = V_G - V_S = 0 - I_D \\cdot R_S = -I_D \\cdot R_S\n  $$  \n  此即 **自偏置的核心 KVL 约束方程**，表明 $ U_{GS} $ 并非由外部电源提供，而是由 $ I_D $ 自身通过 $ R_S $ 反馈生成——且极性为负（对 n 沟道器件），实现自动反向偏置。\n\n该机制构成**固有负反馈环路**：若 $ I_D $ 因温度升高而增大 → $ V_S $ 升高 → $ |U_{GS}| $ 增大（更负）→ 沟道进一步夹断 → $ I_D $ 被抑制，从而稳定 Q 点。\n\n---\n\n### Q 点（静态工作点）的求解公式\n\nQ 点由**电路约束方程**（自偏置 KVL）与**器件特性方程**（JFET 的 Shockley 方程）联立求解，其坐标为 $ (U_{GSQ},\\, I_{DQ}) $：\n\n1. **电路约束（自偏置线 / DC 负载线）**：  \n   $$\n   U_{GSQ} = -I_{DQ} \\cdot R_S \\tag{1}\n   $$  \n   （适用于栅极接地的简化情形；若采用分压偏置，则为 $ U_{GSQ} = V_G - I_{DQ} \\cdot R_S $）\n\n2. **器件特性（JFET 转移特性，Shockley 方程）**：  \n   $$\n   I_{DQ} = I_{DSS} \\left(1 - \\frac{U_{GSQ}}{V_P}\\right)^2 \\tag{2}\n   $$  \n   其中：  \n   - $ I_{DSS} $：$ U_{GS} = 0 $ 时的饱和漏极电流（最大导通电流），  \n   - $ V_P $（或 $ U_{GS(off)} $）：夹断电压（pinch-off voltage），对 n 沟道为负值。\n\n将式 (1) 代入式 (2)，消去 $ U_{GSQ} $，得到关于 $ I_{DQ} $ 的二次方程：  \n$$\nI_{DQ} = I_{DSS} \\left(1 + \\frac{I_{DQ} \\cdot R_S}{V_P}\\right)^2\n$$  \n整理后可解出 $ I_{DQ} $（取合理物理解，满足 $ 0 < I_{DQ} < I_{DSS} $），再代回式 (1) 得 $ U_{GSQ} $。\n\n亦可采用**图解法**：在 $ I_D $–$ U_{GS} $ 坐标系中，  \n- 绘制 Shockley 曲线（式 2），  \n- 绘制直线 $ U_{GS} = -I_D \\cdot R_S $（斜率为 $ -R_S $，过原点），  \n- 二者交点即为 Q 点 $ (U_{GSQ},\\, I_{DQ}) $。\n\n该联立求解过程是第 3.3.2 节分析自偏置放大器 DC 工作点的基础，确保晶体管工作在饱和区（放大区），为后续小信号分析（如跨导 $ g_m = \\left.\\frac{dI_D}{dU_{GS}}\\right|_{Q} $）提供前提。\n\n### References\n\n- [1] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第23-24页：Self-bias 中，栅极通过 RG 接地（VG = 0），源极电位 VS = IS·RS = ID·RS > 0（因为 IG≈0，IS=ID），因此 UGS = VG − VS = −ID·RS < 0，自动产生所需的负栅偏置。Q 点方程：UGSQ = −IDQ·RS（偏置直线，过原点斜率为−RS）；联立 Shockley 方程 IDQ = IDSS(1 + IDQ·RS/VP)²，解得 Q 点。图解法中偏置直线过原点（ID=0时UGS=0，ID=IDSS/2时UGS=−IDSS·RS/2）与转移特性交点即为 Q 点。",
+    "category": "procedure",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "UGSQ=-IDQRS",
+        "自偏置",
+        "VG=0",
+        "Shockley"
+      ],
+      "must_not_claim": [
+        "Self-bias中VGS为正"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q09",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义 3.4.3 节 CS with Self-bias 的 AC 分析中，如何确定 Zi 和 Zo？",
+    "answer": "\n在讲义 3.4.3 节 CS with Self - bias 的 AC 分析中，确定输入阻抗 \\( Z_i \\) 和输出阻抗 \\( Z_o \\) 的方法如下：  \n\n### 输入阻抗 \\( Z_i \\) 的确定  \n在共源（Common - Source, CS）自偏置 FET 放大器中，由于场效应晶体管（FET）的栅极电流 \\( I_G \\approx 0 \\, \\text{A} \\)，其输入阻抗极高。此时，输入阻抗主要由栅极偏置电阻 \\( R_G \\) 决定。对于理想 MOSFET，输入阻抗趋近于无穷大；对于自偏置 JFET，输入阻抗近似等于 \\( R_G \\)。具体来说，在 AC 小信号等效电路中，由于栅极电流可忽略，输入网络主要由 \\( R_G \\) 构成，因此 \\( Z_i \\approx R_G \\)（参考 Knowledge Graph 中关于“Input Impedance”的描述及 Document Chunk [1] 对输入阻抗的分析）。  \n\n\n### 输出阻抗 \\( Z_o \\) 的确定  \n共源放大器的输出阻抗 \\( Z_o \\) 是 FET 内部输出电阻 \\( r_d \\) 与外部漏极电阻 \\( R_D \\) 的并联组合。根据小信号模型，输出阻抗的表达式为 \\( Z_o = r_d \\parallel R_D \\)。其中，\\( r_d \\) 反映了 FET 在饱和区工作的输出特性（如沟道长度调制效应），而 \\( R_D \\) 是漏极负载电阻。这种并联关系体现了共源放大器输出端的等效阻抗特性，是 AC 分析中评估负载影响和增益稳定性的关键参数（参考 Knowledge Graph 中关于“Output Impedance”的描述及 Document Chunk [1] 对输出阻抗的分析）。  \n\n\n### 参考文献  \n- [1] 2024 - ch3 - FETs - Enhance.pdf",
+    "correct_answer": "讲义第32页：CS with Self-bias 的 AC 分析中，AC 等效后 DC 电源短路，CS 旁路电容 CS 短路源极电阻（使 RS 对 AC 为零）。输入阻抗 Zi = RG（仅由栅极偏置电阻决定，因为 FET 栅极阻抗近似无穷大，不影响 Zi）。输出阻抗：令 Ui = 0 则 Ugs = 0，电流源 gmUgs = 0，Zo = RD||rd ≈ RD（当 rd >> RD 时）。电压增益 Au = −gm(rd||RD) ≈ −gmRD。",
+    "category": "procedure",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "Zi=RG",
+        "Zo=RD||rd",
+        "gmUgs=0"
+      ],
+      "must_not_claim": [
+        "Zi由栅极阻抗决定为无穷大"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q10",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义第25页将 JFET 和 BJT 的关键方程做了对比，为什么 JFET 的 ID 对 UGS 是非线性（二次方）关系，而 BJT 的 IC 对 IB 是线性关系？",
+    "answer": "\n要理解JFET的 \\( I_D \\) 对 \\( U_{GS} \\) 呈非线性（二次方）关系与BJT的 \\( I_C \\) 对 \\( I_B \\) 呈线性关系的原因，需从器件的**控制机制**和**物理工作原理**分析：  \n\n\n### 1. JFET的 \\( I_D - U_{GS} \\) 非线性（二次方）关系  \nJFET（结型场效应晶体管）是**电压控制型**器件，其核心物理机制是**PN结的反偏控制沟道宽度**：  \n- 当 \\( U_{GS} \\) 变化时，栅极与沟道间的PN结反偏程度改变，导致沟道内的载流子浓度（或有效导电面积）呈**平方律变化**。  \n- 这种关系由**Shockley方程**描述：  \n  \\[\n  I_D = I_{DSS} \\left(1 - \\frac{U_{GS}}{U_P}\\right)^2\n  \\]  \n  其中 \\( I_{DSS} \\) 是 \\( U_{GS}=0 \\) 时的饱和漏电流，\\( U_P \\) 是夹断电压。方程的二次方形式源于沟道载流子浓度的平方依赖性（如载流子浓度与反偏电压的平方成正比），因此 \\( I_D \\) 与 \\( U_{GS} \\) 呈非线性（二次方）关系。  \n\n\n### 2. BJT的 \\( I_C - I_B \\) 线性关系  \nBJT（双极结型晶体管）是**电流控制型**器件，其核心物理机制是**少数载流子的注入与复合**：  \n- 基极电流 \\( I_B \\) 控制注入到基区的少数载流子数量，进而调制集电极电流 \\( I_C \\)。  \n- 由于基区宽度、掺杂浓度等因素近似恒定，集电极电流与基极电流满足**线性比例关系**：  \n  \\[\n  I_C = \\beta I_B\n  \\]  \n  其中 \\( \\beta \\)（电流放大系数）是近似常数，因此 \\( I_C \\) 与 \\( I_B \\) 呈线性关系。  \n\n\n### 关键对比总结  \n| 器件类型 | 控制机制 | 电流-电压关系 | 代表方程 |  \n|----------|----------|---------------|----------|  \n| JFET     | 电压控制 | 非线性（二次方） | \\( I_D = I_{DSS} \\left(1 - \\frac{U_{GS}}{U_P}\\right)^2 \\) |  \n| BJT      | 电流控制 | 线性（比例）     | \\( I_C = \\beta I_B \\) |  \n\n\n这种差异源于器件的结构和工作原理：JFET通过电压改变沟道载流子浓度（平方律），而BJT通过基极电流注入少数载流子（线性比例）。这种本质区别决定了两者在电路应用中的特性（如输入阻抗、控制方式等）。  \n\n\n### 参考文献  \n- [1] 2024-ch3-FETs-Enhance.pdf  \n- Knowledge Graph中“Bipolar Junction Transistor”和“Shockley Equation”的定义  \n- 图25（JFET与BJT对比图）的视觉信息（参考 `image_44.png`）",
+    "correct_answer": "讲义第25页对比：JFET：ID = IDSS(1 − VGS/VP)² ↔ BJT：IC = β·IB。JFET 中 ID 由 VGS 控制，是 Shockley 方程的二次方关系，源于 FET 中耗尽层宽度与电场（电压）的非线性关系——沟道宽度随 VGS 的变化并非线性。BJT 中 IC = β·IB 是线性关系，因为在正偏条件下载流子扩散和注入过程是线性叠加的。这一差异导致 FET 的小信号跨导 gm 随工作点（Q 点位置）变化，而 BJT 的 β 相对稳定。",
+    "category": "reasoning",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "非线性",
+        "二次方",
+        "Shockley",
+        "gm随Q点变化"
+      ],
+      "must_not_claim": [
+        "JFET的ID对VGS是线性关系"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q11",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 n-channel JFET 的夹断（pinch-off）现象是如何发生的？讲义中 IDSS 如何定义？",
+    "answer": "\n### n-channel JFET 的夹断（pinch-off）现象发生机制  \nn-channel JFET 的夹断现象由**耗尽区扩展至导通通道的漏极端**引发：当漏极-源极电压（\\( U_{DS} \\) 或 \\( V_{DS} \\)）增大至等于夹断电压（\\( |V_P| \\)）时，门极与通道间的反向偏置 p-n 结耗尽区从源极向漏极扩展，最终在漏极端闭合，使导通通道被“夹断”。此时漏极电流（\\( I_D \\)）达到饱和值，不再随 \\( U_{DS} \\) 增大而显著变化，标志着器件进入饱和（active）工作区。这一过程的核心是反向偏置的 p-n 结耗尽区宽度随 \\( U_{DS} \\) 变化的物理机制，具体表现为：当 \\( U_{GS}=0 \\) 且 \\( U_{DS} > |V_P| \\) 时，耗尽区完全覆盖漏极端，通道被夹断。  \n\n\n### IDSS 的定义  \nIDSS（零门极-源极电压饱和漏极电流）是 n-channel JFET 的关键直流参数，定义为**当门极-源极电压（\\( U_{GS} \\)）为0伏时，且漏极-源极电压（\\( U_{DS} \\)）超过夹断电压（\\( |V_P| \\)）的绝对值时，所能达到的最大漏极电流**。它是 JFET 在零门极偏置下的最大导通能力，是 Shockley 平方律模型中的标度因子，决定了转移特性曲线的上限，是分析 JFET 直流偏置、放大器设计等场景的核心参数。  \n\n\n### 参考文献  \n- [1] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第6-7页：当 VGS = 0 时，随着 VDD（即 VDS）增大，ID 增大，漏极附近的耗尽层逐渐加宽，直至在漏极端沟道宽度趋于零，即发生预夹断（pinch-off），此时 VDS = VP（夹断电压）。夹断后再增大 VDS，ID 不再增加，进入饱和区。IDSS 定义为 VGS = 0 且 VDS > |VP| 时饱和区的最大漏极电流（Maximum drain current at saturation，讲义第10页），是 JFET 的重要 DC 参数。",
+    "category": "concept",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "耗尽层",
+        "夹断",
+        "IDSS",
+        "VGS=0",
+        "饱和区"
+      ],
+      "must_not_claim": [
+        "夹断后ID继续增大"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q12",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 D-MOSFET 与 JFET 在结构和输入阻抗上有什么相似之处和区别？",
+    "answer": "\n### 结构上的相似之处与区别  \n#### 相似之处  \n- **终端结构**：两者均属于场效应晶体管（FET）家族，具有 **Gate（G）、Drain（D）、Source（S）** 三个基本终端，通过 **Gate-Source 电压（V<sub>GS</sub> 或 U<sub>GS</sub>）** 控制漏极电流（I<sub>D</sub>）。  \n- **控制机制**：均通过电场效应调节通道导电性，实现电压控制电流输出的功能。  \n\n\n#### 结构区别  \n- **Gate 结构**：  \n  - JFET 的 gate 与 channel 之间是 **p-n 结**（反向偏置控制通道宽度）；  \n  - D-MOSFET 的 gate 与 channel 之间是 **绝缘层（SiO₂）**（属于金属-氧化物结构）。  \n- **物理结构基础**：  \n  - JFET 核心是 p-n 结，依赖反向偏置的 PN 结特性；  \n  - D-MOSFET 包含 p 型衬底、n 型源漏区、SiO₂ 绝缘层等，属于 MOS 结构。  \n\n\n### 输入阻抗上的相似之处与区别  \n#### 相似之处  \n- **电压控制特性**：两者均为电压控制器件，gate 电流近似为 0（I<sub>G</sub> ≈ 0 A），因此 **输入阻抗（Z<sub>i</sub>）都很高**（在直流和低频下表现为高阻抗）。  \n- **小信号模型共性**：输入阻抗主要由 gate 相关电阻决定，均表现出高输入阻抗特性，适合作为高输入阻抗的放大器件。  \n\n\n#### 输入阻抗区别  \n- **JFET**：输入阻抗主要由 gate-to-source 等效电阻（R<sub>GS</sub>）决定，通常为 **几十兆欧（tens of megohm）**。  \n- **D-MOSFET**：由于 SiO₂ 绝缘层的绝缘性能更好，其 gate-to-source 等效电阻（R<sub>GS</sub>）可达 **数千兆欧（thousands of megohm）**，输入阻抗更高。  \n\n\n### 参考文献  \n- [1] 2024-ch3-FETs-Enhance.pdf  \n- [2] 2024-ch3-FETs-Enhance.pdf  \n- [3] 2024-ch3-FETs-Enhance.pdf  \n- [4] 2024-ch3-FETs-Enhance.pdf  \n- [5] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第11-12页：相似点：①两者都有 IDSS 和 VP 参数，都可用 Shockley 方程描述转移特性；②n-channel 时 VGS 均为控制参数，ID 方向相同。区别：①结构不同：JFET 是 PN 结栅（gate 与沟道之间是 pn 结），MOSFET 是金属-氧化物-半导体结构（栅极通过 SiO2 绝缘层与沟道隔开）；②D-MOSFET 的 RGS 约为数千兆欧（thousands of megohm），远高于 JFET 的数十兆欧，输入阻抗更高；③D-MOSFET 可工作在 VGS > 0 的增强模式，JFET 不能。",
+    "category": "concept",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "SiO2绝缘层",
+        "RGS更高",
+        "Shockley方程",
+        "增强模式"
+      ],
+      "must_not_claim": [
+        "D-MOSFET和JFET结构完全相同"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q13",
+    "doc_id": "circuit_doc_fet",
+    "question": "从讲义第9页 JFET 的转移特性（Transfer Characteristics）曲线图上，如何读取 Q 点的 IDQ 和 VGSQ？",
+    "answer": "\n要读取JFET转移特性（Transfer Characteristics）曲线图上的Q点（Quiescent Point）的ID₍Q₎和VGS₍Q₎，需遵循以下步骤，结合相关概念与图形分析：  \n\n\n### 1. 理解转移特性曲线与Q点的定义  \nJFET的**转移特性曲线**是描述漏极电流 \\( I_D \\) 与栅源电压 \\( U_{GS} \\) 关系的曲线，其数学模型遵循Shockley平方律方程（如 \\( I_D = I_{DSS}\\left(1 - \\frac{U_{GS}}{V_P}\\right)^2 \\)），呈现非线性（抛物线）特征。  \n**Q点**是场效应管放大器的直流工作点，定义为转移特性曲线与**直流负载线**（DC Load Line）的交点，此时同时满足电路的线性约束（如自偏置电路的 \\( U_{GSQ} = V_G - I_{DQ}R_S \\)）和器件的非线性特性（Shockley方程）。  \n\n\n### 2. 确定Q点的读取方法  \n在转移特性曲线图（横轴为 \\( U_{GS} \\)，纵轴为 \\( I_D \\)）上，通过以下步骤定位Q点并读取参数：  \n- **步骤1：识别转移特性曲线**  \n  曲线从左（负 \\( U_{GS} \\)）向右（正 \\( U_{GS} \\)）上升，起始点为夹断电压 \\( V_P \\)（此时 \\( I_D \\approx 0 \\)），峰值对应 \\( U_{GS}=0 \\) 时的饱和漏极电流 \\( I_{DSS} \\)。  \n\n- **步骤2：绘制/识别直流负载线**  \n  直流负载线由电路的线性约束推导而来（例如自偏置电路中，负载线方程为 \\( U_{GS} = V_G - I_D R_S \\)），是一条直线，与转移特性曲线相交于Q点。  \n\n- **步骤3：读取Q点坐标**  \n  Q点是负载线与转移曲线的交点：  \n  - **ID₍Q₎（Quiescent Drain Current）**：从Q点向纵轴（\\( I_D \\) 轴）作垂线，读取对应的漏极电流值。  \n  - **VGS₍Q₎（Quiescent Gate-Source Voltage）**：从Q点向横轴（\\( U_{GS} \\) 轴）作垂线，读取对应的栅源电压值。  \n\n\n### 3. 结合图形示例（以典型教材图为例）  \n以教材中“自偏置JFET放大器Q点图形分析”类图表（如参考图像 `image_40.png`）为例：  \n- 图中左侧曲线为转移特性曲线（抛物线），右侧直线为直流负载线（斜率为 \\( -1/R_S \\)）。  \n- 两曲线交点标记为“Q-point”，该点在纵轴的投影即为 \\( I_{DQ} \\)，在横轴的投影即为 \\( U_{GSQ} \\)。  \n\n\n### 关键概念支撑  \n- 转移特性曲线本质是 \\( I_D = f(U_{GS}) \\) 的图形化表示，其局部斜率对应小信号跨导 \\( g_m \\)（见知识图谱中“Transconductance”与“Transfer Characteristic”的关系）。  \n- Q点的确定依赖**负载线分析**（Load-Line Analysis），即通过线性电路约束与器件非线性特性的交点求解工作点（知识图谱中“JFET Transfer Characteristic”与“Load-Line Analysis”的关系）。  \n\n\n综上，通过识别转移特性曲线与直流负载线的交点，并读取该交点在 \\( I_D \\) 轴和 \\( U_{GS} \\) 轴上的坐标，即可获得Q点的 \\( I_{DQ} \\) 和 \\( U_{GSQ} \\)。",
+    "correct_answer": "讲义第9页和第22页：转移特性图（纵轴为 ID，横轴为 VGS，曲线为 Shockley 方程）上，Q 点是偏置直线（network constraint line）与 Shockley 曲线的交点。从 Q 点向纵轴作水平线，读出 IDQ；向横轴作垂线，读出 VGSQ。在图解法中，偏置直线由两端点确定（VGS = VG 时 ID = 0；ID = VG/RS 时 VGS = 0），与非线性的 Shockley 曲线的交点唯一确定 Q 点。讲义第22页图中明确标注了 Q-point 的位置。",
+    "category": "cross_modal",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "偏置直线",
+        "Shockley曲线",
+        "交点",
+        "IDQ",
+        "VGSQ"
+      ],
+      "must_not_claim": [
+        "Q点从输出特性曲线直接读取"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q14",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义第3页图中将 BJT 和 FET 并排展示，从图中说明两者在控制端连接上的本质差异是什么？",
+    "answer": "\n从提供的图像中可以明确看到两者在控制端连接上的本质差异：  \n\nBJT（双极型晶体管）的控制端是基极（Base），该端连接**控制电流 \\( I_B \\)**（如图中(a)所示，控制电流箭头指向基极）；而FET（场效应晶体管）的控制端是栅极（Gate），该端连接**控制电压 \\( V_{GS} \\)**（如图中(b)所示，电压源在栅极和源极之间，标注为控制电压 \\( V_{GS} \\)）。  \n\n这种差异体现了两者的核心控制机制不同：BJT是**电流控制型**器件，输出电流由输入基极电流决定；FET是**电压控制型**器件，输出电流由输入栅源电压决定。  \n\n### References\n- [1] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第3、25页对比图：BJT 图（a）中控制端 base 有控制电流 IB 流入，通过电流 IB 控制输出电流 IC（current controlled device）；FET 图（b）中控制端 gate 加控制电压 VGS，但 IG ≈ 0（gate 与沟道之间有绝缘或反偏 PN 结），通过电压 VGS 控制输出电流 ID（voltage controlled device）。两者的根本差异在于控制信号类型：BJT 靠电流，FET 靠电压，FET 控制端无电流消耗，因此功耗更低、输入阻抗极高。",
+    "category": "cross_modal",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "IB",
+        "VGS",
+        "IG≈0",
+        "电流控制",
+        "电压控制"
+      ],
+      "must_not_claim": [
+        "FET也需要控制电流"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q15",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义指出 FET 的转移特性方程（Shockley 方程）是\"unaffected by the network\"，这句话的含义是什么？对 Q 点分析有何意义？",
+    "answer": "\n### 含义分析  \n讲义中“FET的转移特性方程（Shockley方程）不受网络影响”的含义是：**Shockley方程是描述场效应晶体管（FET，如JFET）自身物理特性的数学模型，其形式由器件的固有参数（如饱和漏电流 \\(I_{DSS}\\)、夹断电压 \\(V_P\\)）决定，与外部电路网络（如电阻、电源等）的结构或参数无关**。外部电路网络会改变偏置条件（如自偏置电路中 \\(V_{GS}\\) 的计算），但不会改变Shockley方程的数学表达式本身。  \n\n\n### 对Q点分析的意义  \nQ点是场效应管放大电路的直流工作点，由器件的转移特性曲线与电路网络的线性约束（如负载线）的交点确定。由于Shockley方程不受网络影响，分析Q点时需遵循以下逻辑：  \n1. **明确器件特性**：首先利用Shockley方程（\\(I_D = I_{DSS}(1 - \\frac{V_{GS}}{V_P})^2\\)）确定FET的转移特性（非线性曲线），这是器件固有的电流-电压关系。  \n2. **结合电路约束**：结合外部电路的线性约束（如自偏置电路中的 \\(V_{GS} = V_G - I_D R_S\\)），将器件的转移特性与电路约束方程联立求解，得到Q点（\\(V_{GSQ}\\)、\\(I_{DQ}\\)）。  \n3. **保证分析准确性**：这种区分确保了Q点的计算既基于器件本身的非线性特性（由Shockley方程体现），又满足外部电路的偏置要求，从而准确确定直流工作点，为后续小信号分析（如跨导 \\(g_m\\) 的计算）提供可靠基础。  \n\n\n### 参考文献  \n- [1] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第9页指出 Shockley 方程 ID = IDSS(1 − UGS/VP)² 是器件特性方程，仅由器件本身的参数（IDSS、VP）决定，与外部偏置网络（R1、R2、RS 等取值）无关。这意味着转移特性曲线是固定的，不会随电路配置变化。偏置网络给出另一个约束方程（如 UGS = VG − ID·RS），形成第二条方程（直线）。Q 点由这两个方程联立求解，即器件曲线与网络直线的交点，两者各管一侧，不相互影响，逻辑清晰。",
+    "category": "reasoning",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "器件特性",
+        "不随网络改变",
+        "网络约束方程",
+        "交点"
+      ],
+      "must_not_claim": [
+        "Shockley方程随电路参数改变"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q16",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义第3页总结 FET 的应用场合，它与 BJT 的相似和不同应用分别是什么？",
+    "answer": "\n### FET 的应用场合总结  \n根据讲义第3页内容，FET的应用场合主要包括工业电子、汽车电子和消费电子领域。  \n\n### FET 与 BJT 的相似应用  \n两者在应用场景上有以下相似之处：  \n- 均可作为**放大器**，实现信号放大功能；  \n- 均可作为**开关器件**，用于电路的通断控制；  \n- 均可用于**阻抗匹配电路**，优化信号传输特性。  \n\n### FET 与 BJT 的不同应用  \n两者在应用特性上存在明显差异：  \n- **结构差异**：FET和BJT的物理结构不同，导致控制机制和电气特性不同；  \n- **控制机制差异**：FET是**电压控制器件**（通过栅源电压 \\( V_{GS} \\) 调节漏极电流 \\( I_D \\)），而BJT是**电流控制器件**（通过基极电流 \\( I_B \\) 调节集电极电流 \\( I_C \\)）；  \n- **电气特性差异**：FET具有**高输入阻抗**和**低输入电流**（\\( I_G \\approx 0 \\, \\text{A} \\)），但增益较低；BJT具有**高电流增益**（\\( I_C = \\beta I_B \\)），但输入阻抗较低；  \n- **温度敏感性差异**：FET受温度影响较小，且更易集成到集成电路（IC）中，而BJT对温度更敏感。  \n\n\n### References\n* [1] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第3页：相似应用：①放大器（amplifiers）；②开关器件（switching devices）；③阻抗匹配电路（impedance matching circuits）。差异：FET 由于高输入阻抗、低功耗、温度稳定性好（less sensitive to temperature variations），更易于集成（more easily integrated on ICs）。BJT 增益更高（BJTs have higher gains），适合需要高增益的场合。讲义还列举了 FET 的实际应用：工业电子、汽车电子、消费电子、医疗器械（第2页）。",
+    "category": "topology",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "放大器",
+        "开关",
+        "高输入阻抗",
+        "易集成"
+      ],
+      "must_not_claim": [
+        "FET和BJT应用场合完全不同"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q17",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 FET 小信号模型（gm 模型）的建立步骤是什么？模型中包含哪些元件？",
+    "answer": "\n### FET 小信号模型（gm 模型）的建立步骤  \nFET 小信号模型的建立步骤主要围绕**非线性特性的线性化**和**等效电路构建**，具体如下：  \n\n1. **确定直流工作点（Q 点）**  \n   通过 FET 的转移特性（\\( I_D \\) vs \\( U_{GS} \\)）和输出特性（\\( I_D \\) vs \\( U_{DS} \\)）分析，结合直流偏置电路（如固定偏置、自偏置等）确定 FET 的静态工作点 \\( Q \\)，此时 \\( I_{DQ} \\) 和 \\( U_{GSQ} \\) 已知。  \n\n2. **计算跨导 \\( g_m \\)**  \n   对转移特性曲线在 Q 点附近进行线性化，计算跨导 \\( g_m \\)。根据定义，\\( g_m \\) 是漏极电流 \\( I_D \\) 对栅源电压 \\( U_{GS} \\) 的偏导数，即 \\( g_m = \\frac{\\partial I_D}{\\partial U_{GS}} \\bigg|_{Q} \\)。该值反映了栅源电压对漏极电流的控制能力，是模型的核心参数。  \n\n3. **构建小信号等效电路**  \n   将 FET 的非线性特性用线性元件表示，形成小信号等效模型。此过程基于小信号分析理论，将 FET 的输入输出关系线性化，便于分析交流信号下的增益、阻抗等特性。  \n\n\n### 模型中包含的元件  \nFET 小信号模型（gm 模型）的核心元件包括：  \n- **电压控制电流源（VCCS）**：表示为 \\( g_m u_{gs} \\)，其中 \\( g_m \\) 是跨导，\\( u_{gs} \\) 是小信号栅源电压。该元件体现 FET 的“电压控制电流”特性，即输入电压 \\( u_{gs} \\) 控制输出电流。  \n- **输出电阻 \\( r_d \\)**：代表 FET 的输出阻抗，位于漏极（D）与源极（S）之间，用于模拟漏极电流随漏源电压变化的非线性特性（如沟道长度调制效应）。  \n\n\n### 参考文献  \n- [1] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第26-27页：FET 小信号模型建立：①由于 FET 输入阻抗极高（IG≈0），输入端等效为开路（Zi为开路），仅有 ugs 电压；②漏极电流由跨导控制：id = gm·ugs，用受控电流源 gmugs 表示；③输出端并联漏-源输出电阻 rd（Zo = rd）。完整 FET 小信号模型包含三个元件：①栅-源之间的 ugs（输入电压，栅极为开路）；②受控电流源 gm·ugs（漏极电流来源）；③输出电阻 rd（模拟沟道长度调制效应）。讲义指出 FET 模型比 BJT 的 re 模型更简单（simpler）。",
+    "category": "procedure",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "gmugs",
+        "rd",
+        "输入开路",
+        "IG≈0"
+      ],
+      "must_not_claim": [
+        "FET小信号模型有输入电阻"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q18",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中使用的具体 JFET 器件型号（如 2N5459 或 BF256）的 IDSS 和 VP 具体数值是多少？",
+    "answer": "\n根据提供的上下文内容，讲义中未提及具体JFET器件型号（如2N5459或BF256）的IDSS和VP具体数值。上下文主要围绕JFET的基本概念、参数定义（如IDSS为饱和漏电流、VP为夹断电压）及工作原理展开，未包含特定型号的技术参数数据。因此无法基于所给信息回答该问题。",
+    "correct_answer": "讲义中没有指定使用的具体 JFET 器件型号，也未给出特定器件的 IDSS 和 VP 数值。讲义的例题和图示使用的是通用参数（如图中标注 VP = −4V、IDSS = 10mA 等示意性数值），具体器件参数需要查阅对应型号的 datasheet。",
+    "category": "unanswerable",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "未指定",
+        "datasheet"
+      ],
+      "must_not_claim": [
+        "IDSS=12mA，VP=-4V"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q19",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中提到的用于新冠检测的 FET 生物传感器（ACS Nano 2020 论文）的检测灵敏度具体数值是多少？",
+    "answer": "\n根据提供的上下文信息，讲义中未包含用于新冠检测的FET生物传感器（ACS Nano 2020论文）的检测灵敏度具体数值，因此无法基于所给信息回答该问题。  \n\n### References  \n- [1] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第17页仅提及该生物传感器论文作为 FET 的扩展应用案例，给出了论文标题和发表期刊，但没有给出具体的检测灵敏度数值（如 LOD、检测浓度范围等）。这些参数需要查阅原文。",
+    "category": "unanswerable",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "未给出",
+        "需查原文"
+      ],
+      "must_not_claim": [
+        "灵敏度为某具体数值"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q20",
+    "doc_id": "circuit_doc_fet",
+    "question": "为什么讲义强调 FET 的 DC 分析必须同时使用器件方程和网络方程？仅用其中一个能否确定 Q 点？",
+    "answer": "\n### 为什么讲义强调 FET 的 DC 分析必须同时使用器件方程和网络方程？仅用其中一个能否确定 Q 点？\n\n在 FET 的 DC 分析中，**器件方程**和**网络方程**分别描述不同的物理规律，共同决定了直流工作点（Q 点）的位置。以下从原理和实际分析过程两方面解释这一要求：\n\n#### 1. 器件方程与网络方程各自的内涵  \n- **器件方程**：描述 FET 本身的非线性特性。例如，JFET 的 Shockley 方程 \\( I_D = I_{DSS} \\left(1 - \\frac{V_{GS}}{V_P}\\right)^2 \\)（参考文档中的 \"JFET\" 实体描述和 \"Shockley Equation\" 实体定义），或 MOSFET 的平方律方程 \\( I_D = k (V_{GS} - V_{GS(th)})^2 \\)。这些方程体现了 FET 的内部物理机制（如沟道调制、阈值电压等），是**非线性关系**。  \n- **网络方程**：描述电路的线性约束条件。例如，自偏压电路中应用基尔霍夫电压定律（KVL）得到的 \\( V_{GSQ} = V_G - I_{DQ} R_S \\)（参考文档中的 \"Self-Bias Source Voltage Equation\" 和 \"Gate-Source Voltage Definition\"），或电压分压网络的 \\( V_G \\) 计算公式。这些方程是**线性关系**，反映了外部偏置网络（电阻、电源等）的约束。  \n\n#### 2. Q 点的本质：器件特性与电路约束的交点  \nQ 点是 FET 在无交流信号时的稳态工作点，需同时满足两个条件：  \n- 器件自身的非线性特性（由器件方程描述）；  \n- 电路的线性约束（由网络方程描述）。  \n\n例如，在自偏压电路中，需联立求解：  \n- 器件方程：\\( I_{DQ} = I_{DSS} \\left(1 - \\frac{V_{GSQ}}{V_P}\\right)^2 \\)；  \n- 网络方程：\\( V_{GSQ} = V_G - I_{DQ} R_S \\)。  \n\n只有通过联立这两个方程，才能找到唯一解 \\( (I_{DQ}, V_{GSQ}) \\)，即 Q 点。若仅使用器件方程，无法确定具体的 \\( V_{GSQ} \\) 和 \\( I_{DQ} \\) 值（因为器件方程有多个解，需结合电路约束筛选）；若仅使用网络方程，也无法确定 \\( I_{DQ} \\)（网络方程是线性的，无法直接关联器件的非线性特性）。  \n\n#### 3. 图形与数学方法的验证  \n- **数学方法**：通过代数联立器件方程与网络方程（如文档 1 中 \"3.3.1 Common Source FET Amplifier\" 部分的数学推导），直接求解 Q 点。  \n- **图形方法**：通过负载线（网络方程的线性约束）与 FET 转移特性曲线（器件方程的图形化表示）的交点确定 Q 点（参考文档中的 \"Load-Line Analysis\" 和 \"FET Quiescent Point Determination Graph\" 图像分析）。  \n\n综上，FET 的 DC 分析必须同时使用器件方程和网络方程，因为 Q 点是两者共同作用的结果；仅用其中一个无法独立确定 Q 点。  \n\n### References\n- [1] 2024-ch3-FETs-Enhance.pdf\n- [2] 2024-ch3-FETs-Enhance.pdf\n- [3] 2024-ch3-FETs-Enhance.pdf\n- [4] 2024-ch3-FETs-Enhance.pdf\n- [5] 2024-ch3-FETs-Enhance.pdf",
+    "correct_answer": "讲义第18-22页：不能只用一个。器件方程（Shockley 方程）ID = IDSS(1 − UGS/VP)² 给出了 ID 和 UGS 之间的非线性关系（一条曲线），有无穷多个满足条件的（UGS, ID）组合；网络方程（如 UGS = VG − ID·RS）由偏置电路决定，给出另一个线性约束（一条直线），也有无穷多个满足条件的点。只有两者联立，才能得到唯一确定的交点——Q 点。讲义指出两种求解方法（数学法和图解法）本质上都是求这两个方程的交点，结果相同。",
+    "category": "reasoning",
+    "topic": "fet",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "唯一确定",
+        "联立",
+        "器件方程",
+        "网络方程",
+        "交点"
+      ],
+      "must_not_claim": [
+        "只用Shockley方程就能确定Q点"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q01",
+    "doc_id": "circuit_doc_freq",
+    "question": "频率响应分析中，截止频率（-3dB 频率）的定义是什么？为什么选用 -3dB 作为带宽边界？",
+    "answer": "\n在频率响应分析中，截止频率（-3dB频率）的定义是：**系统（如放大器、滤波器）的增益下降到中频（midband）最大增益的1/√2（约0.707倍）时的频率，此时输出功率为最大值的50%（即-3 dB），是通带与阻带的边界**。  \n\n具体来说，从知识库信息可知：  \n- 截止频率对应电压增益为 \\(|A_v| = A_{\\text{mid}}/\\sqrt{2} \\approx 0.707A_{\\text{mid}}\\)，此时功率增益为 \\(P_{\\text{out}} = 0.5P_{\\text{mid}}\\)（因功率与电压平方成正比），即-3 dB点（参考[1]）。  \n- 该频率由电路参数（如RC时间常数）决定，例如RC低通滤波器的上截止频率 \\(f_H = 1/(2\\pi RC)\\)（参考[1]），此时电容容抗 \\(X_C = R\\)，满足 \\(|A_v| = 1/\\sqrt{2}\\) 的条件（参考[1]）。  \n\n\n选用-3dB作为带宽边界的原因是：  \n- **物理意义明确**：-3 dB对应功率减半（电压比0.707），是一个直观的功率/增益衰减标准，便于工程中量化系统性能。  \n- **标准化与可比性**：作为通带与阻带的分界点，-3 dB边界统一了不同系统（如放大器、滤波器）的频率响应评估标准，便于比较和设计。  \n- **工程实用性**：在Bode图等分析工具中，-3 dB点（即半功率点）的斜率、相位变化等特征清晰，便于通过图形快速识别系统带宽（参考[1]）。  \n\n\n### References\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "截止频率（-3dB 频率，也称 half-power frequency）是电路增益降至最大值的 1/√2（约 0.707 倍）时对应的频率，此时输出功率为最大值的一半（-3.01dB ≈ -3dB）。选用 -3dB 是因为功率减半这一物理意义明确，且在 Bode 图上渐近线误差仅为 3dB，是工程中广泛接受的带宽定义边界。超过截止频率后信号能量显著衰减，认为不再有效传输。",
+    "category": "concept",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "-3dB",
+        "1/√2",
+        "功率减半",
+        "截止频率"
+      ],
+      "must_not_claim": [
+        "-3dB时增益为零"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q02",
+    "doc_id": "circuit_doc_freq",
+    "question": "单级 RC 低通滤波器的截止角频率 ωc 和截止频率 fc 公式是什么？若 R = 10kΩ，C = 1nF，求 fc。",
+    "answer": "单级 RC 低通滤波器的**截止角频率**（angular cutoff frequency）和**截止频率**（cyclic or half-power cutoff frequency）是描述其频率响应边界的核心参数，二者通过基本物理关系紧密关联。\n\n---\n\n### 一、公式定义\n\n- **截止角频率** $ \\omega_c $（单位：rad/s）定义为：\n  $$\n  \\omega_c = \\frac{1}{RC}\n  $$\n  它源于系统传递函数 $ H(j\\omega) = \\frac{1}{1 + j\\omega RC} $ 的极点位置 $ s = -\\frac{1}{RC} $，对应复频域中实轴上的单极点，决定了系统的动态响应与频率选择特性。\n\n- **截止频率** $ f_c $（单位：Hz），即 −3 dB 频率或半功率频率，定义为：\n  $$\n  f_c = \\frac{1}{2\\pi RC}\n  $$\n  此频率下，电压增益幅值降至中频（或直流）增益的 $ \\frac{1}{\\sqrt{2}} \\approx 0.707 $ 倍，对应功率减半（−3.01 dB），是工程中更常用的标称带宽边界。该式由 $ \\omega_c = 2\\pi f_c $ 直接导出，体现了角频率与循环频率的换算关系。\n\n两者等价，仅单位不同：$ \\omega_c = 2\\pi f_c $。\n\n---\n\n### 二、数值计算（R = 10 kΩ，C = 1 nF）\n\n给定：\n- $ R = 10\\,\\text{k}\\Omega = 10^4\\,\\Omega $\n- $ C = 1\\,\\text{nF} = 10^{-9}\\,\\text{F} $\n\n代入公式：\n$$\nf_c = \\frac{1}{2\\pi \\times 10^4 \\times 10^{-9}} = \\frac{1}{2\\pi \\times 10^{-5}} \\approx \\frac{1}{6.2832 \\times 10^{-5}} \\approx 15,\\!915\\,\\text{Hz}\n$$\n\n即：\n$$\nf_c \\approx 15.9\\,\\text{kHz}\n$$\n\n相应地，\n$$\n\\omega_c = 2\\pi f_c = \\frac{1}{RC} = \\frac{1}{10^4 \\times 10^{-9}} = 10^5\\,\\text{rad/s} = 100,\\!000\\,\\text{rad/s}\n$$\n\n---\n\n### 三、物理意义补充\n\n- 在 $ f = f_c $ 处，容抗 $ X_C = \\frac{1}{2\\pi f_c C} = R $，满足**电抗相等条件**（$ X_C = R $），这是推导截止频率的电路基础。\n- 幅频响应呈现 **−20 dB/十倍频程** 的滚降斜率，相位滞后为 −45°，均源于该一阶极点结构。\n- 此 $ f_c $ 即为该低通滤波器的**带宽**（BW），因低通系统下限频率 $ f_L \\to 0 $，故 $ \\text{BW} = f_H = f_c $。\n\n---\n\n### References\n\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "ωc = 1/(RC)，fc = 1/(2πRC)。代入 R=10kΩ，C=1nF：fc = 1/(2π × 10×10³ × 1×10⁻⁹) = 1/(2π×10⁻⁵) ≈ 15.9kHz。传输函数 H(s) = 1/(1+sRC)，在 ω = ωc 处增益降至 1/√2，对应 -3dB。",
+    "category": "factoid",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "1/(2πRC)",
+        "15.9kHz",
+        "ωc=1/RC"
+      ],
+      "must_not_claim": [
+        "截止频率为1/(RC)"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q03",
+    "doc_id": "circuit_doc_freq",
+    "question": "BJT CE 放大器的低频截止频率主要由哪些电容决定？各自对应的极点频率如何计算？",
+    "answer": "\n要回答BJT CE放大器低频截止频率的主要决定电容及各自极点频率的计算方法，需结合提供的知识内容分析如下：  \n\n\n### 一、低频截止频率的主要决定电容  \nBJT CE放大器的低频截止频率主要由**源耦合电容C_S**、**发射极旁路电容C_E**和**集电极耦合电容C_C**决定。这些电容的容抗在低频时较大，会引入高通滤波效应，导致增益下降，从而影响低频响应。  \n\n\n### 二、各电容对应的极点频率计算  \n每个电容对应的低频极点频率（即-3 dB截止频率）可通过**第一阶高通RC电路的截止频率公式**计算，公式为 \\( f_c = \\frac{1}{2\\pi R_{\\text{eq}} C} \\)，其中 \\( R_{\\text{eq}} \\) 是电容所在支路的等效电阻，\\( C \\) 是电容值。具体计算如下：  \n\n1. **源耦合电容C_S**  \n   - 极点频率 \\( f_{Ls} \\)：当C_E和C_C被短路时，C_S单独影响低频响应。等效电阻 \\( R_{\\text{eq}} = R_s + R_i \\)（\\( R_s \\) 为信号源电阻，\\( R_i \\) 为基极输入等效电阻，包含偏置电阻 \\( R_B \\) 与发射极等效电阻的并联等）。  \n   - 计算公式：  \n     \\[\n     f_{Ls} = \\frac{1}{2\\pi (R_s + R_i) C_S}\n     \\]  \n   - 示例（参考文档）：若 \\( R_s = 1\\,\\text{k}\\Omega \\)、\\( R_i = 0.635\\,\\text{k}\\Omega \\)、\\( C_S = 8\\,\\mu\\text{F} \\)，则 \\( f_{Ls} \\approx 12.18\\,\\text{Hz} \\)。  \n\n2. **发射极旁路电容C_E**  \n   - 极点频率 \\( f_{LE} \\)：C_E与发射极等效电阻 \\( R_e \\)（由动态电阻 \\( r_e \\)、外部发射极电阻 \\( R_E \\) 等并联组成）形成高通网络。  \n   - 计算公式：  \n     \\[\n     f_{LE} = \\frac{1}{2\\pi R_e C_E}\n     \\]  \n   - 示例（参考文档）：若 \\( R_e \\approx 31.65\\,\\Omega \\)、\\( C_E = 18\\,\\mu\\text{F} \\)，则 \\( f_{LE} \\approx 279.5\\,\\text{Hz} \\)。  \n\n3. **集电极耦合电容C_C**  \n   - 极点频率 \\( f_{Lc} \\)：C_C与集电极等效负载 \\( R_{\\text{eq}} = R_C + R_L \\)（\\( R_C \\) 为集电极电阻，\\( R_L \\) 为负载电阻）形成高通网络。  \n   - 计算公式：  \n     \\[\n     f_{Lc} = \\frac{1}{2\\pi (R_C + R_L) C_C}\n     \\]  \n   - 示例（参考文档）：若 \\( R_C = 2\\,\\text{k}\\Omega \\)、\\( R_L = 2\\,\\text{k}\\Omega \\)、\\( C_C = 2\\,\\mu\\text{F} \\)，则 \\( f_{Lc} \\approx 19.90\\,\\text{Hz} \\)。  \n\n\n### 三、整体低频截止频率的确定  \nBJT CE放大器的**整体低频截止频率 \\( f_L \\)** 是上述三个极点频率中的最大值，即：  \n\\[\nf_L = \\max\\{f_{Ls}, f_{LE}, f_{Lc}\\}\n\\]  \n在多数情况下，发射极旁路电容C_E的极点频率 \\( f_{LE} \\) 是主导因素（如示例中 \\( f_{LE} \\approx 279.5\\,\\text{Hz} \\) 远高于其他电容的极点频率），因此整体低频截止频率主要由C_E决定。  \n\n\n### 参考文献  \n- [1] 2024-ch5-frequency.pdf  \n- [2] 2024-ch5-frequency.pdf  \n- [3] 2024-ch5-frequency.pdf  \n- [4] 2024-ch5-frequency.pdf  \n- [5] 2024-ch5-frequency.pdf  \n- [6] 2024-ch5-frequency.pdf  \n- [7] 2024-ch5-frequency.pdf  \n- [8] 2024-ch5-frequency.pdf  \n- [9] 2024-ch5-frequency.pdf  \n- [10] 2024-ch5-frequency.pdf  \n- [11] 2024-ch5-frequency.pdf  \n- [12] 2024-ch5-frequency.pdf  \n- [13] 2024-ch5-frequency.pdf  \n- [14] 2024-ch5-frequency.pdf  \n- [15] 2024-ch5-frequency.pdf  \n- [16] 2024-ch5-frequency.pdf  \n- [17] 2024-ch5-frequency.pdf  \n- [18] 2024-ch5-frequency.pdf  \n- [19] 2024-ch5-frequency.pdf  \n- [20] 2024-ch5-frequency.pdf  \n- [21] 2024-ch5-frequency.pdf  \n- [22] 2024-ch5-frequency.pdf  \n- [23] 2024-ch5-frequency.pdf  \n- [24] 2024-ch5-frequency.pdf  \n- [25] 2024-ch5-frequency.pdf  \n- [26] 2024-ch5-frequency.pdf  \n- [27] 2024-ch5-frequency.pdf  \n- [28] 2024-ch5-frequency.pdf  \n- [29] 2024-ch5-frequency.pdf  \n- [30] 2024-ch5-frequency.pdf  \n- [31] 2024-ch5-frequency.pdf  \n- [32] 2024-ch5-frequency.pdf  \n- [33] 2024-ch5-frequency.pdf  \n- [34] 2024-ch5-frequency.pdf  \n- [35] 2024-ch5-frequency.pdf  \n- [36] 2024-ch5-frequency.pdf  \n- [37] 2024-ch5-frequency.pdf  \n- [38] 2024-ch5-frequency.pdf  \n- [39] 2024-ch5-frequency.pdf  \n- [40] 2024-ch5-frequency.pdf  \n- [41] 2024-ch5-frequency.pdf  \n- [42] 2024-ch5-frequency.pdf  \n- [43] 2024-ch5-frequency.pdf  \n- [44] 2024-ch5-frequency.pdf  \n- [45] 2024-ch5-frequency.pdf  \n- [46] 2024-ch5-frequency.pdf  \n- [47] 2024-ch5-frequency.pdf  \n- [48] 2024-ch5-frequency.pdf  \n- [49] 2024-ch5-frequency.pdf  \n- [50] 2024-ch5-frequency.pdf  \n- [51] 2024-ch5-frequency.pdf  \n- [52] 2024-ch5-frequency.pdf  \n- [53] 2024-ch5-frequency.pdf  \n- [54] 2024-ch5-frequency.pdf  \n- [55] 2024-ch5-frequency.pdf  \n- [56] 2024-ch5-frequency.pdf  \n- [57] 2024-ch5-frequency.pdf  \n- [58] 2024-ch5-frequency.pdf  \n- [59] 2024-ch5-frequency.pdf  \n- [60] 2024-ch5-frequency.pdf  \n- [61] 2024-ch5-frequency.pdf  \n- [62] 2024-ch5-frequency.pdf  \n- [63] 2024-ch5-frequency.pdf  \n- [64] 2024-ch5-frequency.pdf  \n- [65] 2024-ch5-frequency.pdf  \n- [66] 2024-ch5-frequency.pdf  \n- [67] 2024-ch5-frequency.pdf  \n- [68] 2024-ch5-frequency.pdf  \n- [69] 2024-ch5-frequency.pdf  \n- [70] 2024-ch5-frequency.pdf  \n- [71] 2024-ch5-frequency.pdf  \n- [72] 2024-ch5-frequency.pdf  \n- [73] 2024-ch5-frequency.pdf  \n- [74] 2024-ch5-frequency.pdf  \n- [75] 2024-ch5-frequency.pdf  \n- [76] 2024-ch5-frequency.pdf  \n- [77] 2024-ch5-frequency.pdf  \n- [78] 2024-ch5-frequency.pdf  \n- [79] 2024-ch5-frequency.pdf  \n- [80] 2024-ch5-frequency.pdf  \n- [81] 2024-ch5-frequency.pdf  \n- [82] 2024-ch5-frequency.pdf  \n- [83] 2024-ch5-frequency.pdf  \n- [84] 2024-ch5-frequency.pdf  \n- [85] 2024-ch5-frequency.pdf  \n- [86] 2024-ch5-frequency.pdf  \n- [87] 2024-ch5-frequency.pdf  \n- [88] 2024-ch5-frequency.pdf  \n- [89] 2024-ch5-frequency.pdf  \n- [90] 2024-ch5-frequency.pdf  \n- [91] 2024-ch5-frequency.pdf  \n- [92] 2024-ch5-frequency.pdf  \n- [93] 2024-ch5-frequency.pdf  \n- [94] 2024-ch5-frequency.pdf  \n- [95] 2024-ch5-frequency.pdf  \n- [96] 2024-ch5-frequency.pdf  \n- [97] 2024-ch5-frequency.pdf  \n- [98] 2024-ch5-frequency.pdf  \n- [99] 2024-ch5-frequency.pdf  \n- [100] 2024-ch5-frequency.pdf  \n- [101] 2024-ch5-frequency.pdf  \n- [102] 2024-ch5-frequency.pdf  \n- [103] 2024-ch5-frequency.pdf  \n- [104] 2024-ch5-frequency.pdf  \n- [105] 2024-ch5-frequency.pdf  \n- [106] 2024-ch5-frequency.pdf  \n- [107] 2024-ch5-frequency.pdf  \n- [108] 2024-ch5-frequency.pdf  \n- [109] 2024-ch5-frequency.pdf  \n- [110] 2024-ch5-frequency.pdf  \n- [111] 2024-ch5-frequency.pdf  \n- [112] 2024-ch5-frequency.pdf  \n- [113] 2024-ch5-frequency.pdf  \n- [114] 2024-ch5-frequency.pdf  \n- [115] 2024-ch5-frequency.pdf  \n- [116] 2024-ch5-frequency.pdf  \n- [117] 2024-ch5-frequency.pdf  \n- [118] 2024-ch5-frequency.pdf  \n- [119] 2024-ch5-frequency.pdf  \n- [120] 2024-ch5-frequency.pdf  \n- [121] 2024-ch5-frequency.pdf  \n- [122] 2024-ch5-frequency.pdf  \n- [123] 2024-ch5-frequency.pdf  \n- [124] 2024-ch5-frequency.pdf  \n- [125] 2024-ch5-frequency.pdf  \n- [126] 2024-ch5-frequency.pdf  \n- [127] 2024-ch5-frequency.pdf  \n- [128] 2024-ch5-frequency.pdf  \n- [129] 2024-ch5-frequency.pdf  \n- [130] 2024-ch5-frequency.pdf  \n- [131] 2024-ch5-frequency.pdf  \n- [132] 2024-ch5-frequency.pdf  \n- [133] 2024-ch5-frequency.pdf  \n- [134] 2024-ch5-frequency.pdf  \n- [135] 2024-ch5-frequency.pdf  \n- [136] 2024-ch5-frequency.pdf  \n- [137] 2024-ch5-frequency.pdf  \n- [138] 2024-ch5-frequency.pdf  \n- [139] 2024-ch5-frequency.pdf  \n- [140] 2024-ch5-frequency.pdf  \n- [141] 2024-ch5-frequency.pdf  \n- [142] 2024-ch5-frequency.pdf  \n- [143] 2024-ch5-frequency.pdf  \n- [144] 2024-ch5-frequency.pdf  \n- [145] 2024-ch5-frequency.pdf  \n- [146] 2024-ch5-frequency.pdf  \n- [147] 2024-ch5-frequency.pdf  \n- [148] 2024-ch5-frequency.pdf  \n- [149] 2024-ch5-frequency.pdf  \n- [150] 2024-ch5-frequency.pdf  \n- [151] 2024-ch5-frequency.pdf  \n- [152] 2024-ch5-frequency.pdf  \n- [153] 2024-ch5-frequency.pdf  \n- [154] 2024-ch5-frequency.pdf  \n- [155] 2024-ch5-frequency.pdf  \n- [156] 2024-ch5-frequency.pdf  \n- [157] 2024-ch5-frequency.pdf  \n- [158] 2024-ch5-frequency.pdf  \n- [159] 2024-ch5-frequency.pdf  \n- [160] 2024-ch5-frequency.pdf  \n- [161] 2024-ch5-frequency.pdf  \n- [162] 2024-ch5-frequency.pdf  \n- [163] 2024-ch5-frequency.pdf  \n- [164] 2024-ch5-frequency.pdf  \n- [165] 2024-ch5-frequency.pdf  \n- [166] 2024-ch5-frequency.pdf  \n- [167] 2024-ch5-frequency.pdf  \n- [168] 2024-ch5-frequency.pdf  \n- [169] 2024-ch5-frequency.pdf  \n- [170] 2024-ch5-frequency.pdf  \n- [171] 2024-ch5-frequency.pdf  \n- [172] 2024-ch5-frequency.pdf  \n- [173] 2024-ch5-frequency.pdf  \n- [174] 2024-ch5-frequency.pdf  \n- [175] 2024-ch5-frequency.pdf  \n- [176] 2024-ch5-frequency.pdf  \n- [177] 2024-ch5-frequency.pdf  \n- [178] 2024-ch5-frequency.pdf  \n- [179] 2024-ch5-frequency.pdf  \n- [180] 2024-ch5-frequency.pdf  \n- [181] 2024-ch5-frequency.pdf  \n- [182] 2024-ch5-frequency.pdf  \n- [183] 2024-ch5-frequency.pdf  \n- [184] 2024-ch5-frequency.pdf  \n- [185] 2024-ch5-frequency.pdf  \n- [186] 2024-ch5-frequency.pdf  \n- [187] 2024-ch5-frequency.pdf  \n- [188] 2024-ch5-frequency.pdf  \n- [189] 2024-ch5-frequency.pdf  \n- [190] 2024-ch5-frequency.pdf  \n- [191] 2024-ch5-frequency.pdf  \n- [192] 2024-ch5-frequency.pdf  \n- [193] 2024-ch5-frequency.pdf  \n- [194] 2024-ch5-frequency.pdf  \n- [195] 2024-ch5-frequency.pdf  \n- [196] 2024-ch5-frequency.pdf  \n- [197] 2024-ch5-frequency.pdf  \n- [198] 2024-ch5-frequency.pdf  \n- [199] 2024-ch5-frequency.pdf  \n- [200] 2024-ch5-frequency.pdf  \n- [201] 2024-ch5-frequency.pdf  \n- [202] 2024-ch5-frequency.pdf  \n- [203] 2024-ch5-frequency.pdf  \n- [204] 2024-ch5-frequency.pdf  \n- [205] 2024-ch5-frequency.pdf  \n- [206] 2024-ch5-frequency.pdf  \n- [207] 2024-ch5-frequency.pdf  \n- [208] 2024-ch5-frequency.pdf  \n- [209] 2024-ch5-frequency.pdf  \n- [210] 2024-ch5-frequency.pdf  \n- [211] 2024-ch5-frequency.pdf  \n- [212] 2024-ch5-frequency.pdf  \n- [213] 2024-ch5-frequency.pdf  \n- [214] 2024-ch5-frequency.pdf  \n- [215] 2024-ch5-frequency.pdf  \n- [216] 2024-ch5-frequency.pdf  \n- [217] 2024-ch5-frequency.pdf  \n- [218] 2024-ch5-frequency.pdf  \n- [219] 2024-ch5-frequency.pdf  \n- [220] 2024-ch5-frequency.pdf  \n- [221] 2024-ch5-frequency.pdf  \n- [222] 2024-ch5-frequency.pdf  \n- [223] 2024-ch5-frequency.pdf  \n- [224] 2024-ch5-frequency.pdf  \n- [225] 2024-ch5-frequency.pdf  \n- [226] 2024-ch5-frequency.pdf  \n- [227] 2024-ch5-frequency.pdf  \n- [228] 2024-ch5-frequency.pdf  \n- [229] 2024-ch5-frequency.pdf  \n- [230] 2024-ch5-frequency.pdf  \n- [231] 2024-ch5-frequency.pdf  \n- [232] 2024-ch5-frequency.pdf  \n- [233] 2024-ch5-frequency.pdf  \n- [234] 2024-ch5-frequency.pdf  \n- [235] 2024-ch5-frequency.pdf  \n- [236] 2024-ch5-frequency.pdf  \n- [237] 2024-ch5-frequency.pdf  \n- [238] 2024-ch5-frequency.pdf  \n- [239] 2024-ch5-frequency.pdf  \n- [240] 2024-ch5-frequency.pdf  \n- [241] 2024-ch5-frequency.pdf  \n- [242] 2024-ch5-frequency.pdf  \n- [243] 2024-ch5-frequency.pdf  \n- [244] 2024-ch5-frequency.pdf  \n- [245] 2024-ch5-frequency.pdf  \n- [246] 2024-ch5-frequency.pdf  \n- [247] 2024-ch5-frequency.pdf  \n- [248] 2024-ch5-frequency.pdf  \n- [249] 2024-ch5-frequency.pdf  \n- [250] 2024-ch5-frequency.pdf  \n- [251] 2024-ch5-frequency.pdf  \n- [252] 2024-ch5-frequency.pdf  \n- [253] 2024-ch5-frequency.pdf  \n- [254] 2024-ch5-frequency.pdf  \n- [255] 2024-ch5-frequency.pdf  \n- [256] 2024-ch5-frequency.pdf  \n- [257] 2024-ch5-frequency.pdf  \n- [258] 2024-ch5-frequency.pdf  \n- [259] 2024-ch5-frequency.pdf  \n- [260] 2024-ch5-frequency.pdf  \n- [261] 2024-ch5-frequency.pdf  \n- [262] 2024-ch5-frequency.pdf  \n- [263] 2024-ch5-frequency.pdf  \n- [264] 2024-ch5-frequency.pdf  \n- [265] 2024-ch5-frequency.pdf  \n- [266] 2024-ch5-frequency.pdf  \n- [267] 2024-ch5-frequency.pdf  \n- [268] 2024-ch5-frequency.pdf  \n- [269] 2024-ch5-frequency.pdf  \n- [270] 2024-ch5-frequency.pdf  \n- [271] 2024-ch5-frequency.pdf  \n- [272] 2024-ch5-frequency.pdf  \n- [273] 2024-ch5-frequency.pdf  \n- [274] 2024-ch5-frequency.pdf  \n- [275] 2024-ch5-frequency.pdf  \n- [276] 2024-ch5-frequency.pdf  \n- [277] 2024-ch5-frequency.pdf  \n- [278] 2024-ch5-frequency.pdf  \n- [279] 2024-ch5-frequency.pdf  \n- [280] 2024-ch5-frequency.pdf  \n- [281] 2024-ch5-frequency.pdf  \n- [282] 2024-ch5-frequency.pdf  \n- [283] 2024-ch5-frequency.pdf  \n- [284] 2024-ch5-frequency.pdf  \n- [285] 2024-ch5-frequency.pdf  \n- [286] 2024-ch5-frequency.pdf  \n- [287] 2024-ch5-frequency.pdf  \n- [288] 2024-ch5-frequency.pdf  \n- [289] 2024-ch5-frequency.pdf  \n- [290] 2024-ch5-frequency.pdf  \n- [291] 2024-ch5-frequency.pdf  \n- [292] 2024-ch5-frequency.pdf  \n- [293] 2024-ch5-frequency.pdf  \n- [294] 2024-ch5-frequency.pdf  \n- [295] 2024-ch5-frequency.pdf  \n- [296] 2024-ch5-frequency.pdf  \n- [297] 2024-ch5-frequency.pdf  \n- [298] 2024-ch5-frequency.pdf  \n- [299] 2024-ch5-frequency.pdf  \n- [300] 2024-ch5-frequency.pdf  \n- [301] 2024-ch5-frequency.pdf  \n- [302] 2024-ch5-frequency.pdf  \n- [303] 2024-ch5-frequency.pdf  \n- [304] 2024-ch5-frequency.pdf  \n- [305] 2024-ch5-frequency.pdf  \n- [306] 2024-ch5-frequency.pdf  \n- [307] 2024-ch5-frequency.pdf  \n- [308] 2024-ch5-frequency.pdf  \n- [309] 2024-ch5-frequency.pdf  \n- [310] 2024-ch5-frequency.pdf  \n- [311] 2024-ch5-frequency.pdf  \n- [312] 2024-ch5-frequency.pdf  \n- [313] 2024-ch5-frequency.pdf  \n- [314] 2024-ch5-frequency.pdf  \n- [315] 2024-ch5-frequency.pdf  \n- [316] 2024-ch5-frequency.pdf  \n- [317] 2024-ch5-frequency.pdf  \n- [318] 2024-ch5-frequency.pdf  \n- [319] 2024-ch5-frequency.pdf  \n- [320] 2024-ch5-frequency.pdf  \n- [321] 2024-ch5-frequency.pdf  \n- [322] 2024-ch5-frequency.pdf  \n- [323] 2024-ch5-frequency.pdf  \n- [324] 2024-ch5-frequency.pdf  \n- [325] 2024-ch5-frequency.pdf  \n- [326] 2024-ch5-frequency.pdf  \n- [327] 2024-ch5-frequency.pdf  \n- [328] 2024-ch5-frequency.pdf  \n- [329] 2024-ch5-frequency.pdf  \n- [330] 2024-ch5-frequency.pdf  \n- [331] 2024-ch5-frequency.pdf  \n- [332] 2024-ch5-frequency.pdf  \n- [333] 2024-ch5-frequency.pdf  \n- [334] 2024-ch5-frequency.pdf  \n- [335] 2024-ch5-frequency.pdf  \n- [336] 2024-ch5-frequency.pdf  \n- [337] 2024-ch5-frequency.pdf  \n- [338] 2024-ch5-frequency.pdf  \n- [339] 2024-ch5-frequency.pdf  \n- [340] 2024-ch5-frequency.pdf  \n- [341] 2024-ch5-frequency.pdf  \n- [342] 2024-ch5-frequency.pdf  \n- [343] 2024-ch5-frequency.pdf  \n- [344] 2024-ch5-frequency.pdf  \n- [345] 2024-ch5-frequency.pdf  \n- [346] 2024-ch5-frequency.pdf  \n- [347] 2024-ch5-frequency.pdf  \n- [348] 2024-ch5-frequency.pdf  \n- [349] 2024-ch5-frequency.pdf  \n- [350] 2024-ch5-frequency.pdf  \n- [351] 2024-ch5-frequency.pdf  \n- [352] 2024-ch5-frequency.pdf  \n- [353] 2024-ch5-frequency.pdf  \n- [354] 2024-ch5-frequency.pdf  \n- [355] 2024-ch5-frequency.pdf  \n- [356] 2024-ch5-frequency.pdf  \n- [357] 2024-ch5-frequency.pdf  \n- [358] 2024-ch5-frequency.pdf  \n- [359] 2024-ch5-frequency.pdf  \n- [360] 2024-ch5-frequency.pdf  \n- [361] 2024-ch5-frequency.pdf  \n- [362] 2024-ch5-frequency.pdf  \n- [363] 2024-ch5-frequency.pdf  \n- [364] 2024-ch5-frequency.pdf  \n- [365] 2024-ch5-frequency.pdf  \n- [366] 2024-ch5-frequency.pdf  \n- [367] 2024-ch5-frequency.pdf  \n- [368] 2024-ch5-frequency.pdf  \n- [369] 2024-ch5-frequency.pdf  \n- [370] 2024-ch5-frequency.pdf  \n- [371] 2024-ch5-frequency.pdf  \n- [372] 2024-ch5-frequency.pdf  \n- [373] 2024-ch5-frequency.pdf  \n- [374] 2024-ch5-frequency.pdf  \n- [375] 2024-ch5-frequency.pdf  \n- [376] 2024-ch5-frequency.pdf  \n- [377] 2024-ch5-frequency.pdf  \n- [378] 2024-ch5-frequency.pdf  \n- [379] 2024-ch5-frequency.pdf  \n- [380] 2024-ch5-frequency.pdf  \n- [381] 2024-ch5-frequency.pdf  \n- [382] 2024-ch5-frequency.pdf  \n- [383] 2024-ch5-frequency.pdf  \n- [384] 2024-ch5-frequency.pdf  \n- [385] 2024-ch5-frequency.pdf  \n- [386] 2024-ch5-frequency.pdf  \n- [387] 2024-ch5-frequency.pdf  \n- [388] 2024-ch5-frequency.pdf  \n- [389] 2024-ch5-frequency.pdf  \n- [390] 2024-ch5-frequency.pdf  \n- [391] 2024-ch5-frequency.pdf  \n- [392] 2024-ch5-frequency.pdf  \n- [393] 2024-ch5-frequency.pdf  \n- [394] 2024-ch5-frequency.pdf  \n- [395] 2024-ch5-frequency.pdf  \n- [396] 2024-ch5-frequency.pdf  \n- [397] 2024-ch5-frequency.pdf  \n- [398] 2024-ch5-frequency.pdf  \n- [399] 2024-ch5-frequency.pdf  \n- [400] 2024-ch5-frequency.pdf  \n- [401] 2024-ch5-frequency.pdf  \n- [402] 2024-ch5-frequency.pdf  \n- [403] 2024-ch5-frequency.pdf  \n- [404] 2024-ch5-frequency.pdf  \n- [405] 2024-ch5-frequency.pdf  \n- [406] 2024-ch5-frequency.pdf  \n- [407] 2024-ch5-frequency.pdf  \n- [408] 2024-ch5-frequency.pdf  \n- [409] 2024-ch5-frequency.pdf  \n- [410] 2024-ch5-frequency.pdf  \n- [411] 2024-ch5-frequency.pdf  \n- [412] 2024-ch5-frequency.pdf  \n- [413] 2024-ch5-frequency.pdf  \n- [414] 2024-ch5-frequency.pdf  \n- [415] 2024-ch5-frequency.pdf  \n- [416] 2024-ch5-frequency.pdf  \n- [417] 2024-ch5-frequency.pdf  \n- [418] 2024-ch5-frequency.pdf  \n- [419] 2024-ch5-frequency.pdf  \n- [420] 2024-ch5-frequency.pdf  \n- [421] 2024-ch5-frequency.pdf  \n- [422] 2024-ch5-frequency.pdf  \n- [423] 2024-ch5-frequency.pdf  \n- [424] 2024-ch5-frequency.pdf  \n- [425] 2024-ch5-frequency.pdf  \n- [426] 2024-ch5-frequency.pdf  \n- [427] 2024-ch5-frequency.pdf  \n- [428] 2024-ch5-frequency.pdf  \n- [429] 2024-ch5-frequency.pdf  \n- [430] 2024-ch5-frequency.pdf  \n- [431] 2024-ch5-frequency.pdf  \n- [432] 2024-ch5-frequency.pdf  \n- [433] 2024-ch5-frequency.pdf  \n- [434] 2024-ch5-frequency.pdf  \n- [435] 2024-ch5-frequency.pdf  \n- [436] 2024-ch5-frequency.pdf  \n- [437] 2024-ch5-frequency.pdf  \n- [438] 2024-ch5-frequency.pdf  \n- [439] 2024-ch5-frequency.pdf  \n- [440] 2024-ch5-frequency.pdf  \n- [441] 2024-ch5-frequency.pdf  \n- [442] 2024-ch5-frequency.pdf  \n- [443] 2024-ch5-frequency.pdf  \n- [444] 2024-ch5-frequency.pdf  \n- [445] 2024-ch5-frequency.pdf  \n- [446] 2024-ch5-frequency.pdf  \n- [447] 2024-ch5-frequency.pdf  \n- [448] 2024-ch5-frequency.pdf  \n- [449] 2024-ch5-frequency.pdf  \n- [450] 2024-ch5-frequency.pdf  \n- [451] 2024-ch5-frequency.pdf  \n- [452] 2024-ch5-frequency.pdf  \n- [453] 2024-ch5-frequency.pdf  \n- [454] 2024-ch5-frequency.pdf  \n- [455] 2024-ch5-frequency.pdf  \n- [456] 2024-ch5-frequency.pdf  \n- [457] 2024-ch5-frequency.pdf  \n- [458] 2024-ch5-frequency.pdf  \n- [459] 2024-ch5-frequency.pdf  \n- [460] 2024-ch5-frequency.pdf  \n- [461] 2024-ch5-frequency.pdf  \n- [462] 2024-ch5-frequency.pdf  \n- [463] 2024-ch5-frequency.pdf  \n- [464] 2024-ch5-frequency.pdf  \n- [465] 2024-ch5-frequency.pdf  \n- [466] 2024-ch5-frequency.pdf  \n- [467] 2024-ch5-frequency.pdf  \n- [468] 2024-ch5-frequency.pdf  \n- [469] 2024-ch5-frequency.pdf  \n- [470] 2024-ch5-frequency.pdf  \n- [471] 2024-ch5-frequency.pdf  \n- [472] 2024-ch5-frequency.pdf  \n- [473] 2024-ch5-frequency.pdf  \n- [474] 2024-ch5-frequency.pdf  \n- [475] 2024-ch5-frequency.pdf  \n- [476] 2024-ch5-frequency.pdf  \n- [477] 2024-ch5-frequency.pdf  \n- [478] 2024-ch5-frequency.pdf  \n- [479] 2024-ch5-frequency.pdf  \n- [480] 2024-ch5-frequency.pdf  \n- [481] 2024-ch5-frequency.pdf  \n- [482] 2024-ch5-frequency.pdf  \n- [483] 2024-ch5-frequency.pdf  \n- [484] 2024-ch5-frequency.pdf  \n- [485] 2024-ch5-frequency.pdf  \n- [486] 2024-ch5-frequency.pdf  \n- [487] 2024-ch5-frequency.pdf  \n- [488] 2024-ch5-frequency.pdf  \n- [489] 2024-ch5-frequency.pdf  \n- [490] 2024-ch5-frequency.pdf  \n- [491] 2024-ch5-frequency.pdf  \n- [492] 2024-ch5-frequency.pdf  \n- [493] 2024-ch5-frequency.pdf  \n- [494] 2024-ch5-frequency.pdf  \n- [495] 2024-ch5-frequency.pdf  \n- [496] 2024-ch5-frequency.pdf  \n- [497] 2024-ch5-frequency.pdf  \n- [498] 2024-ch5-frequency.pdf  \n- [499] 2024-ch5-frequency.pdf  \n- [500] 2024-ch5-frequency.pdf  \n- [501] 2024-ch5-frequency.pdf  \n- [502] 2024-ch5-frequency.pdf  \n- [503] 2024-ch5-frequency.pdf  \n- [504] 2024-ch5-frequency.pdf  \n- [505] 2024-ch5-frequency.pdf  \n- [506] 2024-ch5-frequency.pdf  \n- [507] 2024-ch5-frequency.pdf  \n- [508] 2024-ch5-frequency.pdf  \n- [509] 2024-ch5-frequency.pdf  \n- [510] 2024-ch5-frequency.pdf  \n- [511] 2024-ch5-frequency.pdf  \n- [512] 2024-ch5-frequency.pdf  \n- [513] 2024-ch5-frequency.pdf  \n- [514] 2024-ch5-frequency.pdf  \n- [515] 2024-ch5-frequency.pdf  \n- [516] 2024-ch5-frequency.pdf  \n- [517] 2024-ch5-frequency.pdf  \n- [518] 2024-ch5-frequency.pdf  \n- [519] 2024-ch5-frequency.pdf  \n- [520] 2024-ch5-frequency.pdf  \n- [521] 2024-ch5-frequency.pdf  \n- [522] 2024-ch5-frequency.pdf  \n- [523] 2024-ch5-frequency.pdf  \n- [524] 2024-ch5-frequency.pdf  \n- [525] 2024-ch5-frequency.pdf  \n- [526] 2024-ch5-frequency.pdf  \n- [527] 2024-ch5-frequency.pdf  \n- [528] 2024-ch5-frequency.pdf  \n- [529] 2024-ch5-frequency.pdf  \n- [530] 2024-ch5-frequency.pdf  \n- [531] 2024-ch5-frequency.pdf  \n- [532] 2024-ch5-frequency.pdf  \n- [533] 2024-ch5-frequency.pdf  \n- [534] 2024-ch5-frequency.pdf  \n- [535] 2024-ch5-frequency.pdf  \n- [536] 2024-ch5-frequency.pdf  \n- [537] 2024-ch5-frequency.pdf  \n- [538] 2024-ch5-frequency.pdf  \n- [539] 2024-ch5-frequency.pdf  \n- [540] 2024-ch5-frequency.pdf  \n- [541] 2024-ch5-frequency.pdf  \n- [542] 2024-ch5-frequency.pdf  \n- [543] 2024-ch5-frequency.pdf  \n- [544] 2024-ch5-frequency.pdf  \n- [545] 2024-ch5-frequency.pdf  \n- [546] 2024-ch5-frequency.pdf  \n- [547] 2024-ch5-frequency.pdf  \n- [548] 2024-ch5-frequency.pdf  \n- [549] 2024-ch5-frequency.pdf  \n- [550] 2024-ch5-frequency.pdf  \n- [551] 2024-ch5-frequency.pdf  \n- [552] 2024-ch5-frequency.pdf  \n- [553] 2024-ch5-frequency.pdf  \n- [554] 2024-ch5-frequency.pdf  \n- [555] 2024-ch5-frequency.pdf  \n- [556] 2024-ch5-frequency.pdf  \n- [557] 2024-ch5-frequency.pdf  \n- [558] 2024-ch5-frequency.pdf  \n- [559] 2024-ch5-frequency.pdf  \n- [560] 2024-ch5-frequency.pdf  \n- [561] 2024-ch5-frequency.pdf  \n- [562] 2024-ch5-frequency.pdf  \n- [563] 2024-ch5-frequency.pdf  \n- [564] 2024-ch5-frequency.pdf  \n- [565] 2024-ch5-frequency.pdf  \n- [566] 2024-ch5-frequency.pdf  \n- [567] 2024-ch5-frequency.pdf  \n- [568] 2024-ch5-frequency.pdf  \n- [569] 2024-ch5-frequency.pdf  \n- [570] 2024-ch5-frequency.pdf  \n- [571] 2024-ch5-frequency.pdf  \n- [572] 2024-ch5-frequency.pdf  \n- [573] 2024-ch5-frequency.pdf  \n- [574] 2024-ch5-frequency.pdf  \n- [575] 2024-ch5-frequency.pdf  \n- [576] 2024-ch5-frequency.pdf  \n- [577] 2024-ch5-frequency.pdf  \n- [578] 2024-ch5-frequency.pdf  \n- [579] 2024-ch5-frequency.pdf  \n- [580] 2024-ch5-frequency.pdf  \n- [581] 2024-ch5-frequency.pdf  \n- [582] 2024-ch5-frequency.pdf  \n- [583] 2024-ch5-frequency.pdf  \n- [584] 2024-ch5-frequency.pdf  \n- [585] 2024-ch5-frequency.pdf  \n- [586] 2024-ch5-frequency.pdf  \n- [587] 2024-ch5-frequency.pdf  \n- [588] 2024-ch5-frequency.pdf  \n- [589] 2024-ch5-frequency.pdf  \n- [590] 2024-ch5-frequency.pdf  \n- [591] 2024-ch5-frequency.pdf  \n- [592] 2024-ch5-frequency.pdf  \n- [593] 2024-ch5-frequency.pdf  \n- [594] 2024-ch5-frequency.pdf  \n- [595] 2024-ch5-frequency.pdf  \n- [596] 2024-ch5-frequency.pdf  \n- [597] 2024-ch5-frequency.pdf  \n- [598] 2024-ch5-frequency.pdf  \n- [599] 2024-ch5-frequency.pdf  \n- [600] 2024-ch5-frequency.pdf  \n- [601] 2024-ch5-frequency.pdf  \n- [602] 2024-ch5-frequency.pdf  \n- [603] 2024-ch5-frequency.pdf  \n- [604] 2024-ch5-frequency.pdf  \n- [605] 2024-ch5-frequency.pdf  \n- [606] 2024-ch5-frequency.pdf  \n- [607] 2024-ch5-frequency.pdf  \n- [608] 2024-ch5-frequency.pdf  \n- [609] 2024-ch5-frequency.pdf  \n- [610] 2024-ch5-frequency.pdf  \n- [611] 2024-ch5-frequency.pdf  \n- [612] 2024-ch5-frequency.pdf  \n- [613] 2024-ch5-frequency.pdf  \n- [614] 2024-ch5-frequency.pdf  \n- [615] 2024-ch5-frequency.pdf  \n- [616] 2024-ch5-frequency.pdf  \n- [617] 2024-ch5-frequency.pdf  \n- [618] 2024-ch5-frequency.pdf  \n- [619] 2024-ch5-frequency.pdf  \n- [620] 2024-ch5-frequency.pdf  \n- [621] 2024-ch5-frequency.pdf  \n- [622] 2024-ch5-frequency.pdf  \n- [623] 2024-ch5-frequency.pdf  \n- [624] 2024-ch5-frequency.pdf  \n- [625] 2024-ch5-frequency.pdf  \n- [626] 2024-ch5-frequency.pdf  \n- [627] 2024-ch5-frequency.pdf  \n- [628] 2024-ch5-frequency.pdf  \n- [629] 2024-ch5-frequency.pdf  \n- [630] 2024-ch5-frequency.pdf  \n- [631] 2024-ch5-frequency.pdf  \n- [632] 2024-ch5-frequency.pdf  \n- [633] 2024-ch5-frequency.pdf  \n- [634] 2024-ch5-frequency.pdf  \n- [635] 2024-ch5-frequency.pdf  \n- [636] 2024-ch5-frequency.pdf  \n- [637] 2024-ch5-frequency.pdf  \n- [638] 2024-ch5-frequency.pdf  \n- [639] 2024-ch5-frequency.pdf  \n- [640] 2024-ch5-frequency.pdf  \n- [641] 2024-ch5-frequency.pdf  \n- [642] 2024-ch5-frequency.pdf  \n- [643] 2024-ch5-frequency.pdf  \n- [644] 2024-ch5-frequency.pdf  \n- [645] 2024-ch5-frequency.pdf  \n- [646] 2024-ch5-frequency.pdf  \n- [647] 2024-ch5-frequency.pdf  \n- [648] 2024-ch5-frequency.pdf  \n- [649] 2024-ch5-frequency.pdf  \n- [650] 2024-ch5-frequency.pdf  \n- [651] 2024-ch5-frequency.pdf  \n- [652] 2024-ch5-frequency.pdf  \n- [653] 2024-ch5-frequency.pdf  \n- [654] 2024-ch5-frequency.pdf  \n- [655] 2024-ch5-frequency.pdf  \n- [656] 2024-ch5-frequency.pdf  \n- [657] 2024-ch5-frequency.pdf  \n- [658] 2024-ch5-frequency.pdf  \n- [659] 2024-ch5-frequency.pdf  \n- [660] 2024-ch5-frequency.pdf  \n- [661] 2024-ch5-frequency.pdf  \n- [662] 2024-ch5-frequency.pdf  \n- [663] 2024-ch5-frequency.pdf  \n- [664] 2024-ch5-frequency.pdf  \n- [665] 2024-ch5-frequency.pdf  \n- [666] 2024-ch5-frequency.pdf  \n- [667] 2024-ch5-frequency.pdf  \n- [668] 2024-ch5-frequency.pdf  \n- [669] 2024-ch5-frequency.pdf  \n- [670] 2024-ch5-frequency.pdf  \n- [671] 2024-ch5-frequency.pdf  \n- [672] 2024-ch5-frequency.pdf  \n- [673] 2024-ch5-frequency.pdf  \n- [674] 2024-ch5-frequency.pdf  \n- [675] 2024-ch5-frequency.pdf  \n- [676] 2024-ch5-frequency.pdf  \n- [677] 2024-ch5-frequency.pdf  \n- [678] 2024-ch5-frequency.pdf  \n- [679] 2024-ch5-frequency.pdf  \n- [680] 2024-ch5-frequency.pdf  \n- [681] 2024-ch5-frequency.pdf  \n- [682] 2024-ch5-frequency.pdf  \n- [683] 2024-ch5-frequency.pdf  \n- [684] 2024-ch5-frequency.pdf  \n- [685] 2024-ch5-frequency.pdf  \n- [686] 2024-ch5-frequency.pdf  \n- [687] 2024-ch5-frequency.pdf  \n- [688] 2024-ch5-frequency.pdf  \n- [689] 2024-ch5-frequency.pdf  \n- [690] 2024-ch5-frequency.pdf  \n- [691] 2024-ch5-frequency.pdf  \n- [692] 2024-ch5-frequency.pdf  \n- [693] 2024-ch5-frequency.pdf  \n- [694] 2024-ch5-frequency.pdf  \n- [695] 2024-ch5-frequency.pdf  \n- [696] 2024-ch5-frequency.pdf  \n- [697] 2024-ch5-frequency.pdf  \n- [698] 2024-ch5-frequency.pdf  \n- [699] 2024-ch5-frequency.pdf  \n- [700] 2024-ch5-frequency.pdf  \n- [701] 2024-ch5-frequency.pdf  \n- [702] 2024-ch5-frequency.pdf  \n- [703] 2024-ch5-frequency.pdf  \n- [704] 2024-ch5-frequency.pdf  \n- [705] 2024-ch5-frequency.pdf  \n- [706] 2024-ch5-frequency.pdf  \n- [707] 2024-ch5-frequency.pdf  \n- [708] 2024-ch5-frequency.pdf  \n- [709] 2024-ch5-frequency.pdf  \n- [710] 2024-ch5-frequency.pdf  \n- [711] 2024-ch5-frequency.pdf  \n- [712] 2024-ch5-frequency.pdf  \n- [713] 2024-ch5-frequency.pdf  \n- [714] 2024-ch5-frequency.pdf  \n- [715] 2024-ch5-frequency.pdf  \n- [716] 2024-ch5-frequency.pdf  \n- [717] 2024-ch5-frequency.pdf  \n- [718] 2024-ch5-frequency.pdf  \n- [719] 2024-ch5-frequency.pdf  \n- [720] 2024-ch5-frequency.pdf  \n- [721] 2024-ch5-frequency.pdf  \n- [722] 2024-ch5-frequency.pdf  \n- [723] 2024-ch5-frequency.pdf  \n- [724] 2024-ch5-frequency.pdf  \n- [725] 2024-ch5-frequency.pdf  \n- [726] 2024-ch5-frequency.pdf  \n- [727] 2024-ch5-frequency.pdf  \n- [728] 2024-ch5-frequency.pdf  \n- [729] 2024-ch5-frequency.pdf  \n- [730] 2024-ch5-frequency.pdf  \n- [731] 2024-ch5-frequency.pdf  \n- [732] 2024-ch5-frequency.pdf  \n- [733] 2024-ch5-frequency.pdf  \n- [734] 2024-ch5-frequency.pdf  \n- [735] 2024-ch5-frequency.pdf  \n- [736] 2024-ch5-frequency.pdf  \n- [737] 2024-ch5-frequency.pdf  \n- [738] 2024-ch5-frequency.pdf  \n- [739] 2024-ch5-frequency.pdf  \n- [740] 2024-ch5-frequency.pdf  \n- [741] 2024-ch5-frequency.pdf  \n- [742] 2024-ch5-frequency.pdf  \n- [743] 2024-ch5-frequency.pdf  \n- [744] 2024-ch5-frequency.pdf  \n- [745] 2024-ch5-frequency.pdf  \n- [746] 2024-ch5-frequency.pdf  \n- [747] 2024-ch5-frequency.pdf  \n- [748] 2024-ch5-frequency.pdf  \n- [749] 2024-ch5-frequency.pdf  \n- [750] 2024-ch5-frequency.pdf  \n- [751] 2024-ch5-frequency.pdf  \n- [752] 2024-ch5-frequency.pdf  \n- [753] 2024-ch5-frequency.pdf  \n- [754] 2024-ch5-frequency.pdf  \n- [755] 2024-ch5-frequency.pdf  \n- [756] 2024-ch5-frequency.pdf  \n- [757] 2024-ch5-frequency.pdf  \n- [758] 2024-ch5-frequency.pdf  \n- [759] 2024-ch5-frequency.pdf  \n- [760] 2024-ch5-frequency.pdf  \n- [761] 2024-ch5-frequency.pdf  \n- [762] 2024-ch5-frequency.pdf  \n- [763] 2024-ch5-frequency.pdf  \n- [764] 2024-ch5-frequency.pdf  \n- [765] 2024-ch5-frequency.pdf  \n- [766] 2024-ch5-frequency.pdf  \n- [767] 2024-ch5-frequency.pdf  \n- [768] 2024-ch5-frequency.pdf  \n- [769] 2024-ch5-frequency.pdf  \n- [770] 2024-ch5-frequency.pdf  \n- [771] 2024-ch5-frequency.pdf  \n- [772] 2024-ch5-frequency.pdf  \n- [773] 2024-ch5-frequency.pdf  \n- [774] 2024-ch5-frequency.pdf  \n- [775] 2024-ch5-frequency.pdf  \n- [776] 2024-ch5-frequency.pdf  \n- [777] 2024-ch5-frequency.pdf  \n- [778] 2024-ch5-frequency.pdf  \n- [779] 2024-ch5-frequency.pdf  \n- [780] 2024-ch5-frequency.pdf  \n- [781] 2024-ch5-frequency.pdf  \n- [782] 2024-ch5-frequency.pdf  \n- [783] 2024-ch5-frequency.pdf  \n- [784] 2024-ch5-frequency.pdf  \n- [785] 2024-ch5-frequency.pdf  \n- [786] 2024-ch5-frequency.pdf  \n- [787] 2024-ch5-frequency.pdf  \n- [788] 2024-ch5-frequency.pdf  \n- [789] 2024-ch5-frequency.pdf  \n- [790] 2024-ch5-frequency.pdf  \n- [791] 2024-ch5-frequency.pdf  \n- [792] 2024-ch5-frequency.pdf  \n- [793] 2024-ch5-frequency.pdf  \n- [794] 2024-ch5-frequency.pdf  \n- [795] 2024-ch5-frequency.pdf  \n- [796] 2024-ch5-frequency.pdf  \n- [797] 2024-ch5-frequency.pdf  \n- [798] 2024-ch5-frequency.pdf  \n- [799] 2024-ch5-frequency.pdf  \n- [800] 2024-ch5-frequency.pdf  \n- [801] 2024-ch5-frequency.pdf  \n- [802] 2024-ch5-frequency.pdf  \n- [803] 2024-ch5-frequency.pdf  \n- [804] 2024-ch5-frequency.pdf  \n- [805] 2024-ch5-frequency.pdf  \n- [806] 2024-ch5-frequency.pdf  \n- [807] 2024-ch5-frequency.pdf  \n- [808] 2024-ch5-frequency.pdf  \n- [809] 2024-ch5-frequency.pdf  \n- [810] 2024-ch5-frequency.pdf  \n- [811] 2024-ch5-frequency.pdf  \n- [812] 2024-ch5-frequency.pdf  \n- [813] 2024-ch5-frequency.pdf  \n- [814] 2024-ch5-frequency.pdf  \n- [815] 2024-ch5-frequency.pdf  \n- [816] 2024-ch5-frequency.pdf  \n- [817] 2024-ch5-frequency.pdf  \n- [818] 2024-ch5-frequency.pdf  \n- [819] 2024-ch5-frequency.pdf  \n- [820] 2024-ch5-frequency.pdf  \n- [821] 2024-ch5-frequency.pdf  \n- [822] 2024-ch5-frequency.pdf  \n- [823] 2024-ch5-frequency.pdf  \n- [824] 2024-ch5-frequency.pdf  \n- [825] 2024-ch5-frequency.pdf  \n- [826] 2024-ch5-frequency.pdf  \n- [827] 2024-ch5-frequency.pdf  \n- [828] 2024-ch5-frequency.pdf  \n- [829] 2024-ch5-frequency.pdf  \n- [830] 2024-ch5-frequency.pdf  \n- [831] 2024-ch5-frequency.pdf  \n- [832] 2024-ch5-frequency.pdf  \n- [833] 2024-ch5-frequency.pdf  \n- [834] 2024-ch5-frequency.pdf  \n- [835] 2024-ch5-frequency.pdf  \n- [836] 2024-ch5-frequency.pdf  \n- [837] 2024-ch5-frequency.pdf  \n- [838] 2024-ch5-frequency.pdf  \n- [839] 2024-ch5-frequency.pdf  \n- [840] 2024-ch5-frequency.pdf  \n- [841] 2024-ch5-frequency.pdf  \n- [842] 2024-ch5-frequency.pdf  \n- [843] 2024-ch5-frequency.pdf  \n- [844] 2024-ch5-frequency.pdf  \n- [845] 2024-ch5-frequency.pdf  \n- [846] 2024-ch5-frequency.pdf  \n- [847] 2024-ch5-frequency.pdf  \n- [848] 2024-ch5-frequency.pdf  \n- [849] 2024-ch5-frequency.pdf  \n- [850] 2024-ch5-frequency.pdf  \n- [851] 2024-ch5-frequency.pdf  \n- [852] 2024-ch5-frequency.pdf  \n- [853] 2024-ch5-frequency.pdf  \n- [854] 2024-ch5-frequency.pdf  \n- [855] 2024-ch5-frequency.pdf  \n- [856] 2024-ch5-frequency.pdf  \n- [857] 2024-ch5-frequency.pdf  \n- [858] 2024-ch5-frequency.pdf  \n- [859] 2024-ch5-frequency.pdf  \n- [860] 2024-ch5-frequency.pdf  \n- [861] 2024-ch5-frequency.pdf  \n- [862] 2024-ch5-frequency.pdf  \n- [863] 2024-ch5-frequency.pdf  \n- [864] 2024-ch5-frequency.pdf  \n- [865] 2024-ch5-frequency.pdf  \n- [866] 2024-ch5-frequency.pdf  \n- [867] 2024-ch5-frequency.pdf  \n- [868] 2024-ch5-frequency.pdf  \n- [869] 2024-ch5-frequency.pdf  \n- [870] 2024-ch5-frequency.pdf  \n- [871] 2024-ch5-frequency.pdf  \n- [872] 2024-ch5-frequency.pdf  \n- [873] 2024-ch5-frequency.pdf  \n- [874] 2024-ch5-frequency.pdf  \n- [875] 2024-ch5-frequency.pdf  \n- [876] 2024-ch5-frequency.pdf  \n- [877] 2024-ch5-frequency.pdf  \n- [878] 2024-ch5-frequency.pdf  \n- [879] 2024-ch5-frequency.pdf  \n- [880] 2024-ch5-frequency.pdf  \n- [881] 2024-ch5-frequency.pdf  \n- [882] 2024-ch5-frequency.pdf  \n- [883] 2024-ch5-frequency.pdf  \n- [884] 2024-ch5-frequency.pdf  \n- [885] 2024-ch5-frequency.pdf  \n- [886] 2024-ch5-frequency.pdf  \n- [887] 2024-ch5-frequency.pdf  \n- [888] 2024-ch5-frequency.pdf  \n- [889] 2024-ch5-frequency.pdf  \n- [890] 2024-ch5-frequency.pdf  \n- [891] 2024-ch5-frequency.pdf  \n- [892] 2024-ch5-frequency.pdf  \n- [893] 2024-ch5-frequency.pdf  \n- [894] 2024-ch5-frequency.pdf  \n- [895] 2024-ch5-frequency.pdf  \n- [896] 2024-ch5-frequency.pdf  \n- [897] 2024-ch5-frequency.pdf  \n- [898] 2024-ch5-frequency.pdf  \n- [899] 2024-ch5-frequency.pdf  \n- [900] 2024-ch5-frequency.pdf  \n- [901] 2024-ch5-frequency.pdf  \n- [902] 2024-ch5-frequency.pdf  \n- [903] 2024-ch5-frequency.pdf  \n- [904] 2024-ch5-frequency.pdf  \n- [905] 2024-ch5-frequency.pdf  \n- [906] 2024-ch5-frequency.pdf  \n- [907] 2024-ch5-frequency.pdf  \n- [908] 2024-ch5-frequency.pdf  \n- [909] 2024-ch5-frequency.pdf  \n- [910] 2024-ch5-frequency.pdf  \n- [911] 2024-ch5-frequency.pdf  \n- [912] 2024-ch5-frequency.pdf  \n- [913] 2024-ch5-frequency.pdf  \n- [914] 2024-ch5-frequency.pdf  \n- [915] 2024-ch5-frequency.pdf  \n- [916] 2024-ch5-frequency.pdf  \n- [917] 2024-ch5-frequency.pdf  \n- [918] 2024-ch5-frequency.pdf  \n- [919] 2024-ch5-frequency.pdf  \n- [920] 2024-ch5-frequency.pdf  \n- [921] 2024-ch5-frequency.pdf  \n- [922] 2024-ch5-frequency.pdf  \n- [923] 2024-ch5-frequency.pdf  \n- [924] 2024-ch5-frequency.pdf  \n- [925] 2024-ch5-frequency.pdf  \n- [926] 2024-ch5-frequency.pdf  \n- [927] 2024-ch5-frequency.pdf  \n- [928] 2024-ch5-frequency.pdf  \n- [929] 2024-ch5-frequency.pdf  \n- [930] 2024-ch5-frequency.pdf  \n- [931] 2024-ch5-frequency.pdf  \n- [932] 2024-ch5-frequency.pdf  \n- [933] 2024-ch5-frequency.pdf  \n- [934] 2024-ch5-frequency.pdf  \n- [935] 2024-ch5-frequency.pdf  \n- [936] 2024-ch5-frequency.pdf  \n- [937] 2024-ch5-frequency.pdf  \n- [938] 2024-ch5-frequency.pdf  \n- [939] 2024-ch5-frequency.pdf  \n- [940] 2024-ch5-frequency.pdf  \n- [941] 2024-ch5-frequency.pdf  \n- [942] 2024-ch5-frequency.pdf  \n- [943] 2024-ch5-frequency.pdf  \n- [944] 2024-ch5-frequency.pdf  \n- [945] 2024-ch5-frequency.pdf  \n- [946] 2024-ch5-frequency.pdf  \n- [947] 2024-ch5-frequency.pdf  \n- [948] 2024-ch5-frequency.pdf  \n- [949] 2024-ch5-frequency.pdf  \n- [950] 2024-ch5-frequency.pdf  \n- [951] 2024-ch5-frequency.pdf  \n- [952] 2024-ch5-frequency.pdf  \n- [953] 2024-ch5-frequency.pdf  \n- [954] 2024-ch5-frequency.pdf  \n- [955] 2024-ch5-frequency.pdf  \n- [956] 2024-ch5-frequency.pdf  \n- [957] 2024-ch5-frequency.pdf  \n- [958] 2024-ch5-frequency.pdf  \n- [959] 2024-ch5-frequency.pdf  \n- [960] 2024-ch5-frequency.pdf  \n- [961] 2024-ch5-frequency.pdf  \n- [962] 2024-ch5-frequency.pdf  \n- [963] 2024-ch5-frequency.pdf  \n- [964] 2024-ch5-frequency.pdf  \n- [965] 2024-ch5-frequency.pdf  \n- [966] 2024-ch5-frequency.pdf  \n- [967] 2024-ch5-frequency.pdf  \n- [968] 2024-ch5-frequency.pdf  \n- [969] 2024-ch5-frequency.pdf  \n- [970] 2024-ch5-frequency.pdf  \n- [971] 2024-ch5-frequency.pdf  \n- [972] 2024-ch5-frequency.pdf  \n- [973] 2024-ch5-frequency.pdf  \n- [974] 2024-ch5-frequency.pdf  \n- [975] 2024-ch5-frequency.pdf  \n- [976] 2024-ch5-frequency.pdf  \n- [977] 2024-ch5-frequency.pdf  \n- [978] 2024-ch5-frequency.pdf  \n- [979] 2024-ch5-frequency.pdf  \n- [980] 2024-ch5-frequency.pdf  \n- [981] 2024-ch5-frequency.pdf  \n- [982] 2024-ch5-frequency.pdf  \n- [983] 2024-ch5-frequency.pdf  \n- [984] 2024-ch5-frequency.pdf  \n- [985] 2024-ch5-frequency.pdf  \n- [986] 2024-ch5-frequency.pdf  \n- [987] 2024-ch5-frequency.pdf  \n- [988] 2024-ch5-frequency.pdf  \n- [989] 2024-ch5-frequency.pdf  \n- [990] 2024-ch5-frequency.pdf  \n- [991] 2024-ch5-frequency.pdf  \n- [992] 2024-ch5-frequency.pdf  \n- [993] 2024-ch5-frequency.pdf  \n- [994] 2024-ch5-frequency.pdf  \n- [995] 2024-ch5-frequency.pdf  \n- [996] 2024-ch5-frequency.pdf  \n- [997] 2024-ch5-frequency.pdf  \n- [998] 2024-ch5-frequency.pdf  \n- [999] 2024-ch5-frequency.pdf  \n- [1000] 2024-ch5-frequency.pdf  \n- [1001] 2024-ch5-frequency.pdf  \n- [1002] 2024-ch5-frequency.pdf  \n- [1003] 2024-ch5-frequency.pdf  \n- [1004] 2024-ch5-frequency.pdf  \n- [1005] 2024-ch5-frequency.pdf  \n- [1006] 2024-ch5-frequency.pdf  \n- [1007] 2024-ch5-frequency.pdf  \n- [1008] 2024-ch5-frequency.pdf  \n- [1009] 2024-ch5-frequency.pdf  \n- [1010] 2024-ch5-frequency.pdf  \n- [1011] 2024-ch5-frequency.pdf  \n- [1012] 2024-ch5-frequency.pdf  \n- [1013] 2024-ch5-frequency.pdf  \n- [1014] 2024-ch5-frequency.pdf  \n- [1015] 2024-ch5-frequency.pdf  \n- [1016] 2024-ch5-frequency.pdf  \n- [1017] 2024-ch5-frequency.pdf  \n- [1018] 2024-ch5-frequency.pdf  \n- [1019] 2024-ch5-frequency.pdf  \n- [1020] 2024-ch5-frequency.pdf  \n- [1021] 2024-ch5-frequency.pdf  \n- [1022] 2024-ch5-frequency.pdf  \n- [1023] 2024-ch5-frequency.pdf  \n- [1024] 2024-ch5-frequency.pdf  \n- [1025] 2024-ch5-frequency.pdf  \n- [1026] 2024-ch5-frequency.pdf  \n- [1027] 2024-ch5-frequency.pdf  \n- [1028] 2024-ch5-frequency.pdf  \n- [1029] 2024-ch5-frequency.pdf  \n- [1030] 2024-ch5-frequency.pdf  \n- [1031] 2024-ch5-frequency.pdf  \n- [1032] 2024-ch5-frequency.pdf  \n- [1033] 2024-ch5-frequency.pdf  \n- [1034] 2024-ch5-frequency.pdf  \n- [1035] 2024-ch5-frequency.pdf  \n- [1036] 2024-ch5-frequency.pdf  \n- [1037] 2024-ch5-frequency.pdf  \n- [1038] 2024-ch5-frequency.pdf  \n- [1039] 2024-ch5-frequency.pdf  \n- [1040] 2024-ch5-frequency.pdf  \n- [1041] 2024-ch5-frequency.pdf  \n- [1042] 2024-ch5-frequency.pdf  \n- [1043] 2024-ch5-frequency.pdf  \n- [1044] 2024-ch5-frequency.pdf  \n- [1045] 2024-ch5-frequency.pdf  \n- [1046] 2024-ch5-frequency.pdf  \n- [1047] 2024-ch5-frequency.pdf  \n- [1048] 2024-ch5-frequency.pdf  \n- [1049] 2024-ch5-frequency.pdf  \n- [1050] 2024-ch5-frequency.pdf  \n- [1051] 2024-ch5-frequency.pdf  \n- [1052] 2024-ch5-frequency.pdf  \n- [1053] 2024-ch5-frequency.pdf  \n- [1054] 2024-ch5-frequency.pdf  \n- [1055] 2024-ch5-frequency.pdf  \n- [1056] 2024-ch5-frequency.pdf  \n- [1057] 2024-ch5-frequency.pdf  \n- [1058] 2024-ch5-frequency.pdf  \n- [1059] 2024-ch5-frequency.pdf  \n- [1060] 2024-ch5-frequency.pdf  \n- [1061] 2024-ch5-frequency.pdf  \n- [1062] 2024-ch5-frequency.pdf  \n- [1063] 2024-ch5-frequency.pdf  \n- [1064] 2024-ch5-frequency.pdf  \n- [1065] 2024-ch5-frequency.pdf  \n- [1066] 2024-ch5-frequency.pdf  \n- [1067] 2024-ch5-frequency.pdf  \n- [1068] 2024-ch5-frequency.pdf  \n- [1069] 2024-ch5-frequency.pdf  \n- [1070] 2024-ch5-frequency.pdf  \n- [1071] 2024-ch5-frequency.pdf  \n- [1072] 2024-ch5-frequency.pdf  \n- [1073] 2024-ch5-frequency.pdf  \n- [1074] 2024-ch5-frequency.pdf  \n- [1075] 2024-ch5-frequency.pdf  \n- [1076] 2024-ch5-frequency.pdf  \n- [1077] 2024-ch5-frequency.pdf  \n- [1078] 2024-ch5-frequency.pdf  \n- [1079] 2024-ch5-frequency.pdf  \n- [1080] 2024-ch5-frequency.pdf  \n- [1081] 2024-ch5-frequency.pdf  \n- [1082] 2024-ch5-frequency.pdf  \n- [1083] 2024-ch5-frequency.pdf  \n- [1084] 2024-ch5-frequency.pdf  \n- [1085] 2024-ch5-frequency.pdf  \n- [1086] 2024-ch5-frequency.pdf  \n- [1087] 2024-ch5-frequency.pdf  \n- [1088] 2024-ch5-frequency.pdf  \n- [1089] 2024-ch5-frequency.pdf  \n- [1090] 2024-ch5-frequency.pdf  \n- [1091] 2024-ch5-frequency.pdf  \n- [1092] 2024-ch5-frequency.pdf  \n- [1093] 2024-ch5-frequency.pdf  \n- [1094] 2024-ch5-frequency.pdf  \n- [1095] 2024-ch5-frequency.pdf  \n- [1096] 2024-ch5-frequency.pdf  \n- [1097] 2024-ch5-frequency.pdf  \n- [1098] 2024-ch5-frequency.pdf  \n- [1099] 2024-ch5-frequency.pdf  \n- [1100] 2024-ch5-frequency.pdf  \n- [1101] 2024-ch5-frequency.pdf  \n- [1102] 2024-ch5-frequency.pdf  \n- [1103] 2024-ch5-frequency.pdf  \n- [1104] 2024-ch5-frequency.pdf  \n- [1105] 2024-ch5-frequency.pdf  \n- [1106] 2024-ch5-frequency.pdf  \n- [1107] 2024-ch5-frequency.pdf  \n- [1108] 2024-ch5-frequency.pdf  \n- [1109] 2024-ch5-frequency.pdf  \n- [1110] 2024-ch5-frequency.pdf  \n- [1111] 2024-ch5-frequency.pdf  \n- [1112] 2024-ch5-frequency.pdf  \n- [1113] 2024-ch5-frequency.pdf  \n- [1114] 2024-ch5-frequency.pdf  \n- [1115] 2024-ch5-frequency.pdf  \n- [1116] 2024-ch5-frequency.pdf  \n- [1117] 2024-ch5-frequency.pdf  \n- [1118] 2024-ch5-frequency.pdf  \n- [1119] 2024-ch5-frequency.pdf  \n- [1120] 2024-ch5-frequency.pdf  \n- [1121] 2024-ch5-frequency.pdf  \n- [1122] 2024-ch5-frequency.pdf  \n- [1123] 2024-ch5-frequency.pdf  \n- [1124] 2024-ch5-frequency.pdf  \n- [1125] 2024-ch5-frequency.pdf  \n- [1126] 2024-ch5-frequency.pdf  \n- [1127] 2024-ch5-frequency.pdf  \n- [1128] 2024-ch5-frequency.pdf  \n- [1129] 2024-ch5-frequency.pdf  \n- [1130] 2024-ch5-frequency.pdf  \n- [1131] 2024-ch5-frequency.pdf  \n- [1132] 2024-ch5-frequency.pdf  \n- [1133] 2024-ch5-frequency.pdf  \n- [1134] 2024-ch5-frequency.pdf  \n- [1135] 2024-ch5-frequency.pdf  \n- [1136] 2024-ch5-frequency.pdf  \n- [1137] 2024-ch5-frequency.pdf  \n- [1138] 2024-ch5-frequency.pdf  \n- [1139] 2024-ch5-frequency.pdf  \n- [1140] 2024-ch5-frequency.pdf  \n- [1141] 2024-ch5-frequency.pdf  \n- [1142] 2024-ch5-frequency.pdf  \n- [1143] 2024-ch5-frequency.pdf  \n- [1144] 2024-ch5-frequency.pdf  \n- [1145] ",
+    "correct_answer": "CE 放大器的低频响应由耦合电容和旁路电容决定：①输入耦合电容 C1 与其等效串联电阻（≈ RS + Zi）形成极点 fL1 = 1/(2π·C1·(RS+Zi))；②输出耦合电容 C2 与等效电阻（≈ Zo + RL）形成极点 fL2 = 1/(2π·C2·(Zo+RL))；③旁路电容 CE 与 RE 并联，等效串联电阻较小，形成的极点频率最高，通常是主要的下截止频率贡献者，fLE = 1/(2π·CE·re')。下截止频率 fL ≈ 最高的单个极点频率（主极点主导）。",
+    "category": "factoid",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "耦合电容",
+        "旁路电容",
+        "极点",
+        "1/(2π",
+        "下截止频率"
+      ],
+      "must_not_claim": [
+        "低频截止频率由负载电阻决定"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q04",
+    "doc_id": "circuit_doc_freq",
+    "question": "放大器频率响应的 Bode 图（波特图）由哪两部分组成？幅频渐近线如何绘制？",
+    "answer": "\n### Bode 图（波特图）的组成  \n放大器频率响应的 Bode 图由两部分组成：  \n1. **幅频特性（Magnitude Response）**：显示增益（以分贝 dB 表示）随频率的变化，通常用对数刻度绘制，以压缩大范围频率下的增益变化。  \n2. **相频特性（Phase Response）**：显示相位偏移（以度为单位）随频率的变化，同样以对数频率为横轴。  \n\n### 幅频渐近线的绘制方法  \n幅频渐近线通过**直线段近似**技术绘制，基于系统极点和零点的位置，遵循以下规则：  \n- **一阶系统（如 RC 低通/高通滤波器）**：  \n  - 在截止频率（corner frequency）处，渐近线斜率发生跳变。例如，低通滤波器在高于截止频率 \\( f_H \\) 时，斜率为 **-20 dB/decade**；高通滤波器在低于截止频率 \\( f_L \\) 时，斜率为 **+20 dB/decade**（或对应方向）。  \n  - 渐近线通过连接关键频率点（如 \\( 0.1f_L \\)、\\( f_L \\)、\\( 10f_L \\) 等 decade 标记）的直线段绘制，利用对数频率轴的 decade 刻度简化分析。  \n- **多极系统**：多个极点叠加影响，每个极点贡献一个 -20 dB/decade 的斜率变化，总斜率为各极点斜率之和。  \n\n简言之，幅频渐近线通过在截止频率处改变直线段的斜率，结合对数频率轴的 decade 标记，快速估计系统频率响应的近似行为。  \n\n\n### References  \n- [1] 2024-ch5-frequency.pdf  \n- [2] 2024-ch5-frequency.pdf  \n- [3] 2024-ch5-frequency.pdf  \n- [4] 2024-ch5-frequency.pdf  \n- [5] 2024-ch5-frequency.pdf",
+    "correct_answer": "Bode 图由幅频响应（magnitude plot，纵轴 dB，横轴对数频率）和相频响应（phase plot，纵轴度数）两部分组成。幅频渐近线绘制规则：①每个实极点在转折频率 fp 处斜率变化 -20dB/dec（增加 -20dB/十倍频）；②每个实零点在 fz 处斜率变化 +20dB/dec；③DC 增益决定低频水平线高度。精确值在转折频率处比渐近线偏差约 3dB（幅度），相位在 0.1f 到 10f 范围内线性过渡 ±45°/dec，极点最终贡献 -90° 相移。",
+    "category": "topology",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "幅频",
+        "相频",
+        "-20dB/dec",
+        "极点",
+        "转折频率"
+      ],
+      "must_not_claim": [
+        "极点处斜率变化+20dB/dec"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q05",
+    "doc_id": "circuit_doc_freq",
+    "question": "放大器的中频段增益为什么相对平坦？高频段增益下降的根本原因是什么？",
+    "answer": "\n### 放大器的中频段增益相对平坦的原因  \n在中频段（mid - range），放大器的增益保持相对平坦且稳定，其核心原因是该频率范围内**电容和电感的反应可以忽略**。具体来说，在中频段，放大器内部的电容（如耦合电容、旁路电容等）和电感（如寄生电感）的容抗或感抗不会显著影响信号的传输，因此电压增益（midband voltage gain）能够维持在最大且恒定的水平。例如，根据知识图谱中“Mid - Range”的定义，该频率带中放大器增益不受电容性或电感性反应的影响，从而形成平坦的增益区域。此外，中频段的增益是放大器性能的基准（midband voltage gain 作为参考），在频率响应图中表现为0 dB的平坦区域（如Frequency Response Graph描述的central light blue shaded region）。\n\n### 高频段增益下降的根本原因  \n高频段增益下降的根本原因与**高频时放大器内部及外部的电容效应**密切相关，特别是**Miller效应**和晶体管内部寄生电容的影响。具体分析如下：  \n1. **寄生电容的影响**：在高频区域，晶体管（如BJT）内部存在基极 - 发射极电容（\\(C_{\\pi}\\)）、基极 - 集电极电容（\\(C_{\\mu}\\)）等寄生电容，以及电路中的分布电容（如接线电容）。这些电容的容抗随频率升高而减小，导致信号在高频时的衰减。  \n2. **Miller效应的作用**：在共射（CE）等反相放大配置中，反馈电容（如基极 - 集电极电容\\(C_{BC}\\)）会因放大器的电压增益被“放大”，形成等效输入电容（\\(C_{Mi}\\approx C_{FB}(1 + |A_v|)\\)）。这种“Miller倍增”效应显著增加了放大器的有效输入电容，进一步降低了高频截止频率（\\(f_{Hi}\\)），从而限制了高频段的增益。  \n3. **电流增益的频率特性**：BJT的电流增益（\\(\\beta\\)）在高频时呈现滚降特性（\\( \\beta(jf)=\\beta_0/(1 + jf/f_{\\beta})\\)），其中\\(\\beta_{\\text{mid}}\\)是中频电流增益，\\(f_{\\beta}\\)是\\(\\beta\\)的截止频率。当频率接近或超过\\(\\beta\\)截止频率时，电流增益下降，导致高频段的电压增益（\\(A_v\\)）随之降低。  \n\n综上，高频段增益下降的根本原因是高频时电容性元件（包括晶体管内部电容和Miller效应导致的等效电容）的容抗减小，以及由此引发的电流增益频率特性变化，共同限制了放大器在高频下的增益水平。\n\n### References\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "中频段：耦合和旁路电容阻抗已足够小（相当于短路），寄生电容阻抗足够大（相当于开路），电路等效为纯阻性电路，增益最大且平坦。高频段增益下降：BJT 的极间电容（Cπ、Cμ）和 FET 的 Cgs、Cgd 等寄生电容在高频时阻抗降低，对信号产生分流和相移，尤其是 Cμ（BCE 结电容）通过 Miller 效应在输入端等效为更大的电容 Cμ(1+Au)，显著降低高频极点，使增益在高频率下-20dB/dec 衰减。",
+    "category": "topology",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "中频段",
+        "寄生电容",
+        "Miller效应",
+        "高频衰减"
+      ],
+      "must_not_claim": [
+        "中频段增益随频率增大"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q06",
+    "doc_id": "circuit_doc_freq",
+    "question": "Miller 定理在分析 BJT CE 放大器高频响应时如何应用？Cμ 被等效为哪两个电容？",
+    "answer": "Miller 定理（Miller Theorem）是分析 BJT 共射极（Common-Emitter, CE）放大器高频响应的核心电路等效原理。它提供了一种将跨接在输入与输出之间的**浮地反馈电容**（如基极–集电极结电容 $ C_\\mu $，即 $ C_{BC} $）分解为两个**对地并联电容**的严格方法，从而将原本难以直接建模的反馈路径转化为标准的小信号等效电路，便于计算输入/输出阻抗、极点位置及上限截止频率 $ f_H $。\n\n在 BJT CE 放大器中，由于其固有的**反相电压增益**（$ A_v = v_c / v_b < 0 $，且 $ |A_v| \\gg 1 $），$ C_\\mu $ 构成从输出（集电极）到输入（基极）的反馈通路。根据 Miller 定理，该浮地电容 $ C_f = C_\\mu $ 可被等效替换为：\n\n- **输入端等效电容（Miller 输入电容）**：  \n  $$\n  C_{Mi} = C_\\mu (1 - A_v)\n  $$  \n  由于 $ A_v $ 为负大数（例如 $ A_v \\approx -100 $），故 $ (1 - A_v) \\approx 1 + |A_v| \\approx |A_v| $，因此 $ C_{Mi} \\approx C_\\mu (1 + |A_v|) $。该电容与基极–发射极电容 $ C_\\pi $、布线电容 $ C_{wi} $ 等并联，显著增大总输入电容 $ C_{in} $，成为决定**输入网络上限截止频率** $ f_{Hi} = \\frac{1}{2\\pi R_{in} C_{in}} $ 的主导因素，直接导致高频增益滚降。\n\n- **输出端等效电容（Miller 输出电容）**：  \n  $$\n  C_{Mo} = C_\\mu \\left(1 - \\frac{1}{A_v}\\right)\n  $$  \n  在高增益条件下（$ |A_v| \\gg 1 $），$ \\frac{1}{A_v} \\to 0 $，故 $ C_{Mo} \\approx C_\\mu $。尽管其增幅远小于 $ C_{Mi} $，但该电容仍与集电极–发射极电容 $ C_{CE} $、布线电容 $ C_{wo} $ 等共同构成总输出电容 $ C_o $，影响**输出网络上限截止频率** $ f_{Ho} = \\frac{1}{2\\pi R_{out} C_o} $，并对级间负载和稳定性产生重要影响。\n\n综上，Miller 定理通过将单一的 $ C_\\mu $ 分解为 $ C_{Mi} $ 和 $ C_{Mo} $，实现了对 CE 放大器高频行为的模块化建模：$ C_{Mi} $ 主导输入极点（$ f_{Hi} $），是带宽限制的主要来源；而 $ C_{Mo} $ 则参与输出极点（$ f_{Ho} $）及多级放大器的级间耦合分析。这一等效是构建 hybrid-π 高频小信号模型、推导主导极点、绘制 Bode 图以及进行带宽–增益权衡设计的基础。\n\n### References\n\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "Miller 定理：对于增益为 −A（负号表示反相）的放大器，跨接在输入输出之间的阻抗 Z，可等效为输入端对地的 Zin = Z/(1+A) 和输出端对地的 Zout = Z/(1+1/A) ≈ Z（当 A>>1）。对 CE 放大器中的 Cμ（BCB 结电容，跨接在 base 和 collector 之间），增益 A = gmRC：①输入端等效电容 CM = Cμ(1+A) = Cμ(1+gmRC)，比 Cμ 放大了 (1+gmRC) 倍，显著增大输入电容，严重降低上截止频率；②输出端等效电容 ≈ Cμ（较小）。Miller 效应是限制 CE 放大器高频性能的主要因素。",
+    "category": "mapping",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "Miller",
+        "Cμ(1+A)",
+        "输入电容增大",
+        "上截止频率降低"
+      ],
+      "must_not_claim": [
+        "Miller效应不影响高频响应"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q07",
+    "doc_id": "circuit_doc_freq",
+    "question": "放大器的增益带宽积（GBW，Gain-Bandwidth Product）如何定义？它对放大器设计有什么约束？",
+    "answer": "放大器的**增益–带宽积（Gain–Bandwidth Product, GBW）** 是模拟放大器设计中最核心的频域性能指标之一，其定义与物理约束深刻影响着电路架构、稳定性及应用适配性。\n\n---\n\n### 一、GBW 的定义\n\n增益–带宽积被严格定义为：  \n**GBW ≈ |A₀| × f_H**，  \n其中：\n\n- **|A₀|**（或记作 A_mid、A_v）是放大器在**中频段（midband）的电压增益幅值**（无量纲，通常为直流或低频平坦区最大增益）；  \n- **f_H** 是放大器的**上–3 dB 截止频率**（high-frequency cutoff frequency），即电压增益下降至中频增益的 $1/\\sqrt{2} \\approx 0.707$ 倍（对应功率减半，−3 dB）时的频率；  \n- 该关系在**单极点（first-order, dominant-pole）系统**中高度准确，例如由一个主RC低通网络主导的放大器（如典型共射BJT放大器在高频下的简化模型）[9]。\n\n该定义直接源自**一阶低通滤波器的传递函数**：  \n$$\nA_v(f) = \\frac{A_0}{1 + jf/f_H}\n$$  \n其幅频响应满足 $|A_v(f_H)| = A_0 / \\sqrt{2}$，而GBW正是该传递函数极点位置（$s = -2\\pi f_H$）与中频增益的乘积，在波特图（Bode plot）中表现为：**所有−20 dB/十倍频程（−6 dB/倍频程）滚降线的延长线在0 dB处交汇于频率 f = GBW** —— 这一特性被广泛用于运放开环增益分析与单位增益带宽预测 [9]。\n\n此外，对于双极型晶体管（BJT），GBW 与器件本征参数密切相关：  \n$$\n\\text{GBW} \\approx f_T = \\beta_{\\text{mid}} \\cdot f_\\beta\n$$  \n其中 $f_T$ 是**过渡频率（unity-gain bandwidth）**，即电流增益 $|\\beta(jf)|$ 降至1时的频率；$f_\\beta$ 是**β截止频率**，即电流增益下降至 $0.707\\beta_{\\text{mid}}$（−3 dB）时的频率 [10]。这表明 GBW 不仅是电路级指标，更是半导体器件高频能力的宏观体现。\n\n---\n\n### 二、GBW 对放大器设计的关键约束\n\nGBW 本质上刻画了**增益与带宽之间的根本权衡（trade-off）**，构成放大器设计不可逾越的物理边界，具体约束体现在以下三方面：\n\n#### 1. **增益–带宽互易约束（Gain–Bandwidth Trade-off）**  \n在固定器件与拓扑下，**提高中频增益必然导致带宽降低，反之亦然**。例如，在共射BJT放大器中：  \n- 电压增益 $|A_v|$ 增大 → Miller输入电容 $C_{Mi} = C_{BC}(1 + |A_v|)$ 显著增大 [5, 6]；  \n- 输入总电容 $C_i = C_{Wi} + C_{BE} + C_{Mi}$ 增大 → 高频输入截止频率 $f_{Hi} = \\frac{1}{2\\pi R_{in} C_i}$ 下降 [7]；  \n- 最终导致系统上限截止频率 $f_H$（常近似为 $f_{Hi}$ 或由 $f_{Hi}, f_{Ho}$ 综合决定）降低，从而压缩带宽 $BW = f_H - f_L$ [3, 7]。  \n因此，GBW ≈ $|A_v| \\times f_H$ 恒定，成为设计中必须遵守的“预算”约束 [2, 4]。\n\n#### 2. **稳定性与补偿设计约束**  \nGBW 决定了放大器在闭环应用（如负反馈运放）中的**相位裕度（phase margin）与稳定性边界**。若开环GBW过低或极点分布不当，闭环后易出现振荡。为此，常采用**主极点补偿（dominant-pole compensation）**：人为引入一个低频极点，压低GBW以换取足够相位裕度 [1]。此操作虽牺牲带宽，却确保可靠工作——这正是GBW作为“设计杠杆”的直接体现。\n\n#### 3. **多级放大器带宽劣化约束**  \n在多级级联结构中，每级的GBW独立受限，而**整体带宽随级数增加而急剧收窄**。例如，n级相同增益 $A_0$ 的单极点放大器级联后，总增益为 $A_0^n$，但总带宽 $BW_{\\text{total}}$ 近似满足：  \n$$\nBW_{\\text{total}} \\approx \\frac{f_H}{\\sqrt[n]{2^{1/n} - 1}} \\quad \\text{（近似）}\n$$  \n远小于单级带宽 $f_H$。因此，为维持系统级GBW，必须在各级间进行**增益分配优化**（如前级高增益+后级宽带缓冲），避免某一级成为瓶颈 [4]。\n\n---\n\n### 三、工程启示\n\n- **选型依据**：选用放大器时，GBW必须高于目标信号最高频率与所需闭环增益的乘积（如ADC驱动需 GBW > 10 × f_signal × A_cl）。  \n- **拓扑选择**：为突破GBW限制，常采用**共源共栅（cascode）** 等结构抑制Miller效应，减小 $C_{Mi}$，从而在不牺牲增益前提下提升 $f_H$ [1]。  \n- **建模基础**：GBW是构建简化小信号模型（如单极点传递函数）、预测阶跃响应（上升时间 $t_r \\approx 0.35 / f_H$）及噪声带宽的核心参数 [9]。\n\n综上，GBW 不仅是一个性能公式，更是连接器件物理、电路拓扑与系统指标的枢纽，其约束贯穿从晶体管级建模到系统级集成的全设计流程。\n\n### References\n\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "GBW = 中频增益 × 上截止频率 = |Av_mid| × fH，对于单极点系统近似为常数（由器件本身决定，如运放的 GBW 由内部补偿电容和跨导决定）。设计约束：增大闭环增益，则闭环带宽等比例减小，反之亦然，即增益与带宽存在折中（tradeoff）。例如闭环增益为 10 时带宽为 GBW/10，增益为 100 时带宽为 GBW/100。GBW 是衡量放大器综合性能的重要指标，在选用运放时必须满足应用所需的 GBW 要求。",
+    "category": "mapping",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "GBW",
+        "增益",
+        "带宽",
+        "成反比",
+        "折中"
+      ],
+      "must_not_claim": [
+        "GBW越大增益和带宽都越大"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q08",
+    "doc_id": "circuit_doc_freq",
+    "question": "用开路时间常数法（OCT，Open-Circuit Time Constant Method）估算放大器上截止频率 fH 的步骤是什么？",
+    "answer": "\n根据提供的上下文，关于“开路时间常数法（OCT，Open - Circuit Time Constant Method）”估算放大器上截止频率 \\( f_H \\) 的步骤信息未在提供的知识图谱数据、文档片段或图片中明确给出。因此，无法基于所提供的上下文回答该问题。",
+    "correct_answer": "开路时间常数法步骤：①列出所有影响高频响应的寄生电容（如 Cπ、Cμ、CL 等）；②对每个电容 Ck，将所有其他电容开路，计算 Ck 两端的等效电阻 Rk（即从 Ck 两端看进去的 Thevenin 等效电阻，含受控源）；③计算每个时间常数 τk = Rk × Ck；④上截止角频率 ωH ≈ 1/Σ(τk)，fH = 1/(2π·Σ(τk))。OCT 避免了联立方程，简化了多极点系统的手工分析，在主极点主导时精度较高。",
+    "category": "procedure",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "开路时间常数",
+        "Rk",
+        "Ck",
+        "fH=1/(2π",
+        "Στk"
+      ],
+      "must_not_claim": [
+        "直接用单个电容计算fH"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q09",
+    "doc_id": "circuit_doc_freq",
+    "question": "若已知一个两极点放大器的传输函数 H(s) = A₀/(1+s/ω₁)(1+s/ω₂)，其中 ω₁ < ω₂，如何用渐近线方法在 Bode 图上绘制幅频响应？",
+    "answer": "\n要绘制两极点放大器 \\( H(s) = \\frac{A_0}{(1 + s/\\omega_1)(1 + s/\\omega_2)} \\)（其中 \\( \\omega_1 < \\omega_2 \\)）的幅频响应渐近线，需遵循以下步骤，结合Bode近似理论分析每个极点对频率响应的影响：\n\n\n### 1. 确定基本参数与极点位置\n- **中频增益**：中频段（所有极点均远低于频率）的增益为 \\( A_0 \\, \\text{dB} \\)，即 \\( G_{\\text{mid}} = 20 \\log_{10}(A_0) \\)。  \n- **极点频率**：将角频率转换为频率，得到两个拐角频率（极点频率）：  \n  - 第一个极点对应的频率：\\( f_1 = \\frac{\\omega_1}{2\\pi} \\)  \n  - 第二个极点对应的频率：\\( f_2 = \\frac{\\omega_2}{2\\pi} \\)  \n\n\n### 2. 分频段绘制渐近线\nBode幅频响应的渐近线由各极点的贡献叠加而成，每个一阶极点在拐角频率处使斜率变化 \\( -20 \\, \\text{dB/decade} \\)。具体分频段绘制规则如下：  \n\n#### （1）低频段（\\( f < 0.1 f_1 \\)）\n- **增益**：保持中频增益 \\( A_0 \\, \\text{dB} \\)（因所有极点均处于低频区，未起作用）。  \n- **斜率**：0（水平直线）。  \n\n#### （2）第一个极点的过渡段（\\( 0.1 f_1 \\leq f < f_1 \\)）\n- **斜率变化**：从0变为 \\( -20 \\, \\text{dB/decade} \\)（第一个极点开始起作用）。  \n- **绘制**：以 \\( 0.1 f_1 \\) 为起点，绘制斜率为 \\( -20 \\, \\text{dB/decade} \\) 的直线，至 \\( f_1 \\) 处增益下降 \\( 20 \\, \\text{dB} \\)（即 \\( A_0 - 20 \\, \\text{dB} \\)）。  \n\n#### （3）两个极点间的过渡段（\\( f_1 \\leq f < 10 f_1 \\)）\n- **斜率**：保持 \\( -20 \\, \\text{dB/decade} \\)（第二个极点尚未起作用，仅第一个极点贡献）。  \n- **绘制**：从 \\( f_1 \\) 处（增益 \\( A_0 - 20 \\, \\text{dB} \\)）开始，以 \\( -20 \\, \\text{dB/decade} \\) 斜率延伸至 \\( 10 f_1 \\)，此时增益为 \\( A_0 - 20 \\, \\text{dB} \\)（因 \\( 10 f_1 \\) 是 \\( f_1 \\) 的十倍频程，下降 \\( 20 \\, \\text{dB} \\)）。  \n\n#### （4）第二个极点的过渡段（\\( 10 f_1 \\leq f < f_2 \\)）\n- **斜率变化**：从 \\( -20 \\, \\text{dB/decade} \\) 变为 \\( -40 \\, \\text{dB/decade} \\)（第二个极点开始起作用，总斜率叠加）。  \n- **绘制**：以 \\( 10 f_1 \\) 为起点（增益 \\( A_0 - 20 \\, \\text{dB} \\)），绘制斜率为 \\( -40 \\, \\text{dB/decade} \\) 的直线，至 \\( f_2 \\) 处增益下降 \\( 20 \\, \\text{dB} \\)（因从 \\( 10 f_1 \\) 到 \\( f_2 \\) 的频率范围是 \\( f_2/(10 f_1) \\) 倍频程，下降 \\( 20 \\log_{10}(f_2/(10 f_1)) \\, \\text{dB} \\)，近似为 \\( -20 \\, \\text{dB} \\) 当 \\( f_2 \\approx 10 f_1 \\) 时）。  \n\n#### （5）高频段（\\( f \\geq f_2 \\)）\n- **斜率**：保持 \\( -40 \\, \\text{dB/decade} \\)（所有极点均处于高频区，均起作用）。  \n- **绘制**：从 \\( f_2 \\) 处（增益 \\( A_0 - 40 \\, \\text{dB} \\)）开始，以 \\( -40 \\, \\text{dB/decade} \\) 斜率继续延伸。  \n\n\n### 3. 关键原理与参考依据\n- **Bode近似理论**：多极点系统的幅频响应由各极点的渐近线叠加而成，每个一阶极点贡献 \\( -20 \\, \\text{dB/decade} \\) 的斜率变化。  \n- **渐近行为**：RC低通滤波器的理想化幅频响应由直线段近似，拐点频率（极点频率）是斜率变化的转折点。  \n- **参考依据**：  \n  - Bode近似方法（如知识库中“Bode Approximation”描述）用于估计频率响应的渐近行为。  \n  - 一阶极点的斜率贡献（如知识库中“s = −1/(RC)”对应的 \\( -20 \\, \\text{dB/decade} \\) 滚降）是多极点系统的基础。  \n\n\n通过以上步骤，可在Bode图上绘制出两极点放大器的幅频响应渐近线，清晰展示各极点对频率响应的影响。",
+    "correct_answer": "绘制步骤：①低频（ω < ω₁）：幅频为常数 20log|A₀|（水平线）；②在 ω = ω₁ 处斜率变为 -20dB/dec（第一极点）；③在 ω = ω₂ 处斜率变为 -40dB/dec（第二极点叠加）；精确值修正：在 ω₁ 处精确值比渐近线低 3dB，在 ω₂ 处同理各偏 3dB。相频：低频 0°，在 0.1ω₁ 开始以 -45°/dec 斜率变化，至 10ω₁ 完成 -90° 过渡，再在 0.1ω₂ 到 10ω₂ 区间再过渡 -90°，高频总相移 -180°。",
+    "category": "procedure",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "-20dB/dec",
+        "-40dB/dec",
+        "转折频率",
+        "3dB误差"
+      ],
+      "must_not_claim": [
+        "第二极点后斜率为-20dB/dec"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q10",
+    "doc_id": "circuit_doc_freq",
+    "question": "为什么 Common Base（CB）BJT 放大器的高频性能比 Common Emitter（CE）好？从 Miller 效应角度分析。",
+    "answer": "Common Base（CB）BJT 放大器的高频性能优于 Common Emitter（CE）放大器，**核心原因在于 CB 配置显著抑制甚至消除了 Miller 效应**，而 CE 配置则因固有的高电压增益和反相特性，使 Miller 效应成为限制带宽的主导因素。以下从 Miller 效应角度进行系统分析：\n\n---\n\n### 一、Miller 效应的本质回顾  \nMiller 效应是一种电路现象，发生在**输入与输出之间存在反馈电容（如 BJT 的 $ C_{BC} $ 或 $ C_\\mu $）且放大器具有较大电压增益 $ A_v $ 的反相放大结构中**。根据 Miller 定理，该反馈电容 $ C_{BC} $ 在输入端等效为：  \n\\[\nC_{Mi} = C_{BC}(1 - A_v)\n\\]  \n由于 CE 放大器是**反相放大器**（$ A_v \\ll 0 $，例如 $ A_v \\approx -100 $），故 $ (1 - A_v) \\approx |A_v| + 1 \\gg 1 $，导致 $ C_{Mi} $ 被严重放大（如增大百倍），形成巨大的等效输入电容。该电容与输入电阻 $ R_{\\text{in}} $ 构成低通网络，决定输入侧高频截止频率：  \n\\[\nf_{Hi} = \\frac{1}{2\\pi R_{\\text{in}} C_{Mi}} \\propto \\frac{1}{|A_v|}\n\\]  \n因此，**CE 的高增益直接导致其高频带宽被严重压缩**。\n\n---\n\n### 二、CB 配置如何规避 Miller 效应  \n\n#### （1）电压增益特性不同  \n- **CE 配置**：电压增益 $ A_v = v_c / v_b \\approx -g_m R_C $，绝对值大（典型 50–200），且为**反相** → 强 Miller 增益乘数 $ (1 - A_v) $。  \n- **CB 配置**：电压增益 $ A_v = v_c / v_e \\approx +g_m R_C $，虽为**同相**，但关键点在于：**输入端是发射极（e），输出端是集电极（c），而反馈电容 $ C_{BC} $ 连接的是基极（b）与集电极（c）——即 *不直接跨接在输入与输出之间***。  \n  - 在 CB 小信号模型中，$ C_{BC} $ 一端接**基极（交流地）**，另一端接输出（集电极）。基极通常通过低阻抗路径（如 $ R_B $ 或旁路电容）交流接地，因此 $ C_{BC} $ 实际上是**并联在输出节点与地之间**，而非跨接输入–输出。  \n  - 因此，**$ C_{BC} $ 不构成 Miller 反馈路径**，无法被 Miller 定理放大。\n\n#### （2）输入电容组成对比  \n- **CE 输入电容**（以基极为输入）：  \n  \\[\n  C_i = C_{wi} + C_{BE} + C_{Mi} = C_{wi} + C_{BE} + C_{BC}(1 - A_v)\n  \\]  \n  其中 $ C_{Mi} $ 主导总电容，严重限制 $ f_{Hi} $。  \n- **CB 输入电容**（以发射极为输入）：  \n  \\[\n  C_i^{\\text{CB}} = C_{wi} + C_{BE} + C_{BC} \\quad \\text{（无 Miller 乘数）}\n  \\]  \n  因为 $ C_{BC} $ 不跨输入–输出，仅作为普通并联电容存在，其值仅为皮法量级（如 1–5 pF），远小于 CE 中被放大的 $ C_{Mi} $（可达数百 pF）。  \n\n#### （3）输入阻抗与时间常数优势  \n- CB 的输入阻抗很低（约 $ r_e \\parallel R_E \\sim 10–50\\ \\Omega $），但因其输入电容极小，输入 RC 时间常数 $ \\tau_i = R_{\\text{in}}^{\\text{CB}} \\cdot C_i^{\\text{CB}} $ 仍远小于 CE 的 $ \\tau_i^{\\text{CE}} = R_{\\text{in}}^{\\text{CE}} \\cdot C_{Mi} $（因 $ R_{\\text{in}}^{\\text{CE}} $ 较大且 $ C_{Mi} $ 极大）。  \n- 结果：CB 的输入侧高频截止频率 $ f_{Hi}^{\\text{CB}} $ 显著高于 CE 的 $ f_{Hi}^{\\text{CE}} $。\n\n---\n\n### 三、高频响应的综合体现  \n- **CE 放大器**：受 Miller 效应主导，高频滚降主要由 $ f_{Hi} $ 决定，且 $ f_{Hi} \\ll f_{Ho} $（输出侧截止频率），故整体上限频点 $ f_H \\approx f_{Hi} $，带宽窄。  \n- **CB 放大器**：无 Miller 增益乘数，$ C_{BC} $ 不恶化输入电容；其高频限制更多取决于 $ C_{BE} $、$ C_{CE} $ 及器件本身的 $ f_T $，因此 $ f_H^{\\text{CB}} $ 接近晶体管的本征极限（如 $ f_T $），带宽更宽，适用于射频（RF）和高速应用。\n\n---\n\n### 四、工程佐证：Cascode 结构的设计逻辑  \n实际宽带设计中，常将 CE 与 CB 级联构成 **cascode 放大器**：第一级 CE 提供高增益，第二级 CB 则“隔离”其输出，使 CE 的集电极节点交流电位近乎恒定（即 $ v_c \\approx \\text{const.} $），从而**消除 $ C_{BC} $ 上的电压摆幅**，彻底扼杀 Miller 效应。这反向印证了 CB 配置对抑制 Miller 效应的关键作用。\n\n---\n\n综上，CB 放大器的高频优势源于其**拓扑结构天然规避了 Miller 反馈路径**：$ C_{BC} $ 不跨接于输入–输出端口，故不经历增益乘数放大，输入电容保持最小化，最终实现更优的高频响应与更宽带宽。\n\n### References\n\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "CB 放大器中，Cμ（base-collector 结电容）不再跨接在输入和输出之间——在 CB 配置中，输入在 emitter，输出在 collector，base 是公共端（交流接地）。因此 Cμ 连接在交流地（base）和输出（collector）之间，对输入端没有 Miller 效应，输入侧不会出现 Cμ 被放大的现象。相比之下，CE 配置中 Cμ 跨接于输入（base）和输出（collector）之间，经 Miller 效应后等效为 Cμ(1+gmRC) 的大电容并联在输入端，严重限制高频性能。CB 因此常用于高频宽带放大场合。",
+    "category": "reasoning",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "Miller效应",
+        "Cμ",
+        "CB无Miller",
+        "CE高频差",
+        "交流地"
+      ],
+      "must_not_claim": [
+        "CB高频性能不如CE"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q11",
+    "doc_id": "circuit_doc_freq",
+    "question": "什么是相位裕度（Phase Margin）？对于放大器稳定性有何意义？",
+    "answer": "\n### 什么是相位裕度（Phase Margin）？\n\n相位裕度（Phase Margin）是反馈放大器中的一个**稳定性指标**，它由放大器的**开环频率响应在f_H（高频截止频率）附近**确定。具体来说，Phase Margin用于评估反馈环路在接近增益交叉频率（通常对应于f_H附近）时的相位裕量，是判断放大器是否容易因负反馈导致振荡的关键参数。  \n\n从知识库信息来看，Phase Margin的定义可总结为：  \n- 它是反馈放大器稳定性的核心衡量指标之一；  \n- 计算或评估时，关注开环频率响应在f_H（高频截止频率）处的相位特性；  \n- 其核心作用是**避免振荡**，确保放大器在闭环工作状态下保持稳定。  \n\n\n### 相位裕度对放大器稳定性的意义\n\n相位裕度直接关系到放大器的**稳定性**，具体意义体现在以下方面：  \n1. **振荡风险预警**：当相位裕度不足时，放大器在负反馈作用下容易发生自激振荡（即输出信号出现无输入激励的持续振荡）。Phase Margin通过量化开环响应在f_H附近的相位裕量，为设计者提供是否需要补偿（如RC补偿网络）的依据。  \n2. **开环Bode图分析依据**：在Bode图中，Phase Margin通常通过观察开环频率响应在f_H处的相位与-180°的差值来评估。若Phase Margin过大，可能导致闭环增益降低过多；若过小，则易引发振荡。  \n3. **Miller效应与稳定性关联**：在包含Miller电容（如BJT共射极放大器的基-集电容）的放大器中，Miller效应会引入额外的相位滞后，进一步影响Phase Margin。稳定性分析需结合Miller效应对Phase Margin的影响，通过补偿（如Pole-Splitting补偿）来提升裕量。  \n4. **闭环稳定性保障**：Phase Margin是闭环系统稳定性的直接指标。当Phase Margin足够大（通常建议≥45°）时，放大器在闭环反馈下能稳定工作，输出信号不会因相位反转和增益交叉而振荡。  \n\n\n### 参考文献\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "相位裕度（PM）是指在环路增益幅度等于 0dB（即增益为 1）时，相位与 -180° 之差：PM = 180° + ∠T(jωgc)，其中 ωgc 是增益交叉频率。PM > 0° 是系统稳定的必要条件；通常要求 PM ≥ 45° 以保证瞬态响应不过度振荡（过冲 < 30%）。PM = 0° 时系统处于振荡边界，PM < 0° 时系统不稳定。相位裕度越大，系统稳定性越好，但往往意味着带宽越窄，需要权衡。",
+    "category": "concept",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "相位裕度",
+        "0dB",
+        "45°",
+        "稳定性",
+        "-180°"
+      ],
+      "must_not_claim": [
+        "PM为负时也稳定"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q12",
+    "doc_id": "circuit_doc_freq",
+    "question": "负反馈对放大器的带宽有什么影响？增益带宽积如何体现这一影响？",
+    "answer": "\n负反馈对放大器的带宽有**展宽（增大）**的影响，同时会**降低增益**，这是负反馈的基本特性之一。具体来说，负反馈通过引入反馈网络，改变了放大器的频率响应特性，使得高频区域的增益下降速率减缓，从而扩展了有效的工作带宽（即从低频截止频率 \\( f_L \\) 到高频截止频率 \\( f_H \\) 的范围）。  \n\n增益带宽积（Gain–Bandwidth Product, GBW）体现了这一影响的核心关系：GBW 是放大器中增益与带宽的乘积，其近似表达式为 \\( \\text{GBW} \\approx |A_v| \\times f_H \\)（其中 \\( |A_v| \\) 是中频增益，\\( f_H \\) 是高频截止频率）。当引入负反馈时，虽然中频增益 \\( |A_v| \\) 会降低，但高频截止频率 \\( f_H \\) 会相应增加，使得增益与带宽的乘积（GBW）近似保持恒定。这一关系清晰地展示了增益与带宽之间的**权衡**：增益降低的程度与带宽增加的程度成正比，通过GBW这一指标量化了这种权衡，为反馈补偿设计（如稳定性分析、带宽扩展策略）提供了关键依据。  \n\n### References\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "负反馈扩展带宽：闭环带宽 fCL = fOL × (1 + Aβ) ≈ fOL × T（T 为环路增益），即负反馈使带宽扩展了 (1+T) 倍。同时闭环增益 ACL = AOL/(1+T)，增益降低了 (1+T) 倍。两者乘积：ACL × fCL = AOL × fOL = GBW = 常数，说明增益与带宽的乘积（GBW）在负反馈中保持近似不变，增益每降低一倍，带宽约扩大一倍。这正是运算放大器\"以增益换带宽\"的设计原理。",
+    "category": "concept",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "负反馈",
+        "带宽扩展",
+        "(1+T)",
+        "GBW恒定",
+        "增益带宽积"
+      ],
+      "must_not_claim": [
+        "负反馈减小带宽"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q13",
+    "doc_id": "circuit_doc_freq",
+    "question": "在放大器的幅频响应 Bode 图中，如何从图上识别中频段（midband）？中频增益和上下截止频率各在图上对应什么特征？",
+    "answer": "\n在放大器的幅频响应Bode图中，可通过以下特征识别中频段、中频增益及上下截止频率：  \n\n### 中频段（midband）的识别特征  \n中频段是Bode图中增益保持平坦的区域，对应**0 dB的水平线段**（即midband level）。该区域表示放大器在频率范围内电压增益稳定且最大，电容性元件的阻抗可忽略，增益无明显衰减或上升。从文档内容（如“Midband Level is the flat region of the Bode plot at 0 dB”）和图像示例（如image_16.png中蓝色阴影的“Mid-frequency”区域）可知，中频段是频率响应曲线中增益恒定的平坦部分。  \n\n\n### 中频增益的特征  \n中频增益（Midband Gain）是中频段的参考增益值，对应Bode图中**0 dB处的水平区域**。具体表现为：  \n- 增益值恒定，以分贝（dB）为单位时为0 dB（即 \\( G_{\\text{dB}} = 20 \\log_{10}(|A_v|/A_{v,\\text{mid}}) = 0 \\) dB）；  \n- 代表放大器在中间频率范围内的最大、稳定增益，是后续分析带宽和截止频率的基础参考值（如文档中“Mid-band gain (A_v_mid) is the flat, maximum gain region... depicted as 0 dB in the central light blue shaded region”）。  \n\n\n### 上下截止频率的特征  \n- **下截止频率（Lower Cutoff Frequency, \\( f_L \\)）**：是低频端增益下降到-3 dB（即功率下降到50%，电压增益为 \\( 0.707A_{v,\\text{mid}} \\)）的频率点。在Bode图中，对应-3 dB水平线与频率响应曲线在低频段的交点，此时曲线开始从低频上升或保持稳定后下降（如image_16.png中低频端的-3 dB标记点）。  \n- **上截止频率（Upper Cutoff Frequency, \\( f_H \\)）**：是高频端增益下降到-3 dB的频率点。在Bode图中，对应-3 dB水平线与频率响应曲线在高频段的交点，此时曲线开始从高频的平坦区域下降（如image_16.png中高频端的-3 dB标记点）。  \n\n两者共同定义了放大器的带宽（\\( \\text{BW} = f_H - f_L \\)），是频率响应曲线中“平坦中频段”两侧的边界点。  \n\n\n### 参考文献  \n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "在幅频响应 Bode 图中：①中频段是增益最大且平坦的水平区域，位于下截止频率 fL 和上截止频率 fH 之间，此区间增益约为常数 20log|Av_mid|；②下截止频率 fL 在低频处，是幅频曲线从水平线开始下降 3dB 的点（低频侧增益以 +20dB/dec 上升进入中频段）；③上截止频率 fH 在高频处，是幅频曲线从中频段开始下降 3dB 的点（高频侧以 -20dB/dec 衰减）；④带宽 BW = fH − fL ≈ fH（当 fH >> fL 时）。",
+    "category": "cross_modal",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "中频段平坦",
+        "fL",
+        "fH",
+        "-3dB",
+        "带宽"
+      ],
+      "must_not_claim": [
+        "中频段增益随频率变化"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q14",
+    "doc_id": "circuit_doc_freq",
+    "question": "在 CE 放大器的高频等效电路图中，BJT 的 π 模型（hybrid-π model）包含哪些寄生元件？它们如何导致高频增益下降？",
+    "answer": "\n在CE放大器的高频等效电路中，BJT的π模型（hybrid-π model）包含以下寄生元件：  \n1. **寄生电阻**：包括基极接触、体区和扩散电阻（\\(R_B\\)）、集电极-基极间并联电阻（\\(R_μ\\)）、输出电阻（\\(R_o\\)）；  \n2. **寄生电容**：包括基-射间扩散电容（\\(C_π\\)，对应 \\(C_{BE}\\)）和基-集间结电容（\\(C_μ\\)，对应 \\(C_{BC}\\)）。  \n\n这些寄生元件导致高频增益下降的机制如下：  \n- **\\(C_π\\)（基-射扩散电容）**：作为基-射结的寄生电容，在高频时其容抗减小，使输入网络的RC时间常数改变，形成输入极点，导致电流增益 \\(|\\beta(jf)|\\) 随频率升高而下降（遵循一阶低通特性，在 \\(f_β\\) 处增益下降3 dB）。  \n- **\\(C_μ\\)（基-集结电容）**：受米勒效应（Miller Effect）影响，在反相放大器（如CE配置）中，其等效输入电容被放大为 \\(C_{Mi} \\approx C_μ(1 + |A_v|)\\)（\\(A_v\\) 为电压增益）。该增大的输入电容进一步降低高频输入截止频率 \\(f_{Hi}\\)，从而限制整体带宽，使高频增益随频率升高而衰减。  \n- **其他寄生电阻**：如 \\(R_B\\)、\\(R_μ\\)、\\(R_o\\) 会影响等效输入/输出电阻，改变RC时间常数，间接影响高频响应的极点位置和增益滚降速率。  \n\n这些寄生元件通过改变高频下的等效电路极点位置，导致电流增益的频率响应出现滚降，最终表现为高频增益下降。  \n\n### References\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "高频 hybrid-π 模型在低频 re 模型基础上增加两个寄生电容：①Cπ（或 Cbe，发射结扩散电容+势垒电容）：并联在基极-发射极 rπ 两端，在高频时对输入信号形成低阻抗分流，使有效输入减小；②Cμ（或 Cbc，集电结势垒电容）：跨接在基极-集电极之间，经 Miller 效应等效为更大的电容，严重降低高频响应。随着频率升高，两个电容的容抗降低，对信号的分流和相移增大，增益随频率升高而衰减，最终导致上截止频率 fH 的出现。",
+    "category": "cross_modal",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "Cπ",
+        "Cμ",
+        "Miller",
+        "分流",
+        "高频衰减"
+      ],
+      "must_not_claim": [
+        "高频时电容阻抗增大使增益升高"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q15",
+    "doc_id": "circuit_doc_freq",
+    "question": "已知一个 CE 放大器的中频增益为 100（40dB），上截止频率 fH = 1MHz，下截止频率 fL = 100Hz，画出其 Bode 幅频响应渐近线的关键特征值。",
+    "answer": "\n要分析CE放大器的Bode幅频响应渐近线关键特征值，需结合已知参数（中频增益、上下截止频率）及频率响应理论推导如下：  \n\n\n### 1. 中频增益与中频段特征  \nCE放大器的中频增益 \\( A_{\\text{mid}} = 100 \\)（对应分贝增益 \\( 20\\log_{10}100 = 40\\,\\text{dB} \\)）。在Bode幅频响应图中，**中频段增益为40 dB的水平直线**，表示在该频率范围内增益恒定，不受低频或高频电容效应影响。  \n\n\n### 2. 截止频率与-3 dB点  \n- **下截止频率 \\( f_L = 100\\,\\text{Hz} \\)**：此时增益降至中频增益的 \\( 1/\\sqrt{2} \\approx 0.707 \\) 倍（即-3 dB点）。对应Bode图中，\\( f_L \\) 处增益为 \\( 20\\log_{10}(0.707 \\times 100) \\approx -3\\,\\text{dB} \\)。  \n- **上截止频率 \\( f_H = 1\\,\\text{MHz} \\)**：同理，\\( f_H \\) 处增益也降至-3 dB，是高频段滚降的起始点。  \n\n\n### 3. 低频与高频滚降斜率  \n- **低频段（\\( f < f_L \\)）**：CE放大器低频由耦合/旁路电容（如 \\( C_S, C_E \\)）形成**高通特性**，增益随频率升高以 **+20 dB/decade** 速率上升（一阶高通的典型滚降）。  \n- **高频段（\\( f > f_H \\)）**：高频由晶体管内部电容（如米勒电容 \\( C_{\\mu} \\)）形成**低通特性**，增益随频率升高以 **-20 dB/decade** 速率下降（一阶低通的典型滚降）。  \n\n\n### 4. 带宽计算  \n放大器的带宽 \\( \\text{BW} = f_H - f_L = 1\\,\\text{MHz} - 100\\,\\text{Hz} \\approx 1\\,\\text{MHz} \\)，表示放大器在 \\( 100\\,\\text{Hz} \\sim 1\\,\\text{MHz} \\) 范围内增益保持在中频水平（偏差小于3 dB）。  \n\n\n### 关键特征值总结  \n| 特征参数                | 数值/描述                          |  \n|-------------------------|-----------------------------------|  \n| 中频增益（dB）          | 40 dB（对应 \\( A_{\\text{mid}} = 100 \\)） |  \n| 低频截止频率 \\( f_L \\)   | 100 Hz（-3 dB点）                |  \n| 高频截止频率 \\( f_H \\)   | 1 MHz（-3 dB点）                  |  \n| 低频滚降斜率            | +20 dB/decade（高通特性）        |  \n| 高频滚降斜率            | -20 dB/decade（低通特性）        |  \n| 带宽 \\( \\text{BW} \\)     | \\( f_H - f_L \\approx 1\\,\\text{MHz} \\) |  \n\n\n以上特征值基于一阶RC网络频率响应理论，符合CE放大器低频高通、高频低通的典型行为，且与Bode图渐近线分析一致（参考文档中“Bode plot”和“Cutoff Frequency”的定义）。  \n\n\n### References  \n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "关键特征值：①f < 100Hz（低频段）：斜率 +20dB/dec（由耦合/旁路电容主导），向右升至中频；②f = 100Hz（fL = 下截止频率）：增益 = 40 − 3 = 37dB（精确值），渐近线为 40dB；③100Hz < f < 1MHz（中频段）：增益平坦 = 40dB；④f = 1MHz（fH = 上截止频率）：增益 = 40 − 3 = 37dB（精确值），渐近线仍为 40dB；⑤f > 1MHz（高频段）：斜率 -20dB/dec（由寄生电容主导），每十倍频降 20dB。带宽 BW = fH − fL ≈ 1MHz，GBW = 100 × 1MHz = 100MHz。",
+    "category": "procedure",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "40dB",
+        "100Hz",
+        "1MHz",
+        "-20dB/dec",
+        "GBW=100MHz"
+      ],
+      "must_not_claim": [
+        "中频段有斜率变化"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q16",
+    "doc_id": "circuit_doc_freq",
+    "question": "BJT CE 放大器的频率响应分为哪三个频段？各频段的主导因素是什么？",
+    "answer": "\n### BJT CE 放大器的频率响应分为哪三个频段？各频段的主导因素是什么？\n\nBJT 共发射极（CE）放大器的频率响应通常分为 **低频段（Low-Frequency Region）**、**中频段（Midband Region）** 和 **高频段（High-Frequency Region）** 三个频段，各频段的主导因素如下：\n\n1. **低频段（Low-Frequency Region）**  \n   - 主导因素：**耦合电容（如 \\( C_S, C_C \\)）和发射极旁路电容（\\( C_E \\)）的容抗效应**。这些大电容在低频时呈现较大的容抗，导致信号衰减，形成高通滤波特性，从而降低增益。具体表现为：  \n     - 耦合电容 \\( C_S \\) 和 \\( C_C \\) 引入的低频截止频率 \\( f_L \\)；  \n     - 发射极旁路电容 \\( C_E \\) 引入的低频截止频率 \\( f_{LE} \\)；  \n     - 最终的低频截止频率 \\( f_L \\) 由这三个电容对应的截止频率中**最大值**决定（依据主导极点近似法）。\n\n2. **中频段（Midband Region）**  \n   - 主导因素：**电容的容抗可忽略，晶体管内部电容的影响微弱**。此时耦合和旁路电容的容抗极小，近似短路，晶体管内部寄生电容（如 \\( C_{BE}, C_{BC} \\)）的影响也较小，因此放大器呈现**相对平坦且增益最大的特性**，即中频段的电压增益 \\( A_{v,\\text{mid}} \\) 稳定。\n\n3. **高频段（High-Frequency Region）**  \n   - 主导因素：**晶体管内部寄生电容（如基-射扩散电容 \\( C_\\pi \\)、基-集结电容 \\( C_\\mu \\)）和布线电容**。这些电容在高频时呈现显著的容抗，形成低通滤波特性，导致增益随频率升高而滚降。具体机制包括：  \n     - 基-射结电容 \\( C_\\pi \\) 和基-集结电容 \\( C_\\mu \\) 的频率依赖性（通过混合π模型分析）；  \n     - 米勒效应（Miller Effect）导致的输入/输出等效电容增大（如 \\( C_{Mi} = C_{BC}(1 + |A_v|) \\)），进一步压缩带宽；  \n     - 最终的高频截止频率 \\( f_H \\) 由这些寄生电容和米勒效应共同决定，是放大器带宽的上限。\n\n---\n\n### References\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "三个频段：①低频段（f < fL）：耦合电容（C1、C2）和旁路电容（CE）的阻抗不可忽略，信号被分压，增益随频率降低而下降（+20dB/dec 上升趋势），下截止频率 fL 由这些电容决定；②中频段（fL < f < fH）：所有耦合/旁路电容等效短路，寄生电容等效开路，电路为纯阻性，增益最大且平坦；③高频段（f > fH）：BJT 内部寄生电容（Cπ、Cμ）的影响不可忽略，经 Miller 效应等使增益随频率升高而衰减（-20dB/dec），上截止频率 fH 由这些寄生电容决定。",
+    "category": "topology",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "低频段",
+        "中频段",
+        "高频段",
+        "耦合电容",
+        "寄生电容"
+      ],
+      "must_not_claim": [
+        "中频段增益随频率变化"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q17",
+    "doc_id": "circuit_doc_freq",
+    "question": "如何用\"短路时间常数法\"（Short-Circuit Time Constants Method）估算放大器的下截止频率 fL？",
+    "answer": "\n\n要使用“短路时间常数法”（Short - Circuit Time Constants Method）估算放大器的下截止频率 \\( f_L \\)，需遵循以下步骤，结合BJT放大器低频响应的分析逻辑（参考Context中关于低频响应、电容作用及时间常数法的知识）：\n\n### 方法核心逻辑\n短路时间常数法通过分析放大器中影响低频响应的**耦合/旁路电容**（如输入耦合电容 \\( C_S \\)、发射极旁路电容 \\( C_E \\)、集电极输出耦合电容 \\( C_C \\)），建立每个电容的高通等效电路，计算其时间常数，进而确定整体下截止频率。核心思想是：放大器的低频响应由多个电容的“截止频率”共同决定，整体下截止频率为这些截止频率中的最大值（主导极点）。\n\n### 具体步骤\n1. **识别低频影响电容**  \n   在BJT放大器中，低频增益下降主要由以下电容引起：  \n   - 输入耦合电容 \\( C_S \\)  \n   - 发射极旁路电容 \\( C_E \\)  \n   - 集电极输出耦合电容 \\( C_C \\)  \n\n2. **计算每个电容的等效电阻（Thévenin等效电阻）**  \n   对于每个电容，需确定其所在支路的等效电阻 \\( R_{eq} \\)：  \n   - **对 \\( C_S \\)**：等效电阻 \\( R_{eq}^S = R_S + R_i \\)，其中 \\( R_S \\) 为信号源电阻，\\( R_i \\) 是放大器输入端的等效电阻（如 \\( R_B \\parallel (\\beta + 1)r_e \\) 等）。  \n   - **对 \\( C_E \\)**：等效电阻 \\( R_{eq}^E = R_e \\)，其中 \\( R_e \\) 是发射极动态电阻（\\( r_e \\approx \\frac{V_T}{I_E} \\)，\\( V_T \\approx 26\\ \\text{mV} \\) 为热电压，\\( I_E \\) 为发射极电流）。  \n   - **对 \\( C_C \\)**：等效电阻 \\( R_{eq}^C = R_C + R_L \\)，其中 \\( R_C \\) 为集电极电阻，\\( R_L \\) 为负载电阻。  \n\n3. **计算时间常数**  \n   每个电容对应的时间常数 \\( \\tau_i = R_{eq}^i \\cdot C_i \\)（\\( i = S, E, C \\) 分别对应 \\( C_S, C_E, C_C \\)）。  \n\n4. **计算单个电容的截止频率**  \n   根据一阶高通RC网络的公式 \\( f_c = \\frac{1}{2\\pi \\tau} \\)，得到各电容对应的下截止频率：  \n   \\[\n   \\begin{align*}\n   f_{L_S} &= \\frac{1}{2\\pi (R_S + R_i) C_S}, \\\\\n   f_{L_E} &= \\frac{1}{2\\pi R_e C_E}, \\\\\n   f_{L_C} &= \\frac{1}{2\\pi (R_C + R_L) C_C}.\n   \\end{align*}\n   \\]  \n\n5. **确定整体下截止频率**  \n   放大器的整体下截止频率 \\( f_L \\) 是上述三个频率中的最大值，即：  \n   \\[\n   f_L = \\max\\{f_{L_S}, f_{L_E}, f_{L_C}\\}.\n   \\]  \n\n### 示例验证（基于Context中的公式）  \n以BJT共射放大器为例，若已知参数：  \n- \\( R_S = 1\\ \\text{k}\\Omega \\)，\\( R_i = 1\\ \\text{k}\\Omega \\)，\\( C_S = 8\\ \\mu\\text{F} \\)；  \n- \\( R_e = 31.65\\ \\Omega \\)，\\( C_E = 18\\ \\mu\\text{F} \\)；  \n- \\( R_C = 2\\ \\text{k}\\Omega \\)，\\( R_L = 2\\ \\text{k}\\Omega \\)，\\( C_C = 2\\ \\mu\\text{F} \\)。  \n\n则计算得：  \n- \\( f_{L_S} \\approx \\frac{1}{2\\pi \\cdot (1\\ \\text{k}\\Omega + 1\\ \\text{k}\\Omega) \\cdot 8\\ \\mu\\text{F}} \\approx 12.18\\ \\text{Hz} \\)；  \n- \\( f_{L_E} \\approx \\frac{1}{2\\pi \\cdot 31.65\\ \\Omega \\cdot 18\\ \\mu\\text{F}} \\approx 279.5\\ \\text{Hz} \\)；  \n- \\( f_{L_C} \\approx \\frac{1}{2\\pi \\cdot (2\\ \\text{k}\\Omega + 2\\ \\text{k}\\Omega) \\cdot 2\\ \\mu\\text{F}} \\approx 19.90\\ \\text{Hz} \\)。  \n\n因此，整体下截止频率 \\( f_L = \\max\\{12.18\\ \\text{Hz}, 279.5\\ \\text{Hz}, 19.90\\ \\text{Hz}\\} = 279.5\\ \\text{Hz} \\)（由发射极旁路电容 \\( C_E \\) 主导）。  \n\n### 关键依据\n上述方法的核心公式和逻辑源自Context中关于“低频响应分析”“RC高通网络截止频率”及“主导极点近似”的知识，具体支持文档包括：  \n- [1] 2024 - ch5 - frequency.pdf（描述一阶高通RC网络截止频率公式及BJT低频电容分析）  \n- [1] 2024 - ch5 - frequency.pdf（提供具体电容对应的下截止频率计算示例）  \n- [1] 2024 - ch5 - frequency.pdf（阐述低频响应中主导极点的选择规则）  \n\n### 参考文献\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n### References\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf\n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "短路时间常数法（与开路时间常数法对应，用于低频分析）：①列出所有影响低频响应的电容（C1、C2、CE 等）；②对每个电容 Ck，将所有其他电容短路（假设已完全旁路），计算 Ck 两端的等效串联电阻 Rk（即在 Ck 处看进去的 Thevenin 电阻，此时其他电容短路）；③计算时间常数 τk = Rk × Ck；④下截止角频率 ωL ≈ Σ(1/τk)，fL = ωL/(2π)。各电容的贡献相互叠加，对应各自极点频率之和。",
+    "category": "procedure",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "短路时间常数",
+        "Rk",
+        "Ck",
+        "fL=Σ(1/τk)",
+        "下截止"
+      ],
+      "must_not_claim": [
+        "只用最大的τk就能估算fL"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q18",
+    "doc_id": "circuit_doc_freq",
+    "question": "讲义中用于演示频率响应测量的示波器和信号发生器的具体型号是什么？",
+    "answer": "\n根据提供的Context内容，未包含关于讲义中用于演示频率响应测量的示波器和信号发生器具体型号的信息，因此无法基于所给内容回答该问题。",
+    "correct_answer": "讲义（2024-ch5-frequency）中没有提及任何测试仪器的具体型号。频率响应分析讲义侧重于理论推导和电路分析方法，不涉及实验仪器规格。具体仪器型号属于实验课内容，不在本讲义范围内。",
+    "category": "unanswerable",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "未提及",
+        "不在范围"
+      ],
+      "must_not_claim": [
+        "示波器型号为某具体型号"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q19",
+    "doc_id": "circuit_doc_freq",
+    "question": "讲义中提到的 BJT CE 放大器在 PCB 布线时走线寄生电容和寄生电感的具体数值是多少？",
+    "answer": "\n根据提供的Context内容，未包含BJT CE放大器在PCB布线时走线寄生电容和寄生电感的具体数值信息，因此无法基于所给资料回答该问题。  \n\n### References  \n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "讲义（2024-ch5-frequency）中没有讨论 PCB 布线带来的寄生参数数值，这属于 PCB 设计和高速电路工程领域，超出了本课程理论讲义的范围。讲义仅分析器件本身的寄生参数（如 Cπ、Cμ），不涉及 PCB 布线级别的寄生元件。",
+    "category": "unanswerable",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "未涉及",
+        "超出范围"
+      ],
+      "must_not_claim": [
+        "寄生电容为某具体pF值"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q20",
+    "doc_id": "circuit_doc_freq",
+    "question": "为什么在 CE 放大器中 RE 的旁路电容 CE 对频率响应的影响往往比耦合电容更重要？",
+    "answer": "\n在CE（共发射极）放大器中，发射极电阻 \\( R_E \\) 的旁路电容 \\( C_E \\) 对频率响应的影响往往比耦合电容更重要的原因如下：  \n\n### 1. 低频截止频率的主导性  \n发射极旁路电容 \\( C_E \\) 决定了放大器的低频截止频率 \\( f_L \\) 的主导部分。根据公式 \\( f_{L_E} = \\frac{1}{2\\pi R_e C_E} \\)（其中 \\( R_e \\approx 31.65\\ \\Omega \\) 是小信号发射极等效电阻），计算得 \\( f_{L_E} \\approx 279.5\\ \\text{Hz} \\)。而耦合电容（如输入耦合电容 \\( C_S \\)、输出耦合电容 \\( C_C \\)）对应的低频截止频率 \\( f_{L_S} \\) 和 \\( f_{L_C} \\) 分别约为 12.18 Hz 和 19.90 Hz（通过类似的高通滤波器公式推导）。由于 \\( f_{L_E} \\) 是三者中最大的，因此 \\( C_E \\) 的容抗在低频时对增益下降的影响最为显著，成为低频响应的主导因素。  \n\n### 2. 电路结构对低频增益的影响  \n\\( C_E \\) 的核心作用是**交流短路发射极电阻 \\( R_E \\)**，以提升中频电压增益。但在低频时，\\( C_E \\) 的容抗 \\( X_C = \\frac{1}{2\\pi f C_E} \\) 增大，无法完全短接 \\( R_E \\)，导致低频增益下降。这种低频增益的衰减由 \\( C_E \\) 与 \\( R_E \\) 形成的 RC 高通网络决定，其时间常数 \\( \\tau = R_e C_E \\) 直接控制了低频截止频率。相比之下，耦合电容（如 \\( C_S \\)、\\( C_C \\)）主要隔离直流并传递交流信号，其低频影响由信号源电阻、输入/输出等效电阻等网络决定，但整体贡献低于 \\( C_E \\)。  \n\n### 3. 数学与物理层面的量化对比  \n从数学模型看，\\( C_E \\) 对应的低频截止频率 \\( f_{L_E} \\) 的计算公式中，等效电阻 \\( R_e \\) 的值（约 31.65 Ω）远小于其他耦合电容路径中的等效电阻（如 \\( R_C + R_L \\)、\\( R_S + R_i \\)），导致 \\( f_{L_E} \\) 数值更高。因此，\\( C_E \\) 的容抗在低频段仍能维持相对较小的衰减，而耦合电容的容抗在更低频率时已显著增大，故 \\( C_E \\) 成为低频响应的关键限制因素。  \n\n综上，\\( C_E \\) 通过主导低频截止频率 \\( f_L \\)、直接影响低频增益的衰减特性，以及在电路结构中对发射极回路的控制作用，使其对CE放大器的频率响应影响远超耦合电容。  \n\n### References  \n- [1] 2024-ch5-frequency.pdf",
+    "correct_answer": "CE 对频率响应的影响更重要，原因在于：①CE 的极点频率通常最高（是主要的下截止频率贡献者）：CE 的等效串联电阻很小（≈ re + RE/(β+1)，主要由 re 决定，仅几十欧），因此极点 fLE = 1/(2π·CE·re') 比耦合电容极点（等效电阻更大）更高，离中频段最近，对 fL 贡献最大；②若 CE 失效（断路），增益公式中分母多出 RE 项，AC 增益从 −RC/re 降为 −RC/(re+RE)，损失可能高达数十倍，严重影响放大性能；③因此 CE 是三个电容中对低频截止频率影响最大的，设计时 CE 的选取优先级最高。",
+    "category": "reasoning",
+    "topic": "freq_domain",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "极点频率最高",
+        "等效串联电阻小",
+        "re",
+        "fL贡献最大"
+      ],
+      "must_not_claim": [
+        "耦合电容比CE对fL影响更大"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q01",
+    "doc_id": "circuit_doc_opamp",
+    "question": "理想运算放大器（op-amp）的两个核心理想特性是什么？它们各自的物理含义是什么？",
+    "answer": "\n### 理想运算放大器的两个核心理想特性及物理含义  \n\n理想运算放大器（op-amp）的两个核心理想特性是**无限开环增益**和**无限输入阻抗**，它们的物理含义如下：  \n\n1. **无限开环增益**  \n   - 物理含义：理想运放的差分输入电压（\\(u_{id} = v_+ - v_- \\)）即使非常微小，也能通过极高的开环增益放大为有限的输出电压。这一特性是“虚拟短”现象（\\(v_+ \\approx v_- \\)）的基础——在负反馈配置下，为避免输出饱和，输入差分电压需趋近于零，使得两个输入端电压近似相等。  \n   - 依据：从知识图谱中“Ideal Op-Amp Characteristics”和“Open-Loop Gain”的描述可知，理想运放的无限开环增益（\\(A_{ud} \\to \\infty \\)）是核心假设之一，直接导致负反馈下的虚拟短条件（如参考文档[1]中“virtual short concept”部分所述）。  \n\n2. **无限输入阻抗**  \n   - 物理含义：理想运放的输入端对信号源呈现无穷大的阻抗，因此输入端几乎不吸收电流（\\(i_{id} = 0\\)）。这意味着信号源可视为开路，输入端电流为零，不会对信号源造成负载效应，保障了信号源的电压完整性。  \n   - 依据：知识图谱中“Input Resistance”和“Virtual Open”的描述表明，无限输入阻抗（\\(R_i = \\infty \\)）是理想运放的另一核心假设，源于“虚拟开”条件（无电流流入输入端），如参考文档[1]中“virtual open”部分所述。  \n\n\n### References  \n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "理想运放的两个核心特性：①虚短（Virtual Short）：两个输入端（同相端 V+ 和反相端 V−）之间的电压差为零，即 V+ = V−，但两端并非真正短路（没有电流通过输入端之间的路径）；②虚断（Virtual Open）：流入运放两个输入端的电流均为零，即 I+ = I− = 0，输入阻抗无穷大。这两个特性来源于理想运放无穷大的开环增益和无穷大的输入阻抗，是分析运放电路的核心工具。",
+    "category": "concept",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "虚短",
+        "虚断",
+        "V+=V-",
+        "I+=I-=0"
+      ],
+      "must_not_claim": [
+        "输入端真正短路"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q02",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中反相放大器（inverting amplifier）的闭环电压增益公式是什么？若 R1 = 10kΩ，Rf = 100kΩ，增益是多少？",
+    "answer": "\n### 反相放大器（inverting amplifier）的闭环电压增益公式及计算\n\n根据提供的讲义内容，反相放大器的闭环电压增益公式由其电路结构和理想运算放大器（op-amp）的假设推导得出。具体来说，反相放大器的闭环电压增益公式为：  \n\\[ u_o = -\\frac{R_f}{R_1} \\cdot u_i \\]  \n其中，\\( u_o \\) 是输出电压，\\( u_i \\) 是输入电压，\\( R_f \\) 是反馈电阻（连接输出到反相输入端），\\( R_1 \\) 是输入电阻（连接输入电压源到反相输入端）。公式中的负号表示输出电压与输入电压相位相反（180°反相），增益的大小由 \\( R_f \\) 与 \\( R_1 \\) 的比值决定，这一关系源于反相放大器依赖的“虚拟地”（virtual ground）条件和基尔霍夫电流定律（Kirchhoff’s Current Law）的应用。\n\n当给定 \\( R_1 = 10\\,\\text{k}\\Omega \\)（输入电阻）和 \\( R_f = 100\\,\\text{k}\\Omega \\)（反馈电阻）时，增益可通过公式直接计算：  \n\\[ \\text{增益} = -\\frac{R_f}{R_1} = -\\frac{100\\,\\text{k}\\Omega}{10\\,\\text{k}\\Omega} = -10 \\]  \n因此，在该参数下，反相放大器的闭环电压增益为 -10（即输出电压是输入电压的 -10 倍，相位反转）。\n\n### 参考文献\n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "反相放大器利用虚短（V−=V+=0，反相端为虚地）和虚断（无电流流入运放输入端），在反相端列 KCL 得：Vin/R1 + Vout/Rf = 0，故闭环增益 Av = Vout/Vin = −Rf/R1。负号表示反相。代入数值：Av = −100k/10k = −10 V/V，即增益幅值为 10，输出与输入反相。",
+    "category": "factoid",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "-Rf/R1",
+        "-10",
+        "反相"
+      ],
+      "must_not_claim": [
+        "增益为+10"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q03",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中同相放大器（non-inverting amplifier）的闭环电压增益公式是什么？与反相放大器相比有何不同？",
+    "answer": "\n### 同相放大器的闭环电压增益公式\n同相放大器的闭环电压增益公式为 \\( u_o = u_i \\left(1 + \\frac{R_f}{R_1}\\right) \\)，其中 \\( R_f \\) 是反馈电阻，\\( R_1 \\) 是输入端电阻。该公式由理想运放的“虚短”（\\( v_+ = v_- \\)）和“虚断”（输入电流近似为0）特性推导得出，假设运放开环增益无限大、输入阻抗无限大、输出阻抗为零等理想条件，确保电路在负反馈下工作于线性区域。\n\n### 与反相放大器的区别\n与反相放大器相比，同相放大器在以下方面存在显著差异：\n1. **相位关系**：同相放大器的输出电压与输入电压同相（无相位反转），而反相放大器的输出电压与输入电压反相（相位相差180°）。\n2. **增益符号与大小**：同相放大器的增益始终为正且大于等于1（由 \\( 1 + \\frac{R_f}{R_1} \\) 决定），反相放大器的增益为负值（由 \\( -\\frac{R_f}{R_1} \\) 决定），大小由反馈电阻与输入电阻的比值决定。\n3. **输入阻抗特性**：同相放大器具有极高的输入阻抗，对信号源负载效应小；反相放大器的输入阻抗由输入电阻 \\( R_1 \\) 决定，通常低于同相放大器。\n4. **拓扑结构**：同相放大器输入信号接非反相端，反馈网络连接反相端与输出端；反相放大器输入信号接反相端，反馈网络连接输出端与反相端。\n\n### References\n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "同相放大器增益 Av = 1 + Rf/R1，始终大于 1，输出与输入同相。推导：信号加在同相端，虚短使 V− = V+ = Vin，再由 V− 处 KCL 得 Vin/R1 = (Vout − Vin)/Rf，整理得 Av = 1 + Rf/R1。与反相放大器区别：①增益公式不同（多了+1）；②同相放大器增益恒 ≥ 1，反相放大器增益可小于1（|Rf/R1|<1）；③同相放大器输入阻抗极高（信号直接加在同相端），反相放大器输入阻抗等于 R1。",
+    "category": "factoid",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "1+Rf/R1",
+        "同相",
+        "输入阻抗高"
+      ],
+      "must_not_claim": [
+        "同相放大器增益为Rf/R1"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q04",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中反相加法器（summing amplifier/inverting adder）的输出电压公式如何推导？若三个输入 V1、V2、V3 分别通过 R1、R2、R3 接入，反馈电阻为 Rf，结果是什么？",
+    "answer": "反相加法器（也称反相求和放大器或反相加法运算放大器）的输出电压公式是基于理想运算放大器（op-amp）的核心假设与基尔霍夫电流定律（KCL）严格推导而来的。其推导过程逻辑清晰、物理意义明确，是模拟电路分析中的经典范例。\n\n---\n\n### 一、推导前提：理想运放假设与虚拟地（Virtual Ground）\n\n推导始于以下**理想运放四大基本假设**（见知识图谱中 *Ideal Op-Amp Assumptions*）：\n- 开环增益无穷大（\\(A \\to \\infty\\)）→ 导致 **虚短（virtual short）**：\\(v_+ = v_-\\)；\n- 输入阻抗无穷大 → 输入电流为零：\\(i_+ = i_- = 0\\)；\n- 输出阻抗为零；\n- 输入失调电压与偏置电流为零。\n\n在反相加法器中，**非反相输入端（+）接地**（即 \\(v_+ = 0\\)），结合虚短条件，立即得到：  \n\\[\nv_- = v_+ = 0 \\quad \\text{（即“虚拟地”）}\n\\]  \n该条件是整个推导的基石——它使所有输入电流可直接由欧姆定律表达，且无需知道 \\(v_-\\) 的具体值。\n\n---\n\n### 二、应用基尔霍夫电流定律（KCL）于虚地点\n\n如知识图谱所述（*Kirchhoffs Current Law*, *Inverting Summing Amplifier Current Summation Equation*），对反相输入节点（即虚地点 \\(v_-\\)）列写 KCL 方程：  \n流入该节点的电流之和为零（注意方向约定：流入为正）：\n\n\\[\ni_1 + i_2 + i_3 + i_f = 0\n\\]\n\n其中各电流由欧姆定律及虚地条件（\\(v_- = 0\\)）给出：\n- \\(i_1 = \\dfrac{v_1 - v_-}{R_1} = \\dfrac{v_1}{R_1}\\)\n- \\(i_2 = \\dfrac{v_2 - v_-}{R_2} = \\dfrac{v_2}{R_2}\\)\n- \\(i_3 = \\dfrac{v_3 - v_-}{R_3} = \\dfrac{v_3}{R_3}\\)\n- \\(i_f = \\dfrac{v_- - v_o}{R_f} = \\dfrac{0 - v_o}{R_f} = -\\dfrac{v_o}{R_f}\\)\n\n代入 KCL 方程：\n\n\\[\n\\frac{v_1}{R_1} + \\frac{v_2}{R_2} + \\frac{v_3}{R_3} - \\frac{v_o}{R_f} = 0\n\\]\n\n移项解出 \\(v_o\\)：\n\n\\[\n\\frac{v_o}{R_f} = \\frac{v_1}{R_1} + \\frac{v_2}{R_2} + \\frac{v_3}{R_3}\n\\quad \\Rightarrow \\quad\nv_o = -R_f \\left( \\frac{v_1}{R_1} + \\frac{v_2}{R_2} + \\frac{v_3}{R_3} \\right)\n\\]\n\n此即所求的**三输入反相加法器输出电压公式**。\n\n---\n\n### 三、结果总结与物理含义\n\n当三个输入电压 \\(v_1, v_2, v_3\\) 分别经电阻 \\(R_1, R_2, R_3\\) 接入反相输入端，反馈电阻为 \\(R_f\\) 时，输出电压为：\n\n\\[\n\\boxed{v_o = -R_f \\left( \\frac{v_1}{R_1} + \\frac{v_2}{R_2} + \\frac{v_3}{R_3} \\right)}\n\\]\n\n该式具有如下关键特征：\n- **负号**：体现反相特性（相位反转 180°）；\n- **线性叠加**：每个输入贡献独立、可叠加，源于虚地与 KCL 的线性本质（*Linear Superposition*, *Weighted Summing*）；\n- **加权性**：各输入权重由比值 \\(R_f/R_i\\) 决定，故又称“加权反相求和”；\n- **高精度基础**：依赖于虚地条件，要求运放工作在线性区（*Linear Region*），避免饱和（*saturation*）。\n\n该公式是讲义中多处明确指出的核心表达式（见 *Inverting Summing Amplifier Output Equation*, *Three-Input Inverting Summing Amplifier Output Equation*），并被文档块 [1] 中多个 OCR 修复后的方程一致验证（如 “u₀ = −R_F (u₁/R₁ + u₂/R₂ + u₃/R₃)”）。\n\n---\n\n### 四、延伸说明\n\n- 若所有输入电阻相等（\\(R_1 = R_2 = R_3 = R\\)），则简化为：  \n  \\(v_o = -\\dfrac{R_f}{R}(v_1 + v_2 + v_3)\\)，即标准比例求和。\n- 该结构是**模拟计算的基本单元**（*Analog Computing*, *Analog Signal Processing*），广泛用于音频混音（*Audio Mixing*）、传感器信号合成（*Sensor Signal Conditioning*）、控制系统的误差求和（*Control System Error Summation*）等场景。\n- 其推导方法（虚地 + KCL）是分析所有基于运放的线性电路（如减法器、积分器）的通用范式（*Nodal Analysis*, *Kirchhoff's Current Law*）。\n\n---\n\n### References\n\n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "反相加法器推导：①虚短使反相端为虚地（V− = 0）；②虚断使运放输入端无电流；③在反相端列 KCL：V1/R1 + V2/R2 + V3/R3 + Vout/Rf = 0；④解得 Vout = −Rf(V1/R1 + V2/R2 + V3/R3)。若 R1=R2=R3=R，则 Vout = −(Rf/R)(V1+V2+V3)，实现加权求和后取反。讲义指出这是运放实现模拟运算（analog computation）的典型应用。",
+    "category": "topology",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "虚地",
+        "KCL",
+        "-Rf",
+        "V1/R1+V2/R2+V3/R3"
+      ],
+      "must_not_claim": [
+        "Vout=V1+V2+V3"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q05",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中差分放大器（differential amplifier）在四个电阻满足 R1=R3、R2=R4 时，输出电压公式是什么？它能实现什么功能？",
+    "answer": "\n### 差分放大器在 \\( R_1 = R_3 \\)、\\( R_2 = R_4 \\) 时的输出电压公式及功能分析\n\n在讲义中，当差分放大器（differential amplifier）的四个电阻满足 \\( R_1 = R_3 \\)、\\( R_2 = R_4 \\) 时，其输出电压公式为：  \n\\[ u_o = \\frac{R_2}{R_1} (u_{i2} - u_{i1}) \\]  \n（注：\\( u_{i1} \\) 和 \\( u_{i2} \\) 分别为两个输入电压，公式通过电阻比 \\( R_2/R_1 \\) 对输入电压差进行加权放大。）  \n\n#### 功能实现  \n该差分放大器能够：  \n1. **放大输入电压的差值**：输出电压与两个输入电压的差值成正比，实现差分信号的放大。  \n2. **抑制共模信号**：在理想条件下，电路对同时作用于两个输入端的共模信号（即 \\( u_{i1} = u_{i2} \\)）不产生响应，从而有效抑制共模噪声（如传感器信号中的共模干扰）。  \n3. **作为基础模块**：是仪器放大器等精密测量电路的核心单元，常用于传感器信号调理（如应变片、热电偶等信号的放大与共模抑制）。  \n\n\n### 参考文献  \n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "差分放大器在 R1=R3、R2=R4 时，利用叠加原理推导得 Vout = (R2/R1)(V2 − V1)，增益由 R2/R1 决定，实现对两个输入之差的放大。共模信号（V1=V2 时）理论上被完全抑制（输出为零），只有差模信号（V2≠V1）才被放大。共模抑制比（CMRR）理论上无穷大（理想匹配条件下）。讲义指出差分放大器是仪表放大器等高精度应用的基础。",
+    "category": "topology",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "(R2/R1)(V2-V1)",
+        "共模抑制",
+        "差模放大"
+      ],
+      "must_not_claim": [
+        "Vout=V2-V1（增益为1）"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q06",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中积分器（integrator）电路是如何由反相放大器演化而来的？其传输函数和输出电压公式是什么？",
+    "answer": "\n### 积分器（integrator）电路由反相放大器演化的过程、传输函数及输出电压公式分析\n\n#### 一、由反相放大器演化的过程\n反相放大器是典型的运放负反馈电路，其结构为输入电阻 \\( R_{\\text{in}} \\)、反馈电阻 \\( R_f \\) 和运放构成，输出电压关系为 \\( u_o = -\\frac{R_f}{R_{\\text{in}}} u_i \\)。积分器在此基础上将**反馈电阻 \\( R_f \\) 替换为电容 \\( C \\)**，利用电容的充放电特性实现积分功能。具体演化逻辑如下：  \n- 理想运放满足“虚短”（\\( v_- \\approx v_+ = 0 \\)）和“虚断”（输入电流近似为0）特性，因此输入电流 \\( i_i \\approx 0 \\)，输入电阻 \\( R_{\\text{in}} \\) 上的电流等于反馈路径的电流。  \n- 反馈路径为电容 \\( C \\)，根据电容电流-电压关系 \\( i_C = C \\frac{du_o}{dt} \\)，结合 KCL（输入电流等于反馈电流，即 \\( \\frac{u_i}{R_{\\text{in}}} = -C \\frac{du_o}{dt} \\)），对时间积分后得到输出与输入的积分关系，从而实现积分运算。  \n简言之，积分器通过将反相放大器的电阻反馈网络替换为电容反馈网络，将静态增益运算扩展为动态积分运算。\n\n#### 二、传输函数\n理想反相积分器的传输函数在拉普拉斯域（复频域）和频率域（交流稳态）的表达式如下：  \n- **拉普拉斯域传输函数**：\\( H(s) = -\\frac{1}{sRC} \\)，其中 \\( s = \\sigma + j\\omega \\) 为复频率变量，\\( R \\) 为输入电阻，\\( C \\) 为反馈电容，\\( s \\) 平面极点位于原点（\\( s = 0 \\)），体现积分器的本质是“纯积分”系统。  \n- **频率域传输函数**：\\( H(j\\omega) = -\\frac{1}{j\\omega RC} \\)，其中 \\( j\\omega \\) 为角频率，该表达式对应幅频特性为 \\( -20\\ \\text{dB/decade} \\) 的滚降，相位滞后恒定 \\( -90^\\circ \\)，符合积分器的频率响应特征。\n\n#### 三、输出电压公式\n时间域下，理想反相积分器的输出电压由初始条件 \\( u_o(0) \\)（电容初始电压对应的输出）和输入电压的积分共同决定，公式为：  \n\\[ u_o(t) = -\\frac{1}{RC} \\int_{0}^{t} u_i(\\tau) \\, d\\tau + u_o(0) \\]  \n其中：  \n- \\( u_i(\\tau) \\) 是输入电压的时间函数；  \n- \\( \\frac{1}{RC} \\) 是积分增益系数，由电路时间常数 \\( \\tau = RC \\) 决定；  \n- 积分操作体现了电路对输入信号的“累积”特性，是连续时间 LTI（线性时不变）系统的典型示例。\n\n### 参考文献\n* [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "积分器是将反相放大器的反馈电阻 Rf 替换为电容 C 得到的。在虚地条件下，输入电流 i = Vin/R 全部流入电容，电容电压（即输出）为对电流的积分：Vout(t) = −(1/RC)∫Vin(t)dt。传输函数（s 域）：H(s) = −1/(sRC)，极点在原点（s=0），是纯积分关系。负号因为是反相配置。讲义指出积分器是模拟计算机和信号处理的基础电路，实际使用时常在 C 上并联大电阻以防止直流饱和。",
+    "category": "mapping",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "积分",
+        "1/(RC)",
+        "负号",
+        "电容"
+      ],
+      "must_not_claim": [
+        "积分器输出是微分"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q07",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中微分器（differentiator）电路如何构成？其输出电压公式与积分器有何对称关系？",
+    "answer": "\n### 微分器电路构成  \n根据提供的讲义内容，微分器（不同iator）电路是一种基于运算放大器（op-amp）的模拟电路，其标准实现采用**运算放大器、输入电容和反馈电阻**构成。具体来说，在反相微分器电路中，电容连接在输入端，电阻构成反馈路径，利用运算放大器的虚短和负反馈特性实现微分运算。  \n\n### 输出电压公式  \n微分器的输出电压公式在时域和频域有明确表达：  \n- **时域关系**：输出电压 \\( u_o(t) \\) 与输入电压 \\( u_i(t) \\) 的关系为 \\( u_o(t) = -RC \\frac{du_i(t)}{dt} \\)（或等价形式 \\( u_o(t) = -\\frac{1}{RC} \\cdot \\text{输入电压的时间导数} \\)）。  \n- **频域关系**：在复频域（拉普拉斯/傅里叶域）中，传递函数为 \\( H(j\\omega) = -j\\omega RC \\)，表明输出电压与输入电压的频率成正比，且存在 \\( -90^\\circ \\) 的相位滞后。  \n\n\n### 与积分器的对称关系  \n微分器与积分器在数学上构成**对偶关系**，具体体现在以下方面：  \n1. **时域运算互逆**：  \n   - 积分器的输出为输入电压的积分，公式为 \\( u_o(t) = -\\frac{1}{RC} \\int_0^t u_i(\\tau) d\\tau \\)；  \n   - 微分器的输出为输入电压的导数，公式为 \\( u_o(t) = -RC \\frac{du_i(t)}{dt} \\)。  \n   两者通过**微积分基本定理**互为逆运算（积分是微分的逆过程）。  \n\n2. **拉普拉斯域传递函数互为倒数**：  \n   - 积分器的拉普拉斯域传递函数为 \\( H(s) = -\\frac{1}{sRC} \\)（对应积分运算）；  \n   - 微分器的拉普拉斯域传递函数为 \\( H(s) = -sRC \\)（对应微分运算）。  \n   两者在复频域中互为倒数（\\( \\frac{1}{sRC} \\) 与 \\( sRC \\) 的关系），体现了“积分-微分”的对偶性。  \n\n3. **物理结构对偶**：  \n   积分器通过电容在反馈路径实现积分（电容储存电荷，积累输入电流），而微分器通过电容在输入路径实现微分（电容的电流-电压关系 \\( i_C = C \\frac{du_i}{dt} \\) 直接关联输入电压的导数）。两者在电路结构上互为镜像（输入电容与反馈电阻的角色互换）。  \n\n\n### 参考文献  \n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "微分器是将积分器中 R 和 C 的位置互换——电容 C 接输入端，电阻 R 接反馈端。在虚地条件下，输入电流 i = C × dVin/dt 流过反馈电阻 R，输出 Vout = −RC × dVin/dt。传输函数 H(s) = −sRC，是纯微分关系。与积分器的对称性：积分器 H(s) = −1/(sRC)，微分器 H(s) = −sRC，两者互为倒数关系（串联后 H = −1 × H = 1）。讲义指出微分器对高频噪声敏感（因为高频增益大），实际使用时常在 C 串联小电阻来限制高频增益。",
+    "category": "mapping",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "微分",
+        "RC×dVin/dt",
+        "C接输入",
+        "R接反馈"
+      ],
+      "must_not_claim": [
+        "微分器输出是积分"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q08",
+    "doc_id": "circuit_doc_opamp",
+    "question": "用讲义中的方法，设计一个增益为 −20 的反相放大器，要求输入阻抗不低于 10kΩ，给出完整的元件选择步骤。",
+    "answer": "\n要设计一个增益为 -20 且输入阻抗不低于 10kΩ 的反相放大器，需依据反相放大器的增益公式和输入阻抗特性进行元件选择。以下是完整的步骤分析：  \n\n\n### 1. 回忆反相放大器的增益与输入阻抗关系  \n反相放大器的核心增益公式为：  \n\\[ A_v = -\\frac{R_f}{R_1} \\]  \n其中：  \n- \\( A_v \\) 为闭环电压增益（本题要求 \\( A_v = -20 \\)）；  \n- \\( R_f \\) 为反馈电阻（连接输出与反相输入）；  \n- \\( R_1 \\) 为输入电阻（连接输入信号与反相输入）。  \n\n反相放大器的**输入阻抗**等于输入电阻 \\( R_1 \\)（理想情况下，理想运放的输入阻抗为无穷大，但实际电路中输入阻抗由 \\( R_1 \\) 决定）。因此，需满足 \\( R_1 \\geq 10\\,\\text{kΩ} \\)。  \n\n\n### 2. 确定输入电阻 \\( R_1 \\) 的取值  \n根据输入阻抗要求，选择 \\( R_1 \\geq 10\\,\\text{kΩ} \\)。为简化计算，可取 \\( R_1 = 10\\,\\text{kΩ} \\)（满足最低限值）。  \n\n\n### 3. 计算反馈电阻 \\( R_f \\) 的值  \n将 \\( A_v = -20 \\)、\\( R_1 = 10\\,\\text{kΩ} \\) 代入增益公式：  \n\\[ -20 = -\\frac{R_f}{10\\,\\text{kΩ}} \\]  \n两边消去负号后得：  \n\\[ 20 = \\frac{R_f}{10\\,\\text{kΩ}} \\]  \n解得：  \n\\[ R_f = 20 \\times 10\\,\\text{kΩ} = 200\\,\\text{kΩ} \\]  \n\n\n### 4. 验证设计参数  \n- **增益验证**：\\( A_v = -\\frac{200\\,\\text{kΩ}}{10\\,\\text{kΩ}} = -20 \\)，符合要求。  \n- **输入阻抗验证**：\\( R_1 = 10\\,\\text{kΩ} \\geq 10\\,\\text{kΩ} \\)，满足输入阻抗不低于 10kΩ 的要求。  \n\n\n### 5. 元件选择总结  \n- 输入电阻 \\( R_1 \\)：选择标称值为 10kΩ 的电阻（例如 10kΩ 金属膜电阻，精度 1% 或更高）。  \n- 反馈电阻 \\( R_f \\)：选择标称值为 200kΩ 的电阻（例如 200kΩ 金属膜电阻，精度 1% 或更高）。  \n\n\n通过以上步骤，可完成增益为 -20 且输入阻抗不低于 10kΩ 的反相放大器设计。  \n\n### References  \n- [2] Document Title: Inverting Operational Amplifier Schematic (image)  \n- [4] Document Title: Mathematical Equation Analysis (equation: u_o = - (R_f / R_1) u_i)  \n- [6] Document Title: Mathematical Equation Analysis (equation: u_o = - (R_f / R_1) u_i)  \n- [7] Document Title: Mathematical Equation Analysis (equation: u_o = - (R_f / R_1) u_i)  \n- [8] Document Title: Mathematical Equation Analysis (equation: u_o = - (R_f / R_1) u_i)",
+    "correct_answer": "设计步骤：①输入阻抗等于 R1（虚地使信号全降在 R1 上），要求 R1 ≥ 10kΩ，选 R1 = 10kΩ；②由增益公式 |Av| = Rf/R1 = 20，得 Rf = 20 × R1 = 20 × 10kΩ = 200kΩ；③验证：Av = −Rf/R1 = −200k/10k = −20 ✓；④为减小偏置电流引起的误差，在同相端接补偿电阻 R3 = R1||Rf = 10k||200k ≈ 9.52kΩ（可选 9.1kΩ）；⑤最终方案：R1=10kΩ，Rf=200kΩ，R3≈9.1kΩ。",
+    "category": "procedure",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "R1=10kΩ",
+        "Rf=200kΩ",
+        "增益=-20"
+      ],
+      "must_not_claim": [
+        "增益=-20时Rf=20kΩ"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q09",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中如何推导比较器（comparator）电路的工作原理？为什么比较器通常不加负反馈？",
+    "answer": "\n### 比较器（Comparator）电路的工作原理推导  \n比较器通常由运算放大器（Op-Amp）以**开环（open-loop）**方式实现，其工作原理基于运放的电压比较特性。具体推导过程可结合讲义中的电路结构与传输特性分析：  \n1. **输入电压比较逻辑**：比较器的核心是判断两个输入电压（非反相输入 \\(v_+\\)、反相输入 \\(v_-\\)）的大小关系。当 \\(v_+ > v_-\\) 时，输出为高电平（\\(U_{oH}\\)）；当 \\(v_+ < v_-\\) 时，输出为低电平（\\(U_{oL}\\)）。  \n2. **传输特性体现**：比较器的电压传输特性（Voltage Transfer Characteristic, VTC）呈**分段常数（piecewise constant）**形式，如图像所示（如参考ID [1]的Subfigure (b)），在输入电压差 \\(v_+ - v_-\\) 过零时发生跳变，输出在 \\(U_{oH}\\) 和 \\(U_{oL}\\) 之间切换。  \n3. **运放非线性饱和**：由于比较器无负反馈，运放工作在**非线性饱和区（nonlinear saturation region）**，输出不再受控于线性增益，而是直接由电源电压限制，实现二值化输出。  \n\n\n### 为什么比较器通常不加负反馈？  \n负反馈（Negative Feedback）是运放线性应用的关键机制，其作用是：通过将输出信号反馈至反相输入端，迫使运放工作在**线性区（linear region）**，从而稳定增益、改善线性度（如减小失真、扩展带宽）。然而，比较器的设计目标与线性应用相反——它需要运放**脱离线性区，进入饱和区（saturation region）**以实现快速、离散的比较功能。  \n具体原因包括：  \n- **线性区限制**：若加入负反馈，运放会被约束在 \\(v_+ \\approx v_-\\)（虚拟短）的线性条件，无法产生二值化输出（输出会随输入连续变化）。  \n- **饱和特性利用**：开环运放的饱和特性（输出直接跳变至电源限幅值）是产生高/低电平的关键，负反馈会削弱这一特性。  \n- **应用场景适配**：比较器用于模拟-数字接口、阈值检测等场景，需要输出在阈值处瞬时切换，而负反馈的线性控制会延迟或平滑这一过程，不符合需求。  \n\n\n### 关键支持信息来源  \n- 比较器工作原理与传输特性：[1]  \n- 负反馈的作用与比较器开环配置：Knowledge Graph中“Negative Feedback”和“Comparator”的描述  \n- 线性区与饱和区的区别：Knowledge Graph中“Nonlinear Region”和“Linear Region”的说明  \n\n### References  \n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "比较器是运放在开环（无负反馈）或正反馈状态下的应用。工作原理：运放开环增益极大（AOL → ∞），当 V+ > V− 时，输出饱和至正电源电压 +Vsat；当 V+ < V− 时，输出饱和至 −Vsat。两种状态切换取决于两输入端的大小比较，输出只有高/低两个状态，实现模拟信号的数字化比较。不加负反馈的原因：负反馈会将运放拉回线性区，使输出正比于输入差，失去比较功能；比较器就是要利用开环的高增益使输出迅速饱和，实现快速二值判决。",
+    "category": "procedure",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "饱和",
+        "正反馈或开环",
+        "负反馈使线性",
+        "比较器"
+      ],
+      "must_not_claim": [
+        "比较器需要负反馈"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q10",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中为什么反相放大器的输入阻抗等于 R1，而同相放大器的输入阻抗却远高于 R1？从虚地和虚断的角度分析。",
+    "answer": "\n### 反相放大器输入阻抗等于 \\( R_1 \\) 的原因（虚地与虚断分析）\n\n在反相放大器电路中，输入信号通过电阻 \\( R_1 \\) 连接到运放的反相输入端。结合理想运放的**虚地**（virtual ground）和**虚断**（virtual open）特性分析如下：  \n1. **虚地特性**：非反相输入端通过电阻 \\( R_2 \\) 接地，故 \\( v_+ = 0 \\)。根据虚短（virtual short）原则 \\( v_- \\approx v_+ \\)，反相输入端电压 \\( v_- \\approx 0 \\)。  \n2. **虚断特性**：理想运放输入电流近似为0（\\( i_- \\approx 0 \\)），因此输入电流 \\( i_{\\text{in}} \\) 仅能通过 \\( R_1 \\) 流向反相输入端，即 \\( i_{\\text{in}} = \\frac{u_i - v_-}{R_1} \\approx \\frac{u_i}{R_1} \\)。  \n3. **输入阻抗推导**：输入阻抗定义为输入电压与输入电流的比值，即 \\( Z_{\\text{in}} = \\frac{u_i}{i_{\\text{in}}} \\approx R_1 \\)。因此，反相放大器的输入阻抗等于输入电阻 \\( R_1 \\)。  \n\n\n### 同相放大器输入阻抗远高于 \\( R_1 \\) 的原因（虚地与虚断分析）\n\n在同相放大器电路中，输入信号连接到运放的非反相输入端。结合理想运放的**虚短**和**虚断**特性分析如下：  \n1. **虚短特性**：输入电压直接加在非反相输入端，故 \\( v_+ = u_i \\)。根据虚短原则 \\( v_- \\approx v_+ \\)，反相输入端电压 \\( v_- \\approx u_i \\)。  \n2. **虚断特性**：非反相输入端电流近似为0（\\( i_+ \\approx 0 \\)），而理想运放的输入阻抗无穷大（\\( R_{\\text{in}} \\to \\infty \\)）。因此，从输入端看进去的阻抗主要由运放的输入阻抗决定，其值远高于反相放大器中的 \\( R_1 \\)（\\( R_1 \\) 为有限值）。  \n\n\n### 关键结论\n\n- 反相放大器：输入阻抗由输入电阻 \\( R_1 \\) 决定（\\( Z_{\\text{in}} = R_1 \\)），因虚地使反相端电压为0，虚断使输入电流全部流经 \\( R_1 \\)。  \n- 同相放大器：输入阻抗由运放的高输入阻抗决定（理想情况下无穷大），远高于 \\( R_1 \\)，因虚短使反相端电压等于输入电压，虚断使输入电流近似为0。  \n\n这种差异源于两种放大器拓扑结构中运放输入端的电压和电流约束不同：反相放大器依赖反相端电压为0的虚地特性，输入阻抗由外部电阻 \\( R_1 \\) 决定；同相放大器依赖非反相端的高输入阻抗特性，输入阻抗由运放本身的理想特性主导。  \n\n### References\n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "反相放大器：输入信号加在 R1 的一端，另一端由于虚地（虚短使 V− = V+ = 0）等效为接地，因此从信号源看进去的阻抗就是 R1。Rf 对输入阻抗无贡献（另一端接运放输出，不影响输入端）。同相放大器：输入信号直接加在同相端（运放 V+ 端），由于虚断，流入同相端的电流 I+ ≈ 0，从信号源看进去的阻抗接近无穷大（理论上等于运放的差模输入阻抗，实际为兆欧量级）。R1 和 Rf 接在反相端，不影响同相端输入阻抗。因此两种配置输入阻抗的差异源于信号接入点不同：反相端有虚地约束（有限阻抗），同相端只有虚断约束（无穷大阻抗）。",
+    "category": "reasoning",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "虚地",
+        "Zi=R1",
+        "虚断",
+        "同相端输入阻抗高"
+      ],
+      "must_not_claim": [
+        "两种配置输入阻抗相同"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q11",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中运放的增益带宽积（GBW）如何限制实际放大器的性能？以增益为 20 的反相放大器为例说明。",
+    "answer": "\n### 增益带宽积（GBW）对实际运放性能的限制\n\n运放的增益带宽积（Gain-Bandwidth Product, GBW）是核心性能参数，定义为开环增益（\\( A_{ol} \\)）与带宽（\\( f \\)）的乘积为常数，即 \\( f_T = A_{ol}(f) \\times f \\)（其中 \\( f_T \\) 也称为 unity-gain bandwidth）。GBW 是运放的固有特性，它作为稳定性约束，直接关联闭环增益与运放的可用带宽：当引入闭环增益（如反相放大器的闭环增益）时，闭环 3 dB 带宽 \\( f_H \\) 近似满足 \\( f_H \\approx \\frac{f_T}{|A_F|} \\)（基于主导极点近似，\\( A_F \\) 为闭环增益）。\n\n对于增益为 20 的反相放大器，首先确定闭环增益 \\( A_F = \\frac{R_f}{R_1} = 20 \\)。假设运放的 unity-gain bandwidth \\( f_T = 1\\ \\text{MHz} \\)（常见运放参数），根据闭环带宽公式计算可得：\n\n\\[\nf_H \\approx \\frac{f_T}{|A_F|} = \\frac{1\\ \\text{MHz}}{20} = 50\\ \\text{kHz}\n\\]\n\n这意味着，当反相放大器的增益设置为 20 时，其闭环带宽被限制在约 50 kHz。超过此频率的信号，由于增益带宽积的限制，运放的增益会显著下降（从 20 下降到 3 dB 带宽对应的增益），导致高频性能受限——例如，无法有效放大 100 kHz 以上的信号，因为此时增益已偏离设计值，输出失真或衰减严重。\n\n简言之，GBW 通过“增益与带宽成反比”的关系，限制了高增益下的可用带宽，从而影响实际运放在高频场景下的性能表现。\n\n### 参考文献\n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "实际运放（非理想）的开环增益随频率增加而下降，GBW = 开环增益 × 单位增益带宽 = 常数。对于增益为 20（即 −20）的反相放大器，闭环带宽 BW = GBW / |Av| = GBW / 20。例如若运放 GBW = 1MHz（如 LM741），则闭环带宽仅为 1MHz/20 = 50kHz。若需要更高带宽，必须使用更高 GBW 的运放。讲义指出 GBW 是选择运放的关键参数之一，高增益应用必须选择足够大 GBW 的运放型号。",
+    "category": "concept",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "GBW",
+        "增益×带宽",
+        "常数",
+        "BW=GBW/|Av|"
+      ],
+      "must_not_claim": [
+        "增益越高带宽越宽"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q12",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中什么是运放的压摆率（Slew Rate）？它对大信号响应有什么限制？",
+    "answer": "\n运放的压摆率（Slew Rate）是运放输出电压的最大变化率，定义为 \\( S = \\frac{dU_o}{dt}\\big|_{\\text{max}} \\)，它限制了运放对快速变化信号的准确复现能力。  \n\n对于大信号响应，压摆率带来的限制主要体现在：当差分输入电压的变化率（\\( \\frac{dv_{id}}{dt} \\)）超过运放内部补偿电路的设计极限时，会导致运放输出电压的过渡速度受限。具体来说，在大信号（如高频或大幅值信号）下，若输入电压变化过快，输出电压无法跟随输入电压的变化速率，从而产生非线性失真（如输出波形被限制在饱和区，出现削顶或平顶现象），并约束了运放可处理的信号频率和幅度范围，影响大信号下的性能表现。  \n\n### References\n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "压摆率（SR，Slew Rate）是运放输出电压的最大变化速率，单位 V/μs，由运放内部补偿电容的充电速率决定（SR = Imax/C）。当输入信号变化过快时，输出只能以 SR 的速率跟随，波形从理想阶跃变为斜线，产生信号失真（slew-rate limiting）。正弦信号不失真的最大频率条件：dV/dt|max = 2πf·Vpeak ≤ SR，故 fmax = SR/(2π·Vpeak)。压摆率与小信号带宽（-3dB 频率）不同，是大信号条件下的速度限制。讲义指出高速运放需要更大的 SR。",
+    "category": "concept",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "压摆率",
+        "Slew Rate",
+        "V/μs",
+        "失真",
+        "fmax"
+      ],
+      "must_not_claim": [
+        "压摆率与小信号带宽相同"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q13",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中反相放大器的 AC 等效电路图中，为什么同相端的补偿电阻 R3 = R1||Rf 接在同相端到地之间？",
+    "answer": "\n在反相放大器中，同相端（非反相输入）的补偿电阻 \\( R_3 \\) 设计为 \\( R_3 = R_1 \\parallel R_f \\) 是为了实现**输入偏置电流补偿**，具体原因如下：  \n\n### 1. 输入偏置电流补偿的原理  \n有限运算放大器（op-amp）的输入偏置电流（\\( I_{\\text{IB}} \\)）会导致直流偏移电压。补偿的核心是**匹配同相和反相输入端的戴维南等效电阻**，从而抵消偏置电流引起的电压差。根据知识图谱中的描述：  \n- *Input Bias Current Compensation* 是一种技术，通过匹配同相和反相输入的戴维南等效电阻来抵消由有限输入偏置电流引起的直流偏移电压。  \n- *Thévenin-Equivalent Resistance* 指的是从输入端看入的等效电阻，需在两输入端匹配以消除偏移。  \n\n\n### 2. 并联电阻等效的实现  \n反相放大器的反相输入端（-）的等效电阻由输入电阻 \\( R_1 \\) 和反馈电阻 \\( R_f \\) 并联构成（即 \\( R_{\\text{inv}} = R_1 \\parallel R_f \\)）。为使同相输入端（+）的等效电阻与反相端一致，需在非反相端接入补偿电阻 \\( R_3 \\)，令 \\( R_3 = R_1 \\parallel R_f \\)。  \n\n根据 *Parallel Resistance Equivalence* 的定义：  \n\\[ R_1 \\parallel R_2 = \\frac{R_1 R_2}{R_1 + R_2} \\]  \n当 \\( R_2 = R_f \\) 且 \\( R_1 \\) 为反相输入的输入电阻时，\\( R_1 \\parallel R_f \\) 即为反相端的等效电阻。因此，设置 \\( R_3 = R_1 \\parallel R_f \\) 可确保同相端的等效电阻与反相端匹配，从而补偿输入偏置电流的影响。  \n\n\n### 3. 对直流偏移的消除作用  \n当同相和反相输入的戴维南等效电阻匹配时，输入偏置电流在两端的压降相等，输出端的直流偏移电压被抵消。这保证了反相放大器在直流（或低频交流）下的线性精度，尤其适用于对直流漂移敏感的应用场景（如传感器接口、精密测量电路）。  \n\n\n综上，\\( R_3 = R_1 \\parallel R_f \\) 的设计是输入偏置电流补偿的关键步骤，通过并联电阻等效匹配输入端等效电阻，消除偏置电流导致的直流偏移。  \n\n### References  \n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "补偿电阻 R3 用于平衡运放两个输入端的等效偏置电流（bias current）引起的失调误差。在反相放大器中，反相端（V−）看到的等效电阻为 R1||Rf（两个电阻并联到地的 Thevenin 等效）；若同相端（V+）接地（无 R3），则两端等效电阻不对称，偏置电流在两端产生不同的失调电压。加入 R3 = R1||Rf 使同相端和反相端的等效电阻相同，偏置电流产生的失调电压相互抵消，提高直流精度。对于 AC 信号分析而言 R3 影响不大，主要用于改善直流性能。",
+    "category": "cross_modal",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "偏置电流",
+        "失调",
+        "R3=R1||Rf",
+        "平衡"
+      ],
+      "must_not_claim": [
+        "R3是信号分压器"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q14",
+    "doc_id": "circuit_doc_opamp",
+    "question": "从讲义的施密特触发器（Schmitt trigger）电路图中，说明正反馈如何产生迟滞特性，以及上下阈值电压如何由 R1 和 R2 决定。",
+    "answer": "\n### 正反馈如何产生迟滞特性  \n施密特触发器通过**正反馈**实现迟滞特性。其核心是运算放大器（op-amp）的输出通过电阻网络（如R1、R2）反馈到同相输入端，形成正反馈环路。当输出处于高电平（饱和状态）时，同相输入端的电压由输出高电平 \\( U_{oH} \\) 与R1、R2的分压决定；当输出处于低电平（饱和状态）时，同相输入端的电压由输出低电平 \\( U_{oL} \\) 与R1、R2的分压决定。由于输出高、低电平不同，导致输入信号上升和下降时的阈值（即上阈值和下阈值）存在差异，从而形成迟滞（hysteresis）特性。  \n\n\n### 上下阈值电压由R1和R2决定的方式  \n在施密特触发器的电路中，R1和R2构成正反馈的分压网络，用于设置同相输入端的参考电压：  \n- **上阈值电压（\\( V_{th+} \\)）**：当输出为高电平时，同相输入端的电压由输出高电平 \\( U_{oH} \\) 通过R1、R2分压得到，公式为 \\( V_{th+} = U_{oH} \\cdot \\frac{R2}{R1 + R2} \\)；  \n- **下阈值电压（\\( V_{th-} \\)）**：当输出为低电平时，同相输入端的电压由输出低电平 \\( U_{oL} \\) 通过R1、R2分压得到，公式为 \\( V_{th-} = U_{oL} \\cdot \\frac{R2}{R1 + R2} \\)。  \n\n因此，上下阈值电压的差值（迟滞宽度）由R1和R2的比值直接决定：  \n\\[ V_{th+} - V_{th-} = \\frac{R2}{R1 + R2} \\cdot (U_{oH} - U_{oL}) \\]  \n\n\n### 关键依据  \n- 施密特触发器通过**正反馈**（输出反馈到同相输入端）改变输入阈值，产生迟滞特性（对应Knowledge Graph Data中“Schmitt trigger is a bistable circuit using hysteresis and op-amp saturation behavior”的描述）；  \n- R1和R2的分压网络决定同相输入端的电压，进而决定上下阈值（结合Schmitt trigger电路中正反馈电阻的作用及分压原理）。  \n\n\n### References  \n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "施密特触发器在同相端引入正反馈：输出 Vout 通过 R1 反馈到同相端（V+），形成正反馈。当输出为 +Vsat 时，V+ = +Vsat × R1/(R1+R2)（正阈值 VTH+）；当输出为 −Vsat 时，V+ = −Vsat × R1/(R1+R2)（负阈值 VTH−）。输入 Vin 必须超过 VTH+ 才能使输出从高跳变为低，必须低于 VTH− 才能从低跳变为高，形成迟滞（hysteresis）。迟滞宽度 ΔV = VTH+ − VTH− = 2Vsat × R1/(R1+R2)。正反馈使电路具有记忆性，可滤除噪声引起的误触发，R1/R2 比值决定迟滞窗口大小。",
+    "category": "cross_modal",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "正反馈",
+        "迟滞",
+        "VTH",
+        "R1/(R1+R2)",
+        "Vsat"
+      ],
+      "must_not_claim": [
+        "施密特触发器用负反馈"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q15",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中如何利用运放设计一个截止频率为 fc 的一阶有源低通滤波器？写出电路结构和传输函数。",
+    "answer": "\n### 电路结构  \n利用运算放大器设计一阶有源低通滤波器时，可采用**反相积分器**结构。具体电路为：  \n- 运算放大器的反相输入端通过电阻 \\( R \\) 连接输入电压 \\( u_i \\)；  \n- 输出端通过电容 \\( C \\) 反馈至反相输入端；  \n- 非反相输入端接地。  \n\n这种结构通过电容的积分特性实现低通滤波，允许低频信号通过并抑制高频信号。  \n\n\n### 传输函数  \n根据文档中的描述（如“First-Order Active RC Integrator Transfer Function (equation)”和“Inverting Integrator Circuit”），该电路的频率域传输函数为：  \n\\[ H(j\\omega) = \\frac{V_o(j\\omega)}{V_i(j\\omega)} = -\\frac{1}{j\\omega RC} \\]  \n其中，\\( j\\omega \\) 为角频率，\\( R \\) 为输入电阻，\\( C \\) 为反馈电容。  \n\n\n### 截止频率 \\( f_c \\)  \n一阶RC系统的截止频率（3 dB带宽）由 \\( \\omega_c = \\frac{1}{RC} \\) 决定，因此对应的截止频率 \\( f_c \\) 为：  \n\\[ f_c = \\frac{\\omega_c}{2\\pi} = \\frac{1}{2\\pi RC} \\]  \n\n\n### 参考文献  \n- [1] 2024-ch8-op amp.pdf  \n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "一阶有源低通滤波器在反相放大器基础上，将反馈电阻 Rf 替换为 Rf 和 Cf 的并联（或在 Rf 上并联 Cf）。传输函数：H(s) = −Zf/R1，其中 Zf = Rf/(1+sRfCf)，故 H(s) = −Rf/(R1(1+sRfCf)) = −(Rf/R1) × 1/(1+s/ωc)，截止频率 ωc = 1/(RfCf)，fc = 1/(2πRfCf)，中频增益（低频）= −Rf/R1。电路结合了放大和滤波功能，可以同时设置增益和截止频率，比无源 RC 滤波器有更低的输出阻抗和更好的带载能力。",
+    "category": "procedure",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "Rf并联Cf",
+        "fc=1/(2πRfCf)",
+        "低通",
+        "传输函数"
+      ],
+      "must_not_claim": [
+        "有源低通滤波器无截止频率"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q16",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中共模抑制比（CMRR）如何定义？差分放大器的 CMRR 为什么在理想情况下趋于无穷大？",
+    "answer": "共模抑制比（Common-Mode Rejection Ratio，CMRR）在讲义中被明确定义为**差模增益（或差分模式增益）与共模增益之比的绝对值**。具体数学表达为：\n\n$$\n\\text{CMRR} = \\left| \\frac{A_{ud}}{A_{uc}} \\right|\n$$\n\n其中：\n- $ A_{ud} $ 是差模电压增益（differential-mode voltage gain），即对输入差分电压 $ U_{id} = v_+ - v_- $ 的放大能力；\n- $ A_{uc} $ 是共模电压增益（common-mode voltage gain），即对共模输入电压 $ v_{ic} = \\frac{v_+ + v_-}{2} $ 的响应程度。\n\n该定义在多个知识图谱条目中反复强调，例如：“Common-Mode Rejection Ratio (CMRR) is the ratio of differential-mode gain to common-mode gain (|A_ud / A_uc|)”；“CMRR is defined as |A_d / A_cm|, where differential-mode gain A_d depends on Uid”；以及“CMRR is a measure of an op-amp’s ability to reject identical signals applied to both inputs”。\n\n此外，讲义明确指出：**在理想运算放大器模型中，CMRR 趋于无穷大（$ \\text{KCMRR} = \\infty $）**。其根本原因在于——理想运放的共模增益 $ A_{uc} = 0 $，而差模增益 $ A_{ud} \\to \\infty $。因此，按定义 $ \\text{CMRR} = \\left| \\frac{A_{ud}}{A_{uc}} \\right| \\to \\frac{\\infty}{0} $，在理论建模中被严格取为无穷大。\n\n这一理想化设定直接源于理想运放的核心假设：  \n- **无限大的开环差模增益**（$ A_{ud} \\to \\infty $），确保在负反馈下实现“虚短”（$ v_+ = v_- $）；  \n- **完全对称、无失配的内部结构**（如完美匹配的输入差分对 Q1–Q2），使得任何共模信号在内部被完全抵消，不产生净输出贡献，即 $ A_{uc} = 0 $。\n\n因此，理想差分放大器（包括由理想运放构成的减法器、仪表放大器等）能**完全抑制共模干扰**，仅响应差分信号。这正是其高抗噪能力的理论基础，尤其在传感器接口、生物医学放大（如ECG前级）等噪声敏感应用中至关重要。\n\n值得注意的是，讲义同时指出实际器件（如 uA741CP）的 CMRR 是有限值，典型为 **90 dB**，反映出真实晶体管失配、电阻容差及工艺偏差导致的共模信号泄漏。\n\n### References\n\n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "CMRR（Common-Mode Rejection Ratio）= 差模增益 / 共模增益 = |Ad/Ac|，常用分贝表示：CMRR(dB) = 20log(Ad/Ac)。理想差分放大器（完全匹配的 R1=R3、R2=R4）中，共模信号（V1=V2）在同相端和反相端产生完全相同的影响，经过差分放大后完全抵消，共模增益 Ac = 0，故 CMRR = Ad/0 → ∞。实际电路中由于电阻失配和运放本身的 CMRR 有限，CMRR 通常在 80dB 到 120dB 之间，提高 CMRR 需要精密匹配电阻或使用仪表放大器。",
+    "category": "concept",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "CMRR",
+        "Ad/Ac",
+        "共模",
+        "差模",
+        "无穷大"
+      ],
+      "must_not_claim": [
+        "CMRR越小越好"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q17",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中讨论的运放比较器与线性放大器在工作区域上有何本质区别？",
+    "answer": "\n运放比较器与线性放大器在工作区域上的本质区别主要体现在**工作区域的性质、反馈机制、理想假设的有效性及输出特性**等方面，具体如下：  \n\n### 1. 线性放大器的工作区域  \n讲义中讨论的线性放大器（如反相/同相放大器）通常采用**闭环负反馈**配置，工作于**线性区域（Linear Region）**。在该区域内，理想运放的“虚短”（\\(v_+ \\approx v_-\\)）和“虚地”（\\(v_- \\approx 0\\)）假设成立，输出电压与输入差分电压（\\(u_{id} = v_+ - v_-\\)）呈线性关系（如反相放大器的输出 \\(u_o = -\\frac{R_f}{R_1}u_i\\) 或同相放大器的输出 \\(u_o = u_i(1 + \\frac{R_f}{R_1})\\)）。增益由反馈网络决定且有限，输出不会超出电源轨限（\\(U_{oL}\\) 和 \\(U_{oH}\\)）的饱和范围，属于**线性、连续的放大模式**。  \n\n### 2. 运放比较器的工作区域  \n运放比较器采用**开环配置**，无负反馈，其工作区域为**非线性区域（Nonlinear Region）**。由于开环，理想运放的“虚短”假设不再成立，当输入差分电压 \\(|u_{id}|\\) 超过运放的线性输入范围时，输出会迅速饱和（Saturation Region），钳位在正电源轨（\\(U_{oH}\\)）或负电源轨（\\(U_{oL}\\)）附近，输出呈现离散的“高/低”电平（如方波），用于电压比较而非线性放大。  \n\n### 3. 本质区别总结  \n| 特性                | 线性放大器                | 运放比较器                |  \n|---------------------|---------------------------|---------------------------|  \n| 工作区域            | 线性区域（输出与输入成比例） | 非线性饱和区域（输出饱和切换） |  \n| 反馈机制            | 闭环负反馈                | 开环（无负反馈）          |  \n| 理想假设有效性      | 虚短/虚地假设成立          | 虚短假设不成立            |  \n| 输出特性            | 连续、与输入成比例        | 离散、饱和电平（高/低）   |  \n\n\n### 参考文献  \n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "线性放大器工作在运放的线性区：通过负反馈将开环增益约束在有限值，输出电压 Vout 与差模输入 (V+−V−) 成正比，Vout = ACL × (V+−V−)，输出可以取连续值。比较器工作在非线性区（饱和区）：无负反馈或正反馈，开环增益极大，任何微小的输入差都会使输出饱和至 ±Vsat，输出只有两个状态（高/低），是模数转换的核心。本质区别：线性放大器 → 输出连续变化；比较器 → 输出二值跳变。实际比较器芯片（如 LM393）专门优化了响应速度（传播延迟），而非线性精度。",
+    "category": "concept",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "线性区",
+        "饱和区",
+        "负反馈",
+        "二值",
+        "连续"
+      ],
+      "must_not_claim": [
+        "比较器也在线性区工作"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q18",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中使用的具体运放型号（如 LM741 或 TL071 等）的引脚排列图是什么？",
+    "answer": "\n要回答讲义中使用的具体运放型号及其引脚排列图，需从提供的上下文中提取信息：  \n\n### 讲义中使用的具体运放型号及引脚排列图  \n讲义中使用的具体运放型号为 **uA741CP**，其引脚排列图（DIP-8封装）在文档中通过技术示意图呈现。该引脚排列图展示了uA741CP在双列直插8脚（DIP-8）封装下的引脚功能分配：  \n- 引脚2：IN(−)（反相输入）  \n- 引脚3：IN(+)（同相输入）  \n- 引脚6：NC（无内部连接）  \n- 引脚4：V_EE（负电源）  \n- 引脚7：V_CC（正电源）  \n- 引脚8：OUTPUT（输出）  \n- 引脚1和5：OFFSET NULL（失调调零引脚）  \n\n此引脚排列图对应文档中的 **Image_2.png**（参考 [1]），通过标准DIP-8封装布局清晰标注了各引脚的功能与物理位置，支持对uA741CP内部结构及外部连接的理解。  \n\n\n### 参考文献  \n- [1] 2024-ch8-op amp.pdf",
+    "correct_answer": "讲义中给出了 uA741CP 的 DIP-8 引脚排列图。图中标注：1 脚和 5 脚为 OFFSET NULL，2 脚为反相输入 IN(-)，3 脚为同相输入 IN(+)，4 脚为负电源 VEE，7 脚为正电源 VCC，8 脚为 OUTPUT，6 脚标为 NC。该图用于说明具体运放芯片的外部引脚功能。",
+    "category": "cross_modal",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "uA741CP",
+        "DIP-8",
+        "OFFSET NULL",
+        "IN(-)",
+        "IN(+)",
+        "OUTPUT"
+      ],
+      "must_not_claim": [
+        "讲义未提供",
+        "没有引脚排列图"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q19",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中设计的反相放大器（R1=10kΩ，Rf=100kΩ）的实测谐波失真（THD）是多少 dB？",
+    "answer": "\n根据提供的上下文内容，其中关于反相放大器的描述主要涉及理论公式（如增益关系 \\( u_o = -\\frac{R_f}{R_1} u_i \\)）和电路结构分析，但未包含该特定反相放大器（\\( R_1 = 10\\text{k}\\Omega \\)，\\( R_f = 100\\text{k}\\Omega \\)）的实测谐波失真（THD）数值信息。因此，无法基于所给上下文回答该问题。",
+    "correct_answer": "讲义中只给出了增益公式的理论推导（Av=−Rf/R1=−10），没有进行实际电路测量或给出具体的 THD 数值。谐波失真数值取决于所用具体运放型号、工作电压、负载条件等因素，需要实际搭建电路测量或查阅器件规格书。",
+    "category": "unanswerable",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "未给出",
+        "需实测"
+      ],
+      "must_not_claim": [
+        "THD=-60dB"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q20",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中反相放大器如果去掉负反馈（断开 Rf），电路行为会如何变化？从增益和工作区的角度分析。",
+    "answer": "\n从增益和工作区两个角度分析反相放大器去掉负反馈（断开 \\( R_f \\)）后的电路行为变化如下：\n\n### 增益角度的变化  \n在反相放大器的正常工作状态下，负反馈（通过 \\( R_f \\) 连接输出到反相输入）使电路形成闭环，增益由电阻比 \\( \\frac{R_f}{R_1} \\) 决定（如公式 \\( u_o = -\\frac{R_f}{R_1} u_i \\) 所示）。当断开 \\( R_f \\) 时，电路失去负反馈，进入**开环状态**。此时，运放的增益不再由外部电阻比决定，而是由运放的**开环增益**（理想情况下趋近于无穷大）主导。但由于实际运放的输出电压受限于正负电源电压（\\( U_{oH} \\) 或 \\( U_{oL} \\)），输出会被钳位在电源轨附近，因此增益表现为**极高但不可控**，且最终受限于电源电压和运放的饱和特性，无法通过电阻比精确调节。  \n\n### 工作区的变化  \n1. **正常工作区（有负反馈）**：  \n   负反馈通过 \\( R_f \\) 将输出信号反馈至反相输入，迫使运放工作在**线性区**（active region）。此时满足“虚拟短”（\\( v_- \\approx v_+ \\)）和“虚拟地”（\\( v_- \\approx 0 \\)）等理想条件，输出与输入呈线性关系，且增益稳定、失真低。  \n\n2. **无负反馈（断开 \\( R_f \\)）**：  \n   去掉 \\( R_f \\) 后，运放处于开环状态，差分输入电压 \\( u_{id} \\) 会因输出无反馈抵消而迅速增大，导致输出电压被限制在电源电压附近，进入**饱和区**（saturation region）。此时输出不再随输入线性变化，而是被钳位在 \\( U_{oH} \\)（正向饱和）或 \\( U_{oL} \\)（负向饱和），理想运放的“虚拟短”和“虚拟地”等假设不再成立，电路行为由运放的饱和特性和电源电压决定，进入非线性工作区。  \n\n\n### 关键结论  \n- **增益**：从由 \\( \\frac{R_f}{R_1} \\) 精确决定的闭环增益，变为受限于电源电压和开环增益的、不可控的极高增益（实际表现为饱和）。  \n- **工作区**：从线性区（受负反馈约束）转变为饱和区（无负反馈导致输出钳位，非线性工作）。  \n\n这些变化体现了负反馈对运放线性区稳定性和增益可控性的核心作用——移除负反馈会破坏运放的线性工作模式，使其进入饱和状态，增益特性也完全改变。",
+    "correct_answer": "去掉 Rf 后，运放工作在开环状态，开环增益 AOL 极大（通常 100dB 以上，即约 10⁵ V/V）。即使毫伏级的输入扰动（如 1mV）也会产生 100V 的\"理论\"输出，实际输出将立即饱和至正或负电源电压（±Vsat）。电路从线性放大器变为比较器（比较 V+ 与 V− 的大小关系），不再是线性工作。这说明负反馈（Rf 的存在）是建立稳定线性增益的关键，没有负反馈就没有可控的线性放大功能。",
+    "category": "reasoning",
+    "topic": "opamp",
+    "method": "enhanced",
+    "rubric": {
+      "must_include": [
+        "开环",
+        "饱和",
+        "AOL极大",
+        "比较器",
+        "负反馈"
+      ],
+      "must_not_claim": [
+        "断开Rf增益变为1"
+      ]
+    }
+  }
+]

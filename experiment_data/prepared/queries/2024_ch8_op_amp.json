@@ -14,8 +14,18 @@
       "answer": ""
     },
     {
+      "category": "study_focus",
+      "question": "如果我要快速复习这份讲义，最应该优先关注哪些公式、图示、结论或分析步骤？",
+      "answer": ""
+    },
+    {
       "category": "component_value",
       "question": "该讲义代表性模拟电路中的关键器件参数分别是什么？",
+      "answer": ""
+    },
+    {
+      "category": "circuit_function",
+      "question": "讲义中的代表性模拟电路输入是什么、输出是什么，它希望实现怎样的功能？",
       "answer": ""
     },
     {
@@ -34,6 +44,11 @@
       "answer": ""
     },
     {
+      "category": "assumptions_or_approximations",
+      "question": "讲义在分析该模拟电路时采用了哪些理想条件、近似假设或默认前提？",
+      "answer": ""
+    },
+    {
       "category": "opamp_terminal_gain",
       "question": "讲义中的运算放大器电路属于反相、同相还是其他结构，其增益关系如何确定？",
       "answer": ""
@@ -41,6 +56,11 @@
     {
       "category": "opamp_feedback",
       "question": "运放电路中的反馈网络由哪些元件构成，它如何影响输出？",
+      "answer": ""
+    },
+    {
+      "category": "opamp_assumptions",
+      "question": "讲义在推导运放电路结论时用了哪些理想运放假设，这些假设会影响哪些结果？",
       "answer": ""
     }
   ]

@@ -1,8 +1,12 @@
 {"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "lecture_scope", "question": "这份讲义主要讲解了哪些核心概念、定律或电路类型？", "answer": ""}
 {"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "worked_example", "question": "讲义中最典型的例题或代表性电路是什么，它要解决什么问题？", "answer": ""}
+{"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "study_focus", "question": "如果我要快速复习这份讲义，最应该优先关注哪些公式、图示、结论或分析步骤？", "answer": ""}
 {"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "component_value", "question": "该讲义代表性模拟电路中的关键器件参数分别是什么？", "answer": ""}
+{"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "circuit_function", "question": "讲义中的代表性模拟电路输入是什么、输出是什么，它希望实现怎样的功能？", "answer": ""}
 {"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "bias_or_operation_region", "question": "文档中的关键模拟器件工作在什么偏置或工作区间，依据是什么？", "answer": ""}
 {"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "topology", "question": "讲义展示的核心电路属于什么拓扑，输入、输出和反馈路径如何识别？", "answer": ""}
 {"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "formula_mapping", "question": "文档中的主要公式与电路图中的器件、节点或参数分别对应什么物理意义？", "answer": ""}
+{"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "assumptions_or_approximations", "question": "讲义在分析该模拟电路时采用了哪些理想条件、近似假设或默认前提？", "answer": ""}
 {"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "bjt_region", "question": "文档中的 BJT 电路工作在截止区、放大区还是饱和区，依据是什么？", "answer": ""}
 {"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "bjt_bias_path", "question": "BJT 偏置网络由哪些元件构成，基极、集电极和发射极分别如何连接？", "answer": ""}
+{"doc_id": "circuit_doc_001", "file_name": "2024-ch2-BJTs.pdf", "group": "analog", "category": "bjt_parameter_dependency", "question": "在文档讨论的 BJT 电路里，哪些参数最直接影响静态工作点、增益或输出摆幅？", "answer": ""}

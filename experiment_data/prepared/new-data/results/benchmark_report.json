@@ -1,0 +1,53 @@
+{
+  "baseline": {
+    "overall": 0.413,
+    "by_topic": {
+      "bjt": 0.347,
+      "fet": 0.404,
+      "freq_domain": 0.417,
+      "opamp": 0.482
+    },
+    "by_category": {
+      "concept": 0.409,
+      "factoid": 0.398,
+      "topology": 0.408,
+      "mapping": 0.304,
+      "procedure": 0.177,
+      "reasoning": 0.448,
+      "cross_modal": 0.378,
+      "unanswerable": 1.0
+    },
+    "total_questions": 80
+  },
+  "enhanced": {
+    "overall": 0.443,
+    "by_topic": {
+      "bjt": 0.381,
+      "fet": 0.407,
+      "freq_domain": 0.492,
+      "opamp": 0.493
+    },
+    "by_category": {
+      "concept": 0.452,
+      "factoid": 0.398,
+      "topology": 0.479,
+      "mapping": 0.304,
+      "procedure": 0.203,
+      "reasoning": 0.493,
+      "cross_modal": 0.409,
+      "unanswerable": 1.0
+    },
+    "total_questions": 80
+  },
+  "alignment": {
+    "shared_qids": 80,
+    "missing_in_enhanced": [],
+    "missing_in_baseline": []
+  },
+  "win_tie_loss": {
+    "win": 14,
+    "tie": 62,
+    "loss": 4,
+    "total": 80
+  }
+}

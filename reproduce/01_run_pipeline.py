@@ -15,6 +15,7 @@ import sys
 import asyncio
 import argparse
 import logging
+from dataclasses import asdict, is_dataclass
 from pathlib import Path
 
 # 确保能 import 项目根目录的包
@@ -31,6 +32,17 @@ from raganything import RAGAnything, RAGAnythingConfig
 
 def get_env_or_fallback(primary_key: str, fallback_key: str, default: str = "") -> str:
     return os.getenv(primary_key) or os.getenv(fallback_key) or default
+
+
+def status_to_dict(status_obj):
+    """Normalize LightRAG doc status values that may be dicts or dataclass objects."""
+    if isinstance(status_obj, dict):
+        return status_obj
+    if is_dataclass(status_obj):
+        return asdict(status_obj)
+    if hasattr(status_obj, "__dict__"):
+        return dict(status_obj.__dict__)
+    return {"raw_status": repr(status_obj)}
 
 
 def build_llm_func(api_key: str, base_url: str, model: str = "gpt-4o-mini"):
@@ -182,18 +194,38 @@ async def run_pipeline(
 
     file_ref = rag._get_file_reference(file_path)
     failed_docs = await rag.lightrag.doc_status.get_docs_by_status(DocStatus.FAILED)
-    matched_failure = next(
+    processed_docs = await rag.lightrag.doc_status.get_docs_by_status(DocStatus.PROCESSED)
+
+    matched_failure = None
+    for doc_id, doc_info in failed_docs.items():
+        doc_payload = status_to_dict(doc_info)
+        if doc_payload.get("file_path") == file_ref:
+            matched_failure = {"doc_id": doc_id, **doc_payload}
+            break
+
+    matched_processed = next(
         (
-            {"doc_id": doc_id, **doc_info}
-            for doc_id, doc_info in failed_docs.items()
-            if getattr(doc_info, "file_path", None) == file_ref
+            {"doc_id": doc_id, **status_to_dict(doc_info)}
+            for doc_id, doc_info in processed_docs.items()
+            if status_to_dict(doc_info).get("file_path") == file_ref
         ),
         None,
     )
-    if matched_failure is not None:
+
+    duplicate_failure = (
+        matched_failure is not None
+        and "already exists" in str(matched_failure.get("error_msg", "")).lower()
+    )
+
+    if matched_failure is not None and not (duplicate_failure and matched_processed is not None):
         raise RuntimeError(
             "Document processing failed before query stage. "
             f"Matched failed doc status: {matched_failure}"
+        )
+    if duplicate_failure and matched_processed is not None:
+        print(
+            "  -> 检测到同文档重复导入记录；当前 working_dir 中已有已处理版本，"
+            "将继续使用已存在的索引结果。"
         )
 
     # ---- 3. 验证 KG 中的多模态实体 ----

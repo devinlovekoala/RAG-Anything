@@ -14,6 +14,11 @@
       "answer": ""
     },
     {
+      "category": "study_focus",
+      "question": "如果我要快速复习这份讲义，最应该优先关注哪些公式、图示、结论或分析步骤？",
+      "answer": ""
+    },
+    {
       "category": "main_topic",
       "question": "这份讲义的主要主题是什么，文中重点围绕哪些电路或分析对象展开？",
       "answer": ""
@@ -21,6 +26,11 @@
     {
       "category": "diagram_text_alignment",
       "question": "讲义中的图示与正文解释之间最重要的对应关系是什么？",
+      "answer": ""
+    },
+    {
+      "category": "study_focus",
+      "question": "如果把这份讲义当作复习材料，最值得先读懂的图、公式或结论分别是什么？",
       "answer": ""
     }
   ]

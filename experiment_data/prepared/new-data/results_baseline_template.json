@@ -1,0 +1,1674 @@
+[
+  {
+    "qid": "bjt_q01",
+    "doc_id": "circuit_doc_bjt",
+    "question": "BJT 工作在有源区（active region）需要满足什么偏置条件？讲义中如何描述这两个结的状态？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "有源区要求发射结正偏（forward bias）、集电结反偏（reverse bias）。讲义第7页的工作模式表明：emitter-base junction forward biased，base-collector junction reverse biased，此时晶体管具有线性放大能力，适合用作放大器。",
+    "category": "concept",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "发射结正偏",
+        "集电结反偏"
+      ],
+      "must_not_claim": [
+        "两个结都正偏",
+        "两个结都反偏"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q02",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中定义的直流电流增益 β（beta）公式是什么？它与 α 之间有什么关系？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第25页给出 β_dc = IC / IB，是集电极电流与基极电流之比，也称 hfe。α = IC / IE，两者关系为 IC = βIB = αIE，IE = (1+β)IB，以及 α = β/(β+1)。讲义还指出 AC 模式下 β_ac ≈ β_dc。",
+    "category": "factoid",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "IC/IB",
+        "β",
+        "α"
+      ],
+      "must_not_claim": [
+        "β是电压增益"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q03",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义 Fixed Bias 电路中，基极电流 IBQ 的计算公式是什么？请写出完整推导来源。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第10页，对 base-emitter 回路列 KVL：+UCC − IB·RB − UBE = 0，整理得 IB = (UCC − UBE) / RB，其中 UBE ≈ 0.7V。然后 ICQ = β·IBQ，最后由 collector-emitter 回路 KVL 得 UCEQ = UCC − IC·RC。",
+    "category": "factoid",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "(UCC-UBE)/RB",
+        "KVL",
+        "UBE≈0.7V"
+      ],
+      "must_not_claim": [
+        "IB=UCC/RB"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q04",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中介绍的三种基本 BJT 放大器配置是什么？各自的输入端和输出端在哪个极？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第20页总结了三种配置：①共基极（CB）：输入在 emitter，输出在 collector，base 为公共端；②共射极（CE）：输入在 base，输出在 collector，emitter 为公共端；③共集极（CC，也称 emitter follower）：输入在 base，输出在 emitter，collector 为公共端。",
+    "category": "topology",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "共基极",
+        "共射极",
+        "共集极"
+      ],
+      "must_not_claim": [
+        "CE输入在emitter"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q05",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义对 CE 放大器的特性总结了哪四点？并说明输入与输出之间的相位关系。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第32页总结 CE 放大器特性：①高输入阻抗（high input impedance）；②低输出阻抗（low output impedance）；③高电压增益和电流增益（high voltage and current gain）；④输入与输出之间相位差 180°（phase shift is 180°，即反相）。电压增益公式 Au = −RL/re，负号体现反相。",
+    "category": "topology",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "输入阻抗高",
+        "输出阻抗低",
+        "反相",
+        "180°"
+      ],
+      "must_not_claim": [
+        "CE放大器同相输出"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q06",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中 re 模型的 re 值如何计算？它在 CE 配置的 re 模型中对应哪个参数？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第19、28页给出 re = 26mV / IE，即热电压除以发射极直流工作电流。在 CE 配置的 re 模型中，BJT 的基极到发射极之间等效为 βre（因为 ie = (β+1)ib ≈ βib，输入阻抗为 βre），电流源为 βib。re 模型需要先做 DC 分析求出 IE，才能确定 re 值。",
+    "category": "mapping",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "26mV/IE",
+        "βre"
+      ],
+      "must_not_claim": [
+        "re=26mV/IC"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q07",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义第33页，CE with Emitter-Bias 电路中，ZB 的表达式是什么？它如何影响输入阻抗 Zi？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第33页给出 ZB = βre + (β+1)RE ≈ β(re + RE)。整个放大器输入阻抗 Zi = RB || ZB。由于 ZB 中包含 (β+1)RE 项，RE 被放大了 (β+1) 倍后叠加到 βre 上，使输入阻抗相比无 RE 的 fixed bias 显著提高。电压增益 Au = −βRC / ZB = −RC / (re + RE)。",
+    "category": "mapping",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "(β+1)RE",
+        "ZB",
+        "Zi=RB||ZB"
+      ],
+      "must_not_claim": [
+        "RE不影响输入阻抗"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q08",
+    "doc_id": "circuit_doc_bjt",
+    "question": "用讲义介绍的 Voltage Divider Bias（分压偏置）方法，写出求解 Q 点的完整步骤。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第16页给出步骤：①用 Thévenin 等效简化偏置网络：RTh = R1||R2，ETh = R2·UCC/(R1+R2)；②对 base-emitter 回路列 KVL：IB = (ETh − UBE) / (RTh + (β+1)RE)；③计算 ICQ = β·IBQ；④对 collector-emitter 回路列 KVL：UCEQ = UCC − IC(RC + RE)。讲义指出分压偏置是\"非常稳定的偏置电路\"，工作点几乎不随 β 变化。",
+    "category": "procedure",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "Thévenin",
+        "ETh",
+        "RTh",
+        "KVL",
+        "ICQ=βIBQ"
+      ],
+      "must_not_claim": [
+        "分压偏置不需要Thevenin等效"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q09",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中绘制 DC 等效电路需要哪三个步骤？AC 等效电路又需要哪些步骤？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "DC 等效电路（讲义第9页）：①将电容替换为开路（open-circuit equivalent）；②将电感替换为短路（short-circuit equivalent）；③DC 电源可分开分析。AC 等效电路（讲义第18页）：①移除 DC 电压源（短路替换）；②耦合电容和旁路电容替换为短路。两套等效电路分离，体现了\"DC 和 AC 响应是分开分析的\"这一核心原则。",
+    "category": "procedure",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "电容开路",
+        "DC电源短路",
+        "耦合电容短路"
+      ],
+      "must_not_claim": [
+        "DC和AC分析步骤相同"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q10",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中为什么说在发射极加 RE（Emitter Bias）能提高电路稳定性？其稳定机制是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第14-15页说明：RE 引入负反馈稳定机制——若温度升高导致 IC 增大，则 IE 增大，UE = IE·RE 增大，使 UBE = UB − UE 减小，从而 IB 减小，IC 回落，抑制了最初的增大趋势。讲义指出 stability 指偏置电路在宽温度范围和 β 变化下，电流电压保持基本稳定。RE 的代价是交流增益降低（分母出现 RE 项），实际使用中常在 RE 上并联旁路电容来恢复交流增益。",
+    "category": "reasoning",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "负反馈",
+        "UBE减小",
+        "稳定",
+        "RE"
+      ],
+      "must_not_claim": [
+        "RE增大增益"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q11",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中饱和区（saturation region）的特征是什么？此时 IC 与 IB 还满足 IC = βIB 吗？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第7-8页：饱和区的偏置条件是 emitter-base junction forward biased 且 base-collector junction forward biased（两个结都正偏）。讲义第27页说明此时 IC 达到最大值 ICmax，UCE 达到最小值 UCEsat。由于集电结也正偏，IC 不再由 βIB 控制，而是由外电路（RC、UCC）决定：ICsat ≈ UCC/RC。因此 IC = βIB 在饱和区不适用。",
+    "category": "concept",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "两个结正偏",
+        "IC不再等于βIB",
+        "UCEsat"
+      ],
+      "must_not_claim": [
+        "饱和区IC=βIB仍然成立"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q12",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中截止区（cutoff region）的特征是什么？此时 IC 的值接近多少？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第7-8页：截止区的条件是 emitter-base junction reverse biased（两个结都反偏）。此时没有载流子注入基区，IC 降至最小值，约等于 ICEO（≈ β·ICBO），ICBO 是极小的反向漏电流，通常可忽略。讲义第6页 output characteristics 图中，IB = 0μA 对应的最低曲线即为截止区边界，UCE = UCC 时 IC = 0mA（近似）。",
+    "category": "concept",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "截止区",
+        "两个结反偏",
+        "IC≈0"
+      ],
+      "must_not_claim": [
+        "截止区IC很大"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q13",
+    "doc_id": "circuit_doc_bjt",
+    "question": "从讲义第6页的 CE output characteristics（IC-UCE 特性曲线）图中，说明 load line（负载线）的两个端点坐标如何确定，以及 Q-point 如何从图上读取。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第12页：负载线由 KVL 方程 UCE = UCC − IC·RC 决定，两个端点为：①饱和端（UCE=0）：IC = UCC/RC（纵轴截距）；②截止端（IC=0）：UCE = UCC（横轴截距）。Q-point 是负载线与特定 IB 曲线的交点，该 IB 由基极偏置电路确定。Q-point 同时给出 UCEQ 和 ICQ 的工作值，应位于有源区（active region）中，不能落入饱和或截止区。",
+    "category": "cross_modal",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "UCC/RC",
+        "UCC",
+        "交点",
+        "Q-point"
+      ],
+      "must_not_claim": [
+        "负载线是水平线"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q14",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义第13页展示了三组改变电路参数后 Q 点移动的图，分别是改变哪三个参数？Q 点如何移动？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第13页展示：①改变 IB（通过改变 RB）：IB 增大，Q 点沿负载线向左上方（高IC低UCE方向）移动，靠近饱和区；IB 减小则向右下方靠近截止区；②改变 RC（影响负载线斜率）：RC 增大，负载线斜率变缓（纵轴截距 UCC/RC 降低），Q 点随之移动；③改变 UCC（平移负载线）：UCC 增大，两端点均右移/上移，Q 点也向右上方移动。",
+    "category": "cross_modal",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "IB",
+        "RC",
+        "UCC",
+        "Q点移动"
+      ],
+      "must_not_claim": [
+        "三个参数对Q点无影响"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q15",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义指出 DC 分析和 AC 分析可以完全分离，这一原则的依据是什么？工作点选择对 AC 响应有何影响？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第38页总结：对主动和非线性器件，DC 和 AC 响应不同，因此 DC 分析可以与 AC 响应完全分开。依据是叠加原理的线性化近似：在小信号条件下，将器件在 Q 点线性化，DC 建立工作点，AC 小信号叠加其上。但两者并非独立：工作点参数（如 IE）决定了小信号模型参数（re = 26mV/IE），即 Q 点的选择直接影响 re，进而影响 AC 增益 Au = −RC/re。讲义第38页明确指出\"the choice of parameters for DC levels will affect the AC response\"。",
+    "category": "reasoning",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "线性化",
+        "re=26mV/IE",
+        "Q点影响AC增益"
+      ],
+      "must_not_claim": [
+        "DC和AC完全独立无关"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q16",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中 Emitter Follower（CC 配置）的电压增益约为多少？其输入阻抗和输出阻抗各有什么特点？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第35页：CC 配置（emitter follower）的电压增益 Au = RE/(RE + re) ≈ 1（当 RE >> re 时），输出与输入同相，无相位反转。输入阻抗 ZB = βre + (β+1)RE ≈ βRE（高），Zi = RB||ZB（高）。输出阻抗 Zo = RE||re ≈ re（低，约几十欧量级）。讲义还给出电流增益公式。射极跟随器常用于阻抗变换：高输入阻抗对信号源友好，低输出阻抗可驱动低阻负载。",
+    "category": "topology",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "Au≈1",
+        "高输入阻抗",
+        "低输出阻抗",
+        "同相"
+      ],
+      "must_not_claim": [
+        "射极跟随器有高增益"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q17",
+    "doc_id": "circuit_doc_bjt",
+    "question": "用讲义 re 模型分析 CE with Voltage-Divider Bias（Example 2.5）时，求输入阻抗 Zi 的步骤是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第34页，CE with Voltage-Divider Bias 的 AC 等效电路中：偏置电阻 R1、R2 在 AC 等效后并联（DC 电源短路），R′ = R1||R2。BJT 用 re 模型替换，基极到发射极等效为 βre。因此 Zi = R′||βre = (R1||R2)||βre。若 ro ≥ 10RC 则输出阻抗 Zo ≈ RC。电压增益 Au = −(RC||ro)/re ≈ −RC/re。",
+    "category": "procedure",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "R1||R2",
+        "βre",
+        "Zi"
+      ],
+      "must_not_claim": [
+        "Zi只等于βre"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q18",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中的 BJT 电路在−40°C 至+85°C 工作温度范围内 β 的具体变化数值曲线是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义中没有提供 β 随温度变化的具体数值曲线。讲义仅提到偏置电路的 stability（稳定性）目标是使工作点在温度和 β 变化时保持稳定，但没有给出具体的 β-温度量化数据。这类参数需要查阅具体器件的 datasheet。",
+    "category": "unanswerable",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "未提供",
+        "datasheet"
+      ],
+      "must_not_claim": [
+        "β随温度线性变化到某具体值"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q19",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中的 BJT 放大电路最大允许耗散功率 PCmax 的具体数值是多少瓦？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第27页仅给出 PCmax = UCE·IC 的公式定义，以及在 output characteristics 图中用双曲线标注了功率限制边界，但没有给出具体的数值（如几毫瓦或几瓦）。具体数值取决于使用的 BJT 型号，需查阅器件手册。",
+    "category": "unanswerable",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "未给出具体数值",
+        "需查器件手册"
+      ],
+      "must_not_claim": [
+        "PCmax=5W"
+      ]
+    }
+  },
+  {
+    "qid": "bjt_q20",
+    "doc_id": "circuit_doc_bjt",
+    "question": "讲义中 CB 放大器（Common-Base）的电流增益 Ai ≈ −α ≈ −1，但它仍有高电压增益，这在物理上如何解释？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第24、36页：CB 放大器中 IC ≈ IE（α ≈ 1），电流增益约为1，没有电流放大。但是输入端阻抗极低（Zi = re，几欧到几十欧），输出端阻抗极高（Zo ≈ ∞），因此同样的电流流经高阻抗输出负载 RC 时，产生的电压 uo = IC·RC = αIE·RC 远大于输入电压 ui = IE·re。电压增益 Au = αRC/re ≈ RC/re，可以很大。本质是阻抗转换带来的电压放大，而非电流放大。",
+    "category": "reasoning",
+    "topic": "bjt",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "阻抗变换",
+        "Zi=re",
+        "Au=RC/re",
+        "α≈1"
+      ],
+      "must_not_claim": [
+        "CB放大器有电流放大"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q01",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 FET 与 BJT 相比，在控制方式和输入阻抗上有什么本质区别？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第3页给出对比：BJT 是电流控制器件（current controlled device），通过 IB 控制 IC；FET 是电压控制器件（voltage controlled device），通过 VGS 控制 ID，栅极几乎不需要输入电流（IG ≈ 0）。因此 FET 具有比 BJT 高得多的输入阻抗。此外，FET 对温度变化不敏感，更易于集成电路（IC）制造。",
+    "category": "concept",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "电压控制",
+        "电流控制",
+        "输入阻抗高",
+        "IG≈0"
+      ],
+      "must_not_claim": [
+        "FET和BJT控制方式相同"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q02",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 JFET 的 Shockley 方程是什么？其中 IDSS 和 VP 各代表什么物理意义？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第9页给出 Shockley 方程：ID = IDSS × (1 − UGS/VP)²。IDSS 是当 UGS = 0 且 UDS > |VP| 时（饱和区）的最大漏极电流；VP（或 UGS(off)）是使 ID = 0mA 所需的夹断电压（pinch-off voltage），对 n-channel JFET 为负值。Shockley 方程仅在饱和区有效，是非线性关系，且不随外部网络改变。",
+    "category": "factoid",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "IDSS",
+        "VP",
+        "(1-UGS/VP)²",
+        "夹断"
+      ],
+      "must_not_claim": [
+        "Shockley方程在线性区适用"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q03",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 E-MOSFET（增强型 MOSFET）的漏极电流公式是什么？与 JFET 的 Shockley 方程有何区别？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第16页给出 E-MOSFET 的转移特性方程：ID = k(VGS − VT)²，其中 VT（或 UGS(Th)）是阈值电压，k 是常数。区别在于：JFET 在 VGS = 0 时就有最大电流 IDSS，需要负向 VGS 来减小电流（耗尽型）；E-MOSFET 在 VGS < VT 时 ID = 0，必须 VGS > VT 才能导通（增强型），两者都是非线性二次方关系，但 E-MOSFET 无 IDSS 参数。",
+    "category": "factoid",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "k(VGS-VT)²",
+        "VT",
+        "阈值"
+      ],
+      "must_not_claim": [
+        "E-MOSFET使用Shockley方程"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q04",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 JFET、D-MOSFET 和 E-MOSFET 三种 FET 在工作模式上有什么核心区别？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义总结：JFET 只工作在耗尽模式（depletion mode），VGS 只能为负（n-channel），通过减小 VGS 来减小 ID，VGS = VP 时 ID = 0；D-MOSFET 可工作在耗尽模式（VGS < 0）和增强模式（VGS > 0）两种模式，转移特性穿越 UGS = 0 轴（讲义第13页）；E-MOSFET 只工作在增强模式，VGS < VT 时完全截止，必须正向 VGS 超过 VT 才能导通，没有 IDSS 参数（讲义第14-16页）。",
+    "category": "topology",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "JFET耗尽",
+        "D-MOSFET两种模式",
+        "E-MOSFET仅增强",
+        "VT"
+      ],
+      "must_not_claim": [
+        "三者工作模式相同"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q05",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 Common Source（CS）FET 放大器的电压增益、输入阻抗和输出阻抗公式是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第30-31页：CS 放大器（以分压偏置为例）：①电压增益 Au = uo/ui = −gm(rd||RD) ≈ −gmRD（当 rd ≥ 10RD 时）；②输入阻抗 Zi = R1||R2（由偏置电阻决定，FET 栅极阻抗近似无穷大）；③输出阻抗 Zo = RD||rd ≈ RD（当 rd ≥ 10RD 时）。与 BJT CE 类似，输出也反相（负号），电压增益由 gm 和 RD 决定。",
+    "category": "topology",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "-gmRD",
+        "Zi=R1||R2",
+        "Zo=RD",
+        "反相"
+      ],
+      "must_not_claim": [
+        "CS放大器同相输出"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q06",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 FET 小信号模型的跨导 gm 定义是什么？对 JFET 如何用 Shockley 方程推导 gm 的表达式？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第28页定义 gm = ΔID/ΔVGS = ∂ID/∂VGS|VDS=const，是转移特性曲线在 Q 点的斜率，单位 mA/V（毫西门子）。对 JFET（讲义第29页），对 Shockley 方程求导：gm = dID/dUGS = 2IDSS/|VP| × (1 − UGS/VP) = gm0(1 − UGS/VP)，其中 gm0 = 2IDSS/|VP| 是 UGS = 0 时的最大跨导。讲义指出 gm 是 Q 点处特性曲线的斜率，随 UGS 变化。",
+    "category": "mapping",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "gm",
+        "ΔID/ΔVGS",
+        "gm0",
+        "2IDSS/|VP|"
+      ],
+      "must_not_claim": [
+        "gm是固定常数不随Q点变化"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q07",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 Common Source FET Amplifier（3.3.1节）的 Q 点求解有数学法和图解法两种，两种方法的核心方程各是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第21-22页：①数学法：联立两个方程——偏置网络方程 UGSQ = VG − IDQ·RS（直线方程），以及 Shockley 方程 IDQ = IDSS(1 − UGSQ/VP)²（曲线方程），解方程组得 Q 点；②图解法：在转移特性曲线（Shockley 曲线，纵轴 ID，横轴 VGS）上叠加偏置直线 UGS = VG − ID·RS（由两个特殊点确定：ID=0时VGS=VG，VGS=0时ID=VG/RS），两者交点即为 Q 点。两种方法结果相同。",
+    "category": "mapping",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "偏置直线",
+        "Shockley方程",
+        "交点",
+        "UGSQ=VG-IDQRS"
+      ],
+      "must_not_claim": [
+        "只能用数学法求解"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q08",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义 3.3.2 节 Self-biased Amplifier 中，UGS 是如何通过 RS 自行产生的？写出 Q 点的求解公式。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第23-24页：Self-bias 中，栅极通过 RG 接地（VG = 0），源极电位 VS = IS·RS = ID·RS > 0（因为 IG≈0，IS=ID），因此 UGS = VG − VS = −ID·RS < 0，自动产生所需的负栅偏置。Q 点方程：UGSQ = −IDQ·RS（偏置直线，过原点斜率为−RS）；联立 Shockley 方程 IDQ = IDSS(1 + IDQ·RS/VP)²，解得 Q 点。图解法中偏置直线过原点（ID=0时UGS=0，ID=IDSS/2时UGS=−IDSS·RS/2）与转移特性交点即为 Q 点。",
+    "category": "procedure",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "UGSQ=-IDQRS",
+        "自偏置",
+        "VG=0",
+        "Shockley"
+      ],
+      "must_not_claim": [
+        "Self-bias中VGS为正"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q09",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义 3.4.3 节 CS with Self-bias 的 AC 分析中，如何确定 Zi 和 Zo？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第32页：CS with Self-bias 的 AC 分析中，AC 等效后 DC 电源短路，CS 旁路电容 CS 短路源极电阻（使 RS 对 AC 为零）。输入阻抗 Zi = RG（仅由栅极偏置电阻决定，因为 FET 栅极阻抗近似无穷大，不影响 Zi）。输出阻抗：令 Ui = 0 则 Ugs = 0，电流源 gmUgs = 0，Zo = RD||rd ≈ RD（当 rd >> RD 时）。电压增益 Au = −gm(rd||RD) ≈ −gmRD。",
+    "category": "procedure",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "Zi=RG",
+        "Zo=RD||rd",
+        "gmUgs=0"
+      ],
+      "must_not_claim": [
+        "Zi由栅极阻抗决定为无穷大"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q10",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义第25页将 JFET 和 BJT 的关键方程做了对比，为什么 JFET 的 ID 对 UGS 是非线性（二次方）关系，而 BJT 的 IC 对 IB 是线性关系？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第25页对比：JFET：ID = IDSS(1 − VGS/VP)² ↔ BJT：IC = β·IB。JFET 中 ID 由 VGS 控制，是 Shockley 方程的二次方关系，源于 FET 中耗尽层宽度与电场（电压）的非线性关系——沟道宽度随 VGS 的变化并非线性。BJT 中 IC = β·IB 是线性关系，因为在正偏条件下载流子扩散和注入过程是线性叠加的。这一差异导致 FET 的小信号跨导 gm 随工作点（Q 点位置）变化，而 BJT 的 β 相对稳定。",
+    "category": "reasoning",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "非线性",
+        "二次方",
+        "Shockley",
+        "gm随Q点变化"
+      ],
+      "must_not_claim": [
+        "JFET的ID对VGS是线性关系"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q11",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 n-channel JFET 的夹断（pinch-off）现象是如何发生的？讲义中 IDSS 如何定义？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第6-7页：当 VGS = 0 时，随着 VDD（即 VDS）增大，ID 增大，漏极附近的耗尽层逐渐加宽，直至在漏极端沟道宽度趋于零，即发生预夹断（pinch-off），此时 VDS = VP（夹断电压）。夹断后再增大 VDS，ID 不再增加，进入饱和区。IDSS 定义为 VGS = 0 且 VDS > |VP| 时饱和区的最大漏极电流（Maximum drain current at saturation，讲义第10页），是 JFET 的重要 DC 参数。",
+    "category": "concept",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "耗尽层",
+        "夹断",
+        "IDSS",
+        "VGS=0",
+        "饱和区"
+      ],
+      "must_not_claim": [
+        "夹断后ID继续增大"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q12",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 D-MOSFET 与 JFET 在结构和输入阻抗上有什么相似之处和区别？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第11-12页：相似点：①两者都有 IDSS 和 VP 参数，都可用 Shockley 方程描述转移特性；②n-channel 时 VGS 均为控制参数，ID 方向相同。区别：①结构不同：JFET 是 PN 结栅（gate 与沟道之间是 pn 结），MOSFET 是金属-氧化物-半导体结构（栅极通过 SiO2 绝缘层与沟道隔开）；②D-MOSFET 的 RGS 约为数千兆欧（thousands of megohm），远高于 JFET 的数十兆欧，输入阻抗更高；③D-MOSFET 可工作在 VGS > 0 的增强模式，JFET 不能。",
+    "category": "concept",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "SiO2绝缘层",
+        "RGS更高",
+        "Shockley方程",
+        "增强模式"
+      ],
+      "must_not_claim": [
+        "D-MOSFET和JFET结构完全相同"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q13",
+    "doc_id": "circuit_doc_fet",
+    "question": "从讲义第9页 JFET 的转移特性（Transfer Characteristics）曲线图上，如何读取 Q 点的 IDQ 和 VGSQ？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第9页和第22页：转移特性图（纵轴为 ID，横轴为 VGS，曲线为 Shockley 方程）上，Q 点是偏置直线（network constraint line）与 Shockley 曲线的交点。从 Q 点向纵轴作水平线，读出 IDQ；向横轴作垂线，读出 VGSQ。在图解法中，偏置直线由两端点确定（VGS = VG 时 ID = 0；ID = VG/RS 时 VGS = 0），与非线性的 Shockley 曲线的交点唯一确定 Q 点。讲义第22页图中明确标注了 Q-point 的位置。",
+    "category": "cross_modal",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "偏置直线",
+        "Shockley曲线",
+        "交点",
+        "IDQ",
+        "VGSQ"
+      ],
+      "must_not_claim": [
+        "Q点从输出特性曲线直接读取"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q14",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义第3页图中将 BJT 和 FET 并排展示，从图中说明两者在控制端连接上的本质差异是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第3、25页对比图：BJT 图（a）中控制端 base 有控制电流 IB 流入，通过电流 IB 控制输出电流 IC（current controlled device）；FET 图（b）中控制端 gate 加控制电压 VGS，但 IG ≈ 0（gate 与沟道之间有绝缘或反偏 PN 结），通过电压 VGS 控制输出电流 ID（voltage controlled device）。两者的根本差异在于控制信号类型：BJT 靠电流，FET 靠电压，FET 控制端无电流消耗，因此功耗更低、输入阻抗极高。",
+    "category": "cross_modal",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "IB",
+        "VGS",
+        "IG≈0",
+        "电流控制",
+        "电压控制"
+      ],
+      "must_not_claim": [
+        "FET也需要控制电流"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q15",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义指出 FET 的转移特性方程（Shockley 方程）是\"unaffected by the network\"，这句话的含义是什么？对 Q 点分析有何意义？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第9页指出 Shockley 方程 ID = IDSS(1 − UGS/VP)² 是器件特性方程，仅由器件本身的参数（IDSS、VP）决定，与外部偏置网络（R1、R2、RS 等取值）无关。这意味着转移特性曲线是固定的，不会随电路配置变化。偏置网络给出另一个约束方程（如 UGS = VG − ID·RS），形成第二条方程（直线）。Q 点由这两个方程联立求解，即器件曲线与网络直线的交点，两者各管一侧，不相互影响，逻辑清晰。",
+    "category": "reasoning",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "器件特性",
+        "不随网络改变",
+        "网络约束方程",
+        "交点"
+      ],
+      "must_not_claim": [
+        "Shockley方程随电路参数改变"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q16",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义第3页总结 FET 的应用场合，它与 BJT 的相似和不同应用分别是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第3页：相似应用：①放大器（amplifiers）；②开关器件（switching devices）；③阻抗匹配电路（impedance matching circuits）。差异：FET 由于高输入阻抗、低功耗、温度稳定性好（less sensitive to temperature variations），更易于集成（more easily integrated on ICs）。BJT 增益更高（BJTs have higher gains），适合需要高增益的场合。讲义还列举了 FET 的实际应用：工业电子、汽车电子、消费电子、医疗器械（第2页）。",
+    "category": "topology",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "放大器",
+        "开关",
+        "高输入阻抗",
+        "易集成"
+      ],
+      "must_not_claim": [
+        "FET和BJT应用场合完全不同"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q17",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中 FET 小信号模型（gm 模型）的建立步骤是什么？模型中包含哪些元件？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第26-27页：FET 小信号模型建立：①由于 FET 输入阻抗极高（IG≈0），输入端等效为开路（Zi为开路），仅有 ugs 电压；②漏极电流由跨导控制：id = gm·ugs，用受控电流源 gmugs 表示；③输出端并联漏-源输出电阻 rd（Zo = rd）。完整 FET 小信号模型包含三个元件：①栅-源之间的 ugs（输入电压，栅极为开路）；②受控电流源 gm·ugs（漏极电流来源）；③输出电阻 rd（模拟沟道长度调制效应）。讲义指出 FET 模型比 BJT 的 re 模型更简单（simpler）。",
+    "category": "procedure",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "gmugs",
+        "rd",
+        "输入开路",
+        "IG≈0"
+      ],
+      "must_not_claim": [
+        "FET小信号模型有输入电阻"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q18",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中使用的具体 JFET 器件型号（如 2N5459 或 BF256）的 IDSS 和 VP 具体数值是多少？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义中没有指定使用的具体 JFET 器件型号，也未给出特定器件的 IDSS 和 VP 数值。讲义的例题和图示使用的是通用参数（如图中标注 VP = −4V、IDSS = 10mA 等示意性数值），具体器件参数需要查阅对应型号的 datasheet。",
+    "category": "unanswerable",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "未指定",
+        "datasheet"
+      ],
+      "must_not_claim": [
+        "IDSS=12mA，VP=-4V"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q19",
+    "doc_id": "circuit_doc_fet",
+    "question": "讲义中提到的用于新冠检测的 FET 生物传感器（ACS Nano 2020 论文）的检测灵敏度具体数值是多少？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第17页仅提及该生物传感器论文作为 FET 的扩展应用案例，给出了论文标题和发表期刊，但没有给出具体的检测灵敏度数值（如 LOD、检测浓度范围等）。这些参数需要查阅原文。",
+    "category": "unanswerable",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "未给出",
+        "需查原文"
+      ],
+      "must_not_claim": [
+        "灵敏度为某具体数值"
+      ]
+    }
+  },
+  {
+    "qid": "fet_q20",
+    "doc_id": "circuit_doc_fet",
+    "question": "为什么讲义强调 FET 的 DC 分析必须同时使用器件方程和网络方程？仅用其中一个能否确定 Q 点？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义第18-22页：不能只用一个。器件方程（Shockley 方程）ID = IDSS(1 − UGS/VP)² 给出了 ID 和 UGS 之间的非线性关系（一条曲线），有无穷多个满足条件的（UGS, ID）组合；网络方程（如 UGS = VG − ID·RS）由偏置电路决定，给出另一个线性约束（一条直线），也有无穷多个满足条件的点。只有两者联立，才能得到唯一确定的交点——Q 点。讲义指出两种求解方法（数学法和图解法）本质上都是求这两个方程的交点，结果相同。",
+    "category": "reasoning",
+    "topic": "fet",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "唯一确定",
+        "联立",
+        "器件方程",
+        "网络方程",
+        "交点"
+      ],
+      "must_not_claim": [
+        "只用Shockley方程就能确定Q点"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q01",
+    "doc_id": "circuit_doc_freq",
+    "question": "频率响应分析中，截止频率（-3dB 频率）的定义是什么？为什么选用 -3dB 作为带宽边界？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "截止频率（-3dB 频率，也称 half-power frequency）是电路增益降至最大值的 1/√2（约 0.707 倍）时对应的频率，此时输出功率为最大值的一半（-3.01dB ≈ -3dB）。选用 -3dB 是因为功率减半这一物理意义明确，且在 Bode 图上渐近线误差仅为 3dB，是工程中广泛接受的带宽定义边界。超过截止频率后信号能量显著衰减，认为不再有效传输。",
+    "category": "concept",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "-3dB",
+        "1/√2",
+        "功率减半",
+        "截止频率"
+      ],
+      "must_not_claim": [
+        "-3dB时增益为零"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q02",
+    "doc_id": "circuit_doc_freq",
+    "question": "单级 RC 低通滤波器的截止角频率 ωc 和截止频率 fc 公式是什么？若 R = 10kΩ，C = 1nF，求 fc。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "ωc = 1/(RC)，fc = 1/(2πRC)。代入 R=10kΩ，C=1nF：fc = 1/(2π × 10×10³ × 1×10⁻⁹) = 1/(2π×10⁻⁵) ≈ 15.9kHz。传输函数 H(s) = 1/(1+sRC)，在 ω = ωc 处增益降至 1/√2，对应 -3dB。",
+    "category": "factoid",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "1/(2πRC)",
+        "15.9kHz",
+        "ωc=1/RC"
+      ],
+      "must_not_claim": [
+        "截止频率为1/(RC)"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q03",
+    "doc_id": "circuit_doc_freq",
+    "question": "BJT CE 放大器的低频截止频率主要由哪些电容决定？各自对应的极点频率如何计算？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "CE 放大器的低频响应由耦合电容和旁路电容决定：①输入耦合电容 C1 与其等效串联电阻（≈ RS + Zi）形成极点 fL1 = 1/(2π·C1·(RS+Zi))；②输出耦合电容 C2 与等效电阻（≈ Zo + RL）形成极点 fL2 = 1/(2π·C2·(Zo+RL))；③旁路电容 CE 与 RE 并联，等效串联电阻较小，形成的极点频率最高，通常是主要的下截止频率贡献者，fLE = 1/(2π·CE·re')。下截止频率 fL ≈ 最高的单个极点频率（主极点主导）。",
+    "category": "factoid",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "耦合电容",
+        "旁路电容",
+        "极点",
+        "1/(2π",
+        "下截止频率"
+      ],
+      "must_not_claim": [
+        "低频截止频率由负载电阻决定"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q04",
+    "doc_id": "circuit_doc_freq",
+    "question": "放大器频率响应的 Bode 图（波特图）由哪两部分组成？幅频渐近线如何绘制？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "Bode 图由幅频响应（magnitude plot，纵轴 dB，横轴对数频率）和相频响应（phase plot，纵轴度数）两部分组成。幅频渐近线绘制规则：①每个实极点在转折频率 fp 处斜率变化 -20dB/dec（增加 -20dB/十倍频）；②每个实零点在 fz 处斜率变化 +20dB/dec；③DC 增益决定低频水平线高度。精确值在转折频率处比渐近线偏差约 3dB（幅度），相位在 0.1f 到 10f 范围内线性过渡 ±45°/dec，极点最终贡献 -90° 相移。",
+    "category": "topology",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "幅频",
+        "相频",
+        "-20dB/dec",
+        "极点",
+        "转折频率"
+      ],
+      "must_not_claim": [
+        "极点处斜率变化+20dB/dec"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q05",
+    "doc_id": "circuit_doc_freq",
+    "question": "放大器的中频段增益为什么相对平坦？高频段增益下降的根本原因是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "中频段：耦合和旁路电容阻抗已足够小（相当于短路），寄生电容阻抗足够大（相当于开路），电路等效为纯阻性电路，增益最大且平坦。高频段增益下降：BJT 的极间电容（Cπ、Cμ）和 FET 的 Cgs、Cgd 等寄生电容在高频时阻抗降低，对信号产生分流和相移，尤其是 Cμ（BCE 结电容）通过 Miller 效应在输入端等效为更大的电容 Cμ(1+Au)，显著降低高频极点，使增益在高频率下-20dB/dec 衰减。",
+    "category": "topology",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "中频段",
+        "寄生电容",
+        "Miller效应",
+        "高频衰减"
+      ],
+      "must_not_claim": [
+        "中频段增益随频率增大"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q06",
+    "doc_id": "circuit_doc_freq",
+    "question": "Miller 定理在分析 BJT CE 放大器高频响应时如何应用？Cμ 被等效为哪两个电容？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "Miller 定理：对于增益为 −A（负号表示反相）的放大器，跨接在输入输出之间的阻抗 Z，可等效为输入端对地的 Zin = Z/(1+A) 和输出端对地的 Zout = Z/(1+1/A) ≈ Z（当 A>>1）。对 CE 放大器中的 Cμ（BCB 结电容，跨接在 base 和 collector 之间），增益 A = gmRC：①输入端等效电容 CM = Cμ(1+A) = Cμ(1+gmRC)，比 Cμ 放大了 (1+gmRC) 倍，显著增大输入电容，严重降低上截止频率；②输出端等效电容 ≈ Cμ（较小）。Miller 效应是限制 CE 放大器高频性能的主要因素。",
+    "category": "mapping",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "Miller",
+        "Cμ(1+A)",
+        "输入电容增大",
+        "上截止频率降低"
+      ],
+      "must_not_claim": [
+        "Miller效应不影响高频响应"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q07",
+    "doc_id": "circuit_doc_freq",
+    "question": "放大器的增益带宽积（GBW，Gain-Bandwidth Product）如何定义？它对放大器设计有什么约束？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "GBW = 中频增益 × 上截止频率 = |Av_mid| × fH，对于单极点系统近似为常数（由器件本身决定，如运放的 GBW 由内部补偿电容和跨导决定）。设计约束：增大闭环增益，则闭环带宽等比例减小，反之亦然，即增益与带宽存在折中（tradeoff）。例如闭环增益为 10 时带宽为 GBW/10，增益为 100 时带宽为 GBW/100。GBW 是衡量放大器综合性能的重要指标，在选用运放时必须满足应用所需的 GBW 要求。",
+    "category": "mapping",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "GBW",
+        "增益",
+        "带宽",
+        "成反比",
+        "折中"
+      ],
+      "must_not_claim": [
+        "GBW越大增益和带宽都越大"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q08",
+    "doc_id": "circuit_doc_freq",
+    "question": "用开路时间常数法（OCT，Open-Circuit Time Constant Method）估算放大器上截止频率 fH 的步骤是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "开路时间常数法步骤：①列出所有影响高频响应的寄生电容（如 Cπ、Cμ、CL 等）；②对每个电容 Ck，将所有其他电容开路，计算 Ck 两端的等效电阻 Rk（即从 Ck 两端看进去的 Thevenin 等效电阻，含受控源）；③计算每个时间常数 τk = Rk × Ck；④上截止角频率 ωH ≈ 1/Σ(τk)，fH = 1/(2π·Σ(τk))。OCT 避免了联立方程，简化了多极点系统的手工分析，在主极点主导时精度较高。",
+    "category": "procedure",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "开路时间常数",
+        "Rk",
+        "Ck",
+        "fH=1/(2π",
+        "Στk"
+      ],
+      "must_not_claim": [
+        "直接用单个电容计算fH"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q09",
+    "doc_id": "circuit_doc_freq",
+    "question": "若已知一个两极点放大器的传输函数 H(s) = A₀/(1+s/ω₁)(1+s/ω₂)，其中 ω₁ < ω₂，如何用渐近线方法在 Bode 图上绘制幅频响应？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "绘制步骤：①低频（ω < ω₁）：幅频为常数 20log|A₀|（水平线）；②在 ω = ω₁ 处斜率变为 -20dB/dec（第一极点）；③在 ω = ω₂ 处斜率变为 -40dB/dec（第二极点叠加）；精确值修正：在 ω₁ 处精确值比渐近线低 3dB，在 ω₂ 处同理各偏 3dB。相频：低频 0°，在 0.1ω₁ 开始以 -45°/dec 斜率变化，至 10ω₁ 完成 -90° 过渡，再在 0.1ω₂ 到 10ω₂ 区间再过渡 -90°，高频总相移 -180°。",
+    "category": "procedure",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "-20dB/dec",
+        "-40dB/dec",
+        "转折频率",
+        "3dB误差"
+      ],
+      "must_not_claim": [
+        "第二极点后斜率为-20dB/dec"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q10",
+    "doc_id": "circuit_doc_freq",
+    "question": "为什么 Common Base（CB）BJT 放大器的高频性能比 Common Emitter（CE）好？从 Miller 效应角度分析。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "CB 放大器中，Cμ（base-collector 结电容）不再跨接在输入和输出之间——在 CB 配置中，输入在 emitter，输出在 collector，base 是公共端（交流接地）。因此 Cμ 连接在交流地（base）和输出（collector）之间，对输入端没有 Miller 效应，输入侧不会出现 Cμ 被放大的现象。相比之下，CE 配置中 Cμ 跨接于输入（base）和输出（collector）之间，经 Miller 效应后等效为 Cμ(1+gmRC) 的大电容并联在输入端，严重限制高频性能。CB 因此常用于高频宽带放大场合。",
+    "category": "reasoning",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "Miller效应",
+        "Cμ",
+        "CB无Miller",
+        "CE高频差",
+        "交流地"
+      ],
+      "must_not_claim": [
+        "CB高频性能不如CE"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q11",
+    "doc_id": "circuit_doc_freq",
+    "question": "什么是相位裕度（Phase Margin）？对于放大器稳定性有何意义？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "相位裕度（PM）是指在环路增益幅度等于 0dB（即增益为 1）时，相位与 -180° 之差：PM = 180° + ∠T(jωgc)，其中 ωgc 是增益交叉频率。PM > 0° 是系统稳定的必要条件；通常要求 PM ≥ 45° 以保证瞬态响应不过度振荡（过冲 < 30%）。PM = 0° 时系统处于振荡边界，PM < 0° 时系统不稳定。相位裕度越大，系统稳定性越好，但往往意味着带宽越窄，需要权衡。",
+    "category": "concept",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "相位裕度",
+        "0dB",
+        "45°",
+        "稳定性",
+        "-180°"
+      ],
+      "must_not_claim": [
+        "PM为负时也稳定"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q12",
+    "doc_id": "circuit_doc_freq",
+    "question": "负反馈对放大器的带宽有什么影响？增益带宽积如何体现这一影响？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "负反馈扩展带宽：闭环带宽 fCL = fOL × (1 + Aβ) ≈ fOL × T（T 为环路增益），即负反馈使带宽扩展了 (1+T) 倍。同时闭环增益 ACL = AOL/(1+T)，增益降低了 (1+T) 倍。两者乘积：ACL × fCL = AOL × fOL = GBW = 常数，说明增益与带宽的乘积（GBW）在负反馈中保持近似不变，增益每降低一倍，带宽约扩大一倍。这正是运算放大器\"以增益换带宽\"的设计原理。",
+    "category": "concept",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "负反馈",
+        "带宽扩展",
+        "(1+T)",
+        "GBW恒定",
+        "增益带宽积"
+      ],
+      "must_not_claim": [
+        "负反馈减小带宽"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q13",
+    "doc_id": "circuit_doc_freq",
+    "question": "在放大器的幅频响应 Bode 图中，如何从图上识别中频段（midband）？中频增益和上下截止频率各在图上对应什么特征？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "在幅频响应 Bode 图中：①中频段是增益最大且平坦的水平区域，位于下截止频率 fL 和上截止频率 fH 之间，此区间增益约为常数 20log|Av_mid|；②下截止频率 fL 在低频处，是幅频曲线从水平线开始下降 3dB 的点（低频侧增益以 +20dB/dec 上升进入中频段）；③上截止频率 fH 在高频处，是幅频曲线从中频段开始下降 3dB 的点（高频侧以 -20dB/dec 衰减）；④带宽 BW = fH − fL ≈ fH（当 fH >> fL 时）。",
+    "category": "cross_modal",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "中频段平坦",
+        "fL",
+        "fH",
+        "-3dB",
+        "带宽"
+      ],
+      "must_not_claim": [
+        "中频段增益随频率变化"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q14",
+    "doc_id": "circuit_doc_freq",
+    "question": "在 CE 放大器的高频等效电路图中，BJT 的 π 模型（hybrid-π model）包含哪些寄生元件？它们如何导致高频增益下降？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "高频 hybrid-π 模型在低频 re 模型基础上增加两个寄生电容：①Cπ（或 Cbe，发射结扩散电容+势垒电容）：并联在基极-发射极 rπ 两端，在高频时对输入信号形成低阻抗分流，使有效输入减小；②Cμ（或 Cbc，集电结势垒电容）：跨接在基极-集电极之间，经 Miller 效应等效为更大的电容，严重降低高频响应。随着频率升高，两个电容的容抗降低，对信号的分流和相移增大，增益随频率升高而衰减，最终导致上截止频率 fH 的出现。",
+    "category": "cross_modal",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "Cπ",
+        "Cμ",
+        "Miller",
+        "分流",
+        "高频衰减"
+      ],
+      "must_not_claim": [
+        "高频时电容阻抗增大使增益升高"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q15",
+    "doc_id": "circuit_doc_freq",
+    "question": "已知一个 CE 放大器的中频增益为 100（40dB），上截止频率 fH = 1MHz，下截止频率 fL = 100Hz，画出其 Bode 幅频响应渐近线的关键特征值。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "关键特征值：①f < 100Hz（低频段）：斜率 +20dB/dec（由耦合/旁路电容主导），向右升至中频；②f = 100Hz（fL = 下截止频率）：增益 = 40 − 3 = 37dB（精确值），渐近线为 40dB；③100Hz < f < 1MHz（中频段）：增益平坦 = 40dB；④f = 1MHz（fH = 上截止频率）：增益 = 40 − 3 = 37dB（精确值），渐近线仍为 40dB；⑤f > 1MHz（高频段）：斜率 -20dB/dec（由寄生电容主导），每十倍频降 20dB。带宽 BW = fH − fL ≈ 1MHz，GBW = 100 × 1MHz = 100MHz。",
+    "category": "procedure",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "40dB",
+        "100Hz",
+        "1MHz",
+        "-20dB/dec",
+        "GBW=100MHz"
+      ],
+      "must_not_claim": [
+        "中频段有斜率变化"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q16",
+    "doc_id": "circuit_doc_freq",
+    "question": "BJT CE 放大器的频率响应分为哪三个频段？各频段的主导因素是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "三个频段：①低频段（f < fL）：耦合电容（C1、C2）和旁路电容（CE）的阻抗不可忽略，信号被分压，增益随频率降低而下降（+20dB/dec 上升趋势），下截止频率 fL 由这些电容决定；②中频段（fL < f < fH）：所有耦合/旁路电容等效短路，寄生电容等效开路，电路为纯阻性，增益最大且平坦；③高频段（f > fH）：BJT 内部寄生电容（Cπ、Cμ）的影响不可忽略，经 Miller 效应等使增益随频率升高而衰减（-20dB/dec），上截止频率 fH 由这些寄生电容决定。",
+    "category": "topology",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "低频段",
+        "中频段",
+        "高频段",
+        "耦合电容",
+        "寄生电容"
+      ],
+      "must_not_claim": [
+        "中频段增益随频率变化"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q17",
+    "doc_id": "circuit_doc_freq",
+    "question": "如何用\"短路时间常数法\"（Short-Circuit Time Constants Method）估算放大器的下截止频率 fL？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "短路时间常数法（与开路时间常数法对应，用于低频分析）：①列出所有影响低频响应的电容（C1、C2、CE 等）；②对每个电容 Ck，将所有其他电容短路（假设已完全旁路），计算 Ck 两端的等效串联电阻 Rk（即在 Ck 处看进去的 Thevenin 电阻，此时其他电容短路）；③计算时间常数 τk = Rk × Ck；④下截止角频率 ωL ≈ Σ(1/τk)，fL = ωL/(2π)。各电容的贡献相互叠加，对应各自极点频率之和。",
+    "category": "procedure",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "短路时间常数",
+        "Rk",
+        "Ck",
+        "fL=Σ(1/τk)",
+        "下截止"
+      ],
+      "must_not_claim": [
+        "只用最大的τk就能估算fL"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q18",
+    "doc_id": "circuit_doc_freq",
+    "question": "讲义中用于演示频率响应测量的示波器和信号发生器的具体型号是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义（2024-ch5-frequency）中没有提及任何测试仪器的具体型号。频率响应分析讲义侧重于理论推导和电路分析方法，不涉及实验仪器规格。具体仪器型号属于实验课内容，不在本讲义范围内。",
+    "category": "unanswerable",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "未提及",
+        "不在范围"
+      ],
+      "must_not_claim": [
+        "示波器型号为某具体型号"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q19",
+    "doc_id": "circuit_doc_freq",
+    "question": "讲义中提到的 BJT CE 放大器在 PCB 布线时走线寄生电容和寄生电感的具体数值是多少？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义（2024-ch5-frequency）中没有讨论 PCB 布线带来的寄生参数数值，这属于 PCB 设计和高速电路工程领域，超出了本课程理论讲义的范围。讲义仅分析器件本身的寄生参数（如 Cπ、Cμ），不涉及 PCB 布线级别的寄生元件。",
+    "category": "unanswerable",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "未涉及",
+        "超出范围"
+      ],
+      "must_not_claim": [
+        "寄生电容为某具体pF值"
+      ]
+    }
+  },
+  {
+    "qid": "freq_q20",
+    "doc_id": "circuit_doc_freq",
+    "question": "为什么在 CE 放大器中 RE 的旁路电容 CE 对频率响应的影响往往比耦合电容更重要？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "CE 对频率响应的影响更重要，原因在于：①CE 的极点频率通常最高（是主要的下截止频率贡献者）：CE 的等效串联电阻很小（≈ re + RE/(β+1)，主要由 re 决定，仅几十欧），因此极点 fLE = 1/(2π·CE·re') 比耦合电容极点（等效电阻更大）更高，离中频段最近，对 fL 贡献最大；②若 CE 失效（断路），增益公式中分母多出 RE 项，AC 增益从 −RC/re 降为 −RC/(re+RE)，损失可能高达数十倍，严重影响放大性能；③因此 CE 是三个电容中对低频截止频率影响最大的，设计时 CE 的选取优先级最高。",
+    "category": "reasoning",
+    "topic": "freq_domain",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "极点频率最高",
+        "等效串联电阻小",
+        "re",
+        "fL贡献最大"
+      ],
+      "must_not_claim": [
+        "耦合电容比CE对fL影响更大"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q01",
+    "doc_id": "circuit_doc_opamp",
+    "question": "理想运算放大器（op-amp）的两个核心理想特性是什么？它们各自的物理含义是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "理想运放的两个核心特性：①虚短（Virtual Short）：两个输入端（同相端 V+ 和反相端 V−）之间的电压差为零，即 V+ = V−，但两端并非真正短路（没有电流通过输入端之间的路径）；②虚断（Virtual Open）：流入运放两个输入端的电流均为零，即 I+ = I− = 0，输入阻抗无穷大。这两个特性来源于理想运放无穷大的开环增益和无穷大的输入阻抗，是分析运放电路的核心工具。",
+    "category": "concept",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "虚短",
+        "虚断",
+        "V+=V-",
+        "I+=I-=0"
+      ],
+      "must_not_claim": [
+        "输入端真正短路"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q02",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中反相放大器（inverting amplifier）的闭环电压增益公式是什么？若 R1 = 10kΩ，Rf = 100kΩ，增益是多少？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "反相放大器利用虚短（V−=V+=0，反相端为虚地）和虚断（无电流流入运放输入端），在反相端列 KCL 得：Vin/R1 + Vout/Rf = 0，故闭环增益 Av = Vout/Vin = −Rf/R1。负号表示反相。代入数值：Av = −100k/10k = −10 V/V，即增益幅值为 10，输出与输入反相。",
+    "category": "factoid",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "-Rf/R1",
+        "-10",
+        "反相"
+      ],
+      "must_not_claim": [
+        "增益为+10"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q03",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中同相放大器（non-inverting amplifier）的闭环电压增益公式是什么？与反相放大器相比有何不同？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "同相放大器增益 Av = 1 + Rf/R1，始终大于 1，输出与输入同相。推导：信号加在同相端，虚短使 V− = V+ = Vin，再由 V− 处 KCL 得 Vin/R1 = (Vout − Vin)/Rf，整理得 Av = 1 + Rf/R1。与反相放大器区别：①增益公式不同（多了+1）；②同相放大器增益恒 ≥ 1，反相放大器增益可小于1（|Rf/R1|<1）；③同相放大器输入阻抗极高（信号直接加在同相端），反相放大器输入阻抗等于 R1。",
+    "category": "factoid",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "1+Rf/R1",
+        "同相",
+        "输入阻抗高"
+      ],
+      "must_not_claim": [
+        "同相放大器增益为Rf/R1"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q04",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中反相加法器（summing amplifier/inverting adder）的输出电压公式如何推导？若三个输入 V1、V2、V3 分别通过 R1、R2、R3 接入，反馈电阻为 Rf，结果是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "反相加法器推导：①虚短使反相端为虚地（V− = 0）；②虚断使运放输入端无电流；③在反相端列 KCL：V1/R1 + V2/R2 + V3/R3 + Vout/Rf = 0；④解得 Vout = −Rf(V1/R1 + V2/R2 + V3/R3)。若 R1=R2=R3=R，则 Vout = −(Rf/R)(V1+V2+V3)，实现加权求和后取反。讲义指出这是运放实现模拟运算（analog computation）的典型应用。",
+    "category": "topology",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "虚地",
+        "KCL",
+        "-Rf",
+        "V1/R1+V2/R2+V3/R3"
+      ],
+      "must_not_claim": [
+        "Vout=V1+V2+V3"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q05",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中差分放大器（differential amplifier）在四个电阻满足 R1=R3、R2=R4 时，输出电压公式是什么？它能实现什么功能？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "差分放大器在 R1=R3、R2=R4 时，利用叠加原理推导得 Vout = (R2/R1)(V2 − V1)，增益由 R2/R1 决定，实现对两个输入之差的放大。共模信号（V1=V2 时）理论上被完全抑制（输出为零），只有差模信号（V2≠V1）才被放大。共模抑制比（CMRR）理论上无穷大（理想匹配条件下）。讲义指出差分放大器是仪表放大器等高精度应用的基础。",
+    "category": "topology",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "(R2/R1)(V2-V1)",
+        "共模抑制",
+        "差模放大"
+      ],
+      "must_not_claim": [
+        "Vout=V2-V1（增益为1）"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q06",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中积分器（integrator）电路是如何由反相放大器演化而来的？其传输函数和输出电压公式是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "积分器是将反相放大器的反馈电阻 Rf 替换为电容 C 得到的。在虚地条件下，输入电流 i = Vin/R 全部流入电容，电容电压（即输出）为对电流的积分：Vout(t) = −(1/RC)∫Vin(t)dt。传输函数（s 域）：H(s) = −1/(sRC)，极点在原点（s=0），是纯积分关系。负号因为是反相配置。讲义指出积分器是模拟计算机和信号处理的基础电路，实际使用时常在 C 上并联大电阻以防止直流饱和。",
+    "category": "mapping",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "积分",
+        "1/(RC)",
+        "负号",
+        "电容"
+      ],
+      "must_not_claim": [
+        "积分器输出是微分"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q07",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中微分器（differentiator）电路如何构成？其输出电压公式与积分器有何对称关系？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "微分器是将积分器中 R 和 C 的位置互换——电容 C 接输入端，电阻 R 接反馈端。在虚地条件下，输入电流 i = C × dVin/dt 流过反馈电阻 R，输出 Vout = −RC × dVin/dt。传输函数 H(s) = −sRC，是纯微分关系。与积分器的对称性：积分器 H(s) = −1/(sRC)，微分器 H(s) = −sRC，两者互为倒数关系（串联后 H = −1 × H = 1）。讲义指出微分器对高频噪声敏感（因为高频增益大），实际使用时常在 C 串联小电阻来限制高频增益。",
+    "category": "mapping",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "微分",
+        "RC×dVin/dt",
+        "C接输入",
+        "R接反馈"
+      ],
+      "must_not_claim": [
+        "微分器输出是积分"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q08",
+    "doc_id": "circuit_doc_opamp",
+    "question": "用讲义中的方法，设计一个增益为 −20 的反相放大器，要求输入阻抗不低于 10kΩ，给出完整的元件选择步骤。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "设计步骤：①输入阻抗等于 R1（虚地使信号全降在 R1 上），要求 R1 ≥ 10kΩ，选 R1 = 10kΩ；②由增益公式 |Av| = Rf/R1 = 20，得 Rf = 20 × R1 = 20 × 10kΩ = 200kΩ；③验证：Av = −Rf/R1 = −200k/10k = −20 ✓；④为减小偏置电流引起的误差，在同相端接补偿电阻 R3 = R1||Rf = 10k||200k ≈ 9.52kΩ（可选 9.1kΩ）；⑤最终方案：R1=10kΩ，Rf=200kΩ，R3≈9.1kΩ。",
+    "category": "procedure",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "R1=10kΩ",
+        "Rf=200kΩ",
+        "增益=-20"
+      ],
+      "must_not_claim": [
+        "增益=-20时Rf=20kΩ"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q09",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中如何推导比较器（comparator）电路的工作原理？为什么比较器通常不加负反馈？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "比较器是运放在开环（无负反馈）或正反馈状态下的应用。工作原理：运放开环增益极大（AOL → ∞），当 V+ > V− 时，输出饱和至正电源电压 +Vsat；当 V+ < V− 时，输出饱和至 −Vsat。两种状态切换取决于两输入端的大小比较，输出只有高/低两个状态，实现模拟信号的数字化比较。不加负反馈的原因：负反馈会将运放拉回线性区，使输出正比于输入差，失去比较功能；比较器就是要利用开环的高增益使输出迅速饱和，实现快速二值判决。",
+    "category": "procedure",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "饱和",
+        "正反馈或开环",
+        "负反馈使线性",
+        "比较器"
+      ],
+      "must_not_claim": [
+        "比较器需要负反馈"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q10",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中为什么反相放大器的输入阻抗等于 R1，而同相放大器的输入阻抗却远高于 R1？从虚地和虚断的角度分析。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "反相放大器：输入信号加在 R1 的一端，另一端由于虚地（虚短使 V− = V+ = 0）等效为接地，因此从信号源看进去的阻抗就是 R1。Rf 对输入阻抗无贡献（另一端接运放输出，不影响输入端）。同相放大器：输入信号直接加在同相端（运放 V+ 端），由于虚断，流入同相端的电流 I+ ≈ 0，从信号源看进去的阻抗接近无穷大（理论上等于运放的差模输入阻抗，实际为兆欧量级）。R1 和 Rf 接在反相端，不影响同相端输入阻抗。因此两种配置输入阻抗的差异源于信号接入点不同：反相端有虚地约束（有限阻抗），同相端只有虚断约束（无穷大阻抗）。",
+    "category": "reasoning",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "虚地",
+        "Zi=R1",
+        "虚断",
+        "同相端输入阻抗高"
+      ],
+      "must_not_claim": [
+        "两种配置输入阻抗相同"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q11",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中运放的增益带宽积（GBW）如何限制实际放大器的性能？以增益为 20 的反相放大器为例说明。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "实际运放（非理想）的开环增益随频率增加而下降，GBW = 开环增益 × 单位增益带宽 = 常数。对于增益为 20（即 −20）的反相放大器，闭环带宽 BW = GBW / |Av| = GBW / 20。例如若运放 GBW = 1MHz（如 LM741），则闭环带宽仅为 1MHz/20 = 50kHz。若需要更高带宽，必须使用更高 GBW 的运放。讲义指出 GBW 是选择运放的关键参数之一，高增益应用必须选择足够大 GBW 的运放型号。",
+    "category": "concept",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "GBW",
+        "增益×带宽",
+        "常数",
+        "BW=GBW/|Av|"
+      ],
+      "must_not_claim": [
+        "增益越高带宽越宽"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q12",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中什么是运放的压摆率（Slew Rate）？它对大信号响应有什么限制？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "压摆率（SR，Slew Rate）是运放输出电压的最大变化速率，单位 V/μs，由运放内部补偿电容的充电速率决定（SR = Imax/C）。当输入信号变化过快时，输出只能以 SR 的速率跟随，波形从理想阶跃变为斜线，产生信号失真（slew-rate limiting）。正弦信号不失真的最大频率条件：dV/dt|max = 2πf·Vpeak ≤ SR，故 fmax = SR/(2π·Vpeak)。压摆率与小信号带宽（-3dB 频率）不同，是大信号条件下的速度限制。讲义指出高速运放需要更大的 SR。",
+    "category": "concept",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "压摆率",
+        "Slew Rate",
+        "V/μs",
+        "失真",
+        "fmax"
+      ],
+      "must_not_claim": [
+        "压摆率与小信号带宽相同"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q13",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中反相放大器的 AC 等效电路图中，为什么同相端的补偿电阻 R3 = R1||Rf 接在同相端到地之间？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "补偿电阻 R3 用于平衡运放两个输入端的等效偏置电流（bias current）引起的失调误差。在反相放大器中，反相端（V−）看到的等效电阻为 R1||Rf（两个电阻并联到地的 Thevenin 等效）；若同相端（V+）接地（无 R3），则两端等效电阻不对称，偏置电流在两端产生不同的失调电压。加入 R3 = R1||Rf 使同相端和反相端的等效电阻相同，偏置电流产生的失调电压相互抵消，提高直流精度。对于 AC 信号分析而言 R3 影响不大，主要用于改善直流性能。",
+    "category": "cross_modal",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "偏置电流",
+        "失调",
+        "R3=R1||Rf",
+        "平衡"
+      ],
+      "must_not_claim": [
+        "R3是信号分压器"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q14",
+    "doc_id": "circuit_doc_opamp",
+    "question": "从讲义的施密特触发器（Schmitt trigger）电路图中，说明正反馈如何产生迟滞特性，以及上下阈值电压如何由 R1 和 R2 决定。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "施密特触发器在同相端引入正反馈：输出 Vout 通过 R1 反馈到同相端（V+），形成正反馈。当输出为 +Vsat 时，V+ = +Vsat × R1/(R1+R2)（正阈值 VTH+）；当输出为 −Vsat 时，V+ = −Vsat × R1/(R1+R2)（负阈值 VTH−）。输入 Vin 必须超过 VTH+ 才能使输出从高跳变为低，必须低于 VTH− 才能从低跳变为高，形成迟滞（hysteresis）。迟滞宽度 ΔV = VTH+ − VTH− = 2Vsat × R1/(R1+R2)。正反馈使电路具有记忆性，可滤除噪声引起的误触发，R1/R2 比值决定迟滞窗口大小。",
+    "category": "cross_modal",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "正反馈",
+        "迟滞",
+        "VTH",
+        "R1/(R1+R2)",
+        "Vsat"
+      ],
+      "must_not_claim": [
+        "施密特触发器用负反馈"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q15",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中如何利用运放设计一个截止频率为 fc 的一阶有源低通滤波器？写出电路结构和传输函数。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "一阶有源低通滤波器在反相放大器基础上，将反馈电阻 Rf 替换为 Rf 和 Cf 的并联（或在 Rf 上并联 Cf）。传输函数：H(s) = −Zf/R1，其中 Zf = Rf/(1+sRfCf)，故 H(s) = −Rf/(R1(1+sRfCf)) = −(Rf/R1) × 1/(1+s/ωc)，截止频率 ωc = 1/(RfCf)，fc = 1/(2πRfCf)，中频增益（低频）= −Rf/R1。电路结合了放大和滤波功能，可以同时设置增益和截止频率，比无源 RC 滤波器有更低的输出阻抗和更好的带载能力。",
+    "category": "procedure",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "Rf并联Cf",
+        "fc=1/(2πRfCf)",
+        "低通",
+        "传输函数"
+      ],
+      "must_not_claim": [
+        "有源低通滤波器无截止频率"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q16",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中共模抑制比（CMRR）如何定义？差分放大器的 CMRR 为什么在理想情况下趋于无穷大？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "CMRR（Common-Mode Rejection Ratio）= 差模增益 / 共模增益 = |Ad/Ac|，常用分贝表示：CMRR(dB) = 20log(Ad/Ac)。理想差分放大器（完全匹配的 R1=R3、R2=R4）中，共模信号（V1=V2）在同相端和反相端产生完全相同的影响，经过差分放大后完全抵消，共模增益 Ac = 0，故 CMRR = Ad/0 → ∞。实际电路中由于电阻失配和运放本身的 CMRR 有限，CMRR 通常在 80dB 到 120dB 之间，提高 CMRR 需要精密匹配电阻或使用仪表放大器。",
+    "category": "concept",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "CMRR",
+        "Ad/Ac",
+        "共模",
+        "差模",
+        "无穷大"
+      ],
+      "must_not_claim": [
+        "CMRR越小越好"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q17",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中讨论的运放比较器与线性放大器在工作区域上有何本质区别？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "线性放大器工作在运放的线性区：通过负反馈将开环增益约束在有限值，输出电压 Vout 与差模输入 (V+−V−) 成正比，Vout = ACL × (V+−V−)，输出可以取连续值。比较器工作在非线性区（饱和区）：无负反馈或正反馈，开环增益极大，任何微小的输入差都会使输出饱和至 ±Vsat，输出只有两个状态（高/低），是模数转换的核心。本质区别：线性放大器 → 输出连续变化；比较器 → 输出二值跳变。实际比较器芯片（如 LM393）专门优化了响应速度（传播延迟），而非线性精度。",
+    "category": "concept",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "线性区",
+        "饱和区",
+        "负反馈",
+        "二值",
+        "连续"
+      ],
+      "must_not_claim": [
+        "比较器也在线性区工作"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q18",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中使用的具体运放型号（如 LM741 或 TL071 等）的引脚排列图是什么？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义中给出了 uA741CP 的 DIP-8 引脚排列图。图中标注：1 脚和 5 脚为 OFFSET NULL，2 脚为反相输入 IN(-)，3 脚为同相输入 IN(+)，4 脚为负电源 VEE，7 脚为正电源 VCC，8 脚为 OUTPUT，6 脚标为 NC。该图用于说明具体运放芯片的外部引脚功能。",
+    "category": "cross_modal",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "uA741CP",
+        "DIP-8",
+        "OFFSET NULL",
+        "IN(-)",
+        "IN(+)",
+        "OUTPUT"
+      ],
+      "must_not_claim": [
+        "讲义未提供",
+        "没有引脚排列图"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q19",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中设计的反相放大器（R1=10kΩ，Rf=100kΩ）的实测谐波失真（THD）是多少 dB？",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "讲义中只给出了增益公式的理论推导（Av=−Rf/R1=−10），没有进行实际电路测量或给出具体的 THD 数值。谐波失真数值取决于所用具体运放型号、工作电压、负载条件等因素，需要实际搭建电路测量或查阅器件规格书。",
+    "category": "unanswerable",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "未给出",
+        "需实测"
+      ],
+      "must_not_claim": [
+        "THD=-60dB"
+      ]
+    }
+  },
+  {
+    "qid": "opamp_q20",
+    "doc_id": "circuit_doc_opamp",
+    "question": "讲义中反相放大器如果去掉负反馈（断开 Rf），电路行为会如何变化？从增益和工作区的角度分析。",
+    "answer": "__TO_BE_FILLED_BY_EXPERIMENT__",
+    "correct_answer": "去掉 Rf 后，运放工作在开环状态，开环增益 AOL 极大（通常 100dB 以上，即约 10⁵ V/V）。即使毫伏级的输入扰动（如 1mV）也会产生 100V 的\"理论\"输出，实际输出将立即饱和至正或负电源电压（±Vsat）。电路从线性放大器变为比较器（比较 V+ 与 V− 的大小关系），不再是线性工作。这说明负反馈（Rf 的存在）是建立稳定线性增益的关键，没有负反馈就没有可控的线性放大功能。",
+    "category": "reasoning",
+    "topic": "opamp",
+    "method": "baseline",
+    "rubric": {
+      "must_include": [
+        "开环",
+        "饱和",
+        "AOL极大",
+        "比较器",
+        "负反馈"
+      ],
+      "must_not_claim": [
+        "断开Rf增益变为1"
+      ]
+    }
+  }
+]

@@ -3,7 +3,8 @@
   "output_dir": "/home/devin/Workspace/HKUDS-project/RAG-Anything/experiment_data/prepared",
   "document_count": 36,
   "group_stats": {
-    "analog": 12,
+    "analog": 7,
+    "frequency_domain": 5,
     "circuit_analysis": 7,
     "unclassified": 10,
     "answer_sheet": 7

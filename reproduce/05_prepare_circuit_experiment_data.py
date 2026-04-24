@@ -25,6 +25,11 @@ from typing import Dict, List
 PDF_SUFFIXES = {".pdf", ".PDF"}
 
 GROUP_RULES = {
+    "frequency_domain": [
+        "frequency domain",
+        "phasor",
+        "frequency",
+    ],
     "analog": [
         "op amp",
         "operation amplifier",
@@ -33,7 +38,6 @@ GROUP_RULES = {
         "feedback",
         "power amp",
         "multistage",
-        "frequency",
     ],
     "circuit_analysis": [
         "kcl",
@@ -43,8 +47,6 @@ GROUP_RULES = {
         "superposition",
         "node-voltage",
         "mesh",
-        "frequency domain",
-        "phasor",
         "rlc",
         "response",
         "source transformation",
@@ -66,12 +68,22 @@ BASE_QUESTION_TEMPLATES = [
         "question": "讲义中最典型的例题或代表性电路是什么，它要解决什么问题？",
         "answer": "",
     },
+    {
+        "category": "study_focus",
+        "question": "如果我要快速复习这份讲义，最应该优先关注哪些公式、图示、结论或分析步骤？",
+        "answer": "",
+    },
 ]
 
 ANALOG_QUESTION_TEMPLATES = [
     {
         "category": "component_value",
         "question": "该讲义代表性模拟电路中的关键器件参数分别是什么？",
+        "answer": "",
+    },
+    {
+        "category": "circuit_function",
+        "question": "讲义中的代表性模拟电路输入是什么、输出是什么，它希望实现怎样的功能？",
         "answer": "",
     },
     {
@@ -89,12 +101,27 @@ ANALOG_QUESTION_TEMPLATES = [
         "question": "文档中的主要公式与电路图中的器件、节点或参数分别对应什么物理意义？",
         "answer": "",
     },
+    {
+        "category": "assumptions_or_approximations",
+        "question": "讲义在分析该模拟电路时采用了哪些理想条件、近似假设或默认前提？",
+        "answer": "",
+    },
 ]
 
 CIRCUIT_ANALYSIS_TEMPLATES = [
     {
         "category": "known_unknown",
         "question": "该讲义例题中已知条件、待求量和使用的方法分别是什么？",
+        "answer": "",
+    },
+    {
+        "category": "method_selection",
+        "question": "如果把这道题当成一次作业题，应该优先选择哪种分析方法，为什么？",
+        "answer": "",
+    },
+    {
+        "category": "equation_setup",
+        "question": "文档中的关键方程是如何根据 KCL、KVL、元件关系或等效变换一步步建立起来的？",
         "answer": "",
     },
     {
@@ -114,6 +141,39 @@ CIRCUIT_ANALYSIS_TEMPLATES = [
     },
 ]
 
+FREQUENCY_DOMAIN_TEMPLATES = [
+    {
+        "category": "component_value",
+        "question": "该讲义代表性频域电路中的关键器件参数分别是什么？",
+        "answer": "",
+    },
+    {
+        "category": "topology",
+        "question": "讲义展示的核心电路属于什么拓扑，信号路径和关键节点如何识别？",
+        "answer": "",
+    },
+    {
+        "category": "formula_mapping",
+        "question": "文档中的主要频域公式与电路图中的阻抗、节点、电压或电流分别对应什么物理意义？",
+        "answer": "",
+    },
+    {
+        "category": "phasor_analysis",
+        "question": "讲义中的相量分析方法如何应用于该电路，阻抗与相位应如何表示？",
+        "answer": "",
+    },
+    {
+        "category": "node_mesh_freq",
+        "question": "频域中节点电压法或网孔电流法如何建立方程，与时域分析相比最关键的区别是什么？",
+        "answer": "",
+    },
+    {
+        "category": "transfer_function",
+        "question": "该电路的传递函数、频率响应、截止频率或谐振点是如何得到的？",
+        "answer": "",
+    },
+]
+
 UNCLASSIFIED_TEMPLATES = [
     {
         "category": "main_topic",
@@ -123,6 +183,11 @@ UNCLASSIFIED_TEMPLATES = [
     {
         "category": "diagram_text_alignment",
         "question": "讲义中的图示与正文解释之间最重要的对应关系是什么？",
+        "answer": "",
+    },
+    {
+        "category": "study_focus",
+        "question": "如果把这份讲义当作复习材料，最值得先读懂的图、公式或结论分别是什么？",
         "answer": "",
     },
 ]
@@ -139,6 +204,11 @@ TITLE_KEYWORD_TEMPLATES = {
             "question": "运放电路中的反馈网络由哪些元件构成，它如何影响输出？",
             "answer": "",
         },
+        {
+            "category": "opamp_assumptions",
+            "question": "讲义在推导运放电路结论时用了哪些理想运放假设，这些假设会影响哪些结果？",
+            "answer": "",
+        },
     ],
     "operation amplifier": [
         {
@@ -149,6 +219,11 @@ TITLE_KEYWORD_TEMPLATES = {
         {
             "category": "opamp_feedback",
             "question": "运放电路中的反馈网络由哪些元件构成，它如何影响输出？",
+            "answer": "",
+        },
+        {
+            "category": "opamp_assumptions",
+            "question": "讲义在推导运放电路结论时用了哪些理想运放假设，这些假设会影响哪些结果？",
             "answer": "",
         },
     ],
@@ -163,6 +238,11 @@ TITLE_KEYWORD_TEMPLATES = {
             "question": "BJT 偏置网络由哪些元件构成，基极、集电极和发射极分别如何连接？",
             "answer": "",
         },
+        {
+            "category": "bjt_parameter_dependency",
+            "question": "在文档讨论的 BJT 电路里，哪些参数最直接影响静态工作点、增益或输出摆幅？",
+            "answer": "",
+        },
     ],
     "fets": [
         {
@@ -173,6 +253,11 @@ TITLE_KEYWORD_TEMPLATES = {
         {
             "category": "fet_topology",
             "question": "该 FET 电路是共源、共漏还是共栅结构，输入输出分别位于哪里？",
+            "answer": "",
+        },
+        {
+            "category": "fet_bias_path",
+            "question": "MOSFET 或 FET 的偏置网络由哪些元件构成，栅极、漏极和源极分别如何连接？",
             "answer": "",
         },
     ],
@@ -208,6 +293,11 @@ TITLE_KEYWORD_TEMPLATES = {
         {
             "category": "frequency_response",
             "question": "讲义中的频域分析重点关注哪些量，它们如何随频率变化？",
+            "answer": "",
+        },
+        {
+            "category": "impedance_interpretation",
+            "question": "文档中的复阻抗表达式分别对应哪些元件，它们如何决定幅值和相位的变化？",
             "answer": "",
         },
     ],
@@ -294,6 +384,8 @@ def build_qa_template(manifest_entry: Dict) -> Dict:
 
     if group == "analog":
         questions.extend(ANALOG_QUESTION_TEMPLATES)
+    elif group == "frequency_domain":
+        questions.extend(FREQUENCY_DOMAIN_TEMPLATES)
     elif group == "circuit_analysis":
         questions.extend(CIRCUIT_ANALYSIS_TEMPLATES)
     else:

@@ -1,0 +1,40 @@
+{
+  "topics": {
+    "bjt": {
+      "question_count": 20,
+      "file_name": "2024-ch2-BJTs.pdf",
+      "doc_path": "experiment_data/2024-ch2-BJTs.pdf",
+      "working_dir": "./rag_storage_benchmark_bjt_v1",
+      "topic_output_dir": "./output_benchmark_bjt_v1",
+      "ablation_output_dir": "./output_ablation_benchmark_bjt_v1",
+      "runtime_file": "runtime/benchmark_runtime_bjt.jsonl"
+    },
+    "fet": {
+      "question_count": 20,
+      "file_name": "2024-ch3-FETs-Enhance.pdf",
+      "doc_path": "experiment_data/2024-ch3-FETs-Enhance.pdf",
+      "working_dir": "./rag_storage_benchmark_fet_v1",
+      "topic_output_dir": "./output_benchmark_fet_v1",
+      "ablation_output_dir": "./output_ablation_benchmark_fet_v1",
+      "runtime_file": "runtime/benchmark_runtime_fet.jsonl"
+    },
+    "freq_domain": {
+      "question_count": 20,
+      "file_name": "2024-ch5-frequency.pdf",
+      "doc_path": "experiment_data/2024-ch5-frequency.pdf",
+      "working_dir": "./rag_storage_benchmark_freq_domain_v1",
+      "topic_output_dir": "./output_benchmark_freq_domain_v1",
+      "ablation_output_dir": "./output_ablation_benchmark_freq_domain_v1",
+      "runtime_file": "runtime/benchmark_runtime_freq_domain.jsonl"
+    },
+    "opamp": {
+      "question_count": 20,
+      "file_name": "2024-ch8-op amp.pdf",
+      "doc_path": "experiment_data/2024-ch8-op amp.pdf",
+      "working_dir": "./rag_storage_benchmark_opamp_v1",
+      "topic_output_dir": "./output_benchmark_opamp_v1",
+      "ablation_output_dir": "./output_ablation_benchmark_opamp_v1",
+      "runtime_file": "runtime/benchmark_runtime_opamp.jsonl"
+    }
+  }
+}

@@ -14,8 +14,18 @@
       "answer": ""
     },
     {
+      "category": "study_focus",
+      "question": "如果我要快速复习这份讲义，最应该优先关注哪些公式、图示、结论或分析步骤？",
+      "answer": ""
+    },
+    {
       "category": "component_value",
       "question": "该讲义代表性模拟电路中的关键器件参数分别是什么？",
+      "answer": ""
+    },
+    {
+      "category": "circuit_function",
+      "question": "讲义中的代表性模拟电路输入是什么、输出是什么，它希望实现怎样的功能？",
       "answer": ""
     },
     {
@@ -31,6 +41,11 @@
     {
       "category": "formula_mapping",
       "question": "文档中的主要公式与电路图中的器件、节点或参数分别对应什么物理意义？",
+      "answer": ""
+    },
+    {
+      "category": "assumptions_or_approximations",
+      "question": "讲义在分析该模拟电路时采用了哪些理想条件、近似假设或默认前提？",
       "answer": ""
     },
     {
